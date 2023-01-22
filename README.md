@@ -1,21 +1,21 @@
 # Screenshots 
 ## Login
-![Login]()
+![Login](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/login.png)
 
 ## Sign up
-![Signup]()
+![Signup](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/signup.png)
 
 ## Home
-![Home]()
+![Home](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/home.png)
 
 ## Workout page
-![Fitness]()
+![Fitness](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage.png)
 
 ## Wellbeing page
-![Wellbeing]()
+![Wellbeing](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/wellbeingPage.png)
 
 ## Wellbeing pop ups
-![Pop up]()
+![Pop up](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/modal.png)
 
 
 # How to run it on your computer
