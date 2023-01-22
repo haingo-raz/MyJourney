@@ -16,7 +16,7 @@ function LoginForm(props) {
                 <p className="formLabel">Password<span>*</span></p>
                 <input type="password" name="userPass"/>
             </div>
-            <button className="formButton">Join today</button>
+            <button className="formButton"><Link to="/home">Join today</Link></button>
         </form>
     );
 }

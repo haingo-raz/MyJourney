@@ -3,30 +3,28 @@ import './Form.scss';
 
 function WorkoutForm() {
 
-    const [titleInput, setTitleInput] = useState("");
-    const [durationInput, setDurationInput] = useState(0);
-    const [videoUrlInput, setVideoUrlInput] = useState("");
-
     const [workoutList, setWorkoutList] = useState([]);
 
-    const addWorkout = () => {
-        const id = workoutList.length + 1;
-        setWorkoutList((prev) => [
-            ...prev,
-            {
-                id:id
-            }
-        ])
+    const [formInputData, setFormInputData] = useState(
+        {
+        titleInput: "",
+        durationInput: 0, 
+        videoUrlInput: ""
+        }
+    )
+
+    const handleChange = (e) => {
+        const newInput = (data) => ({...data, 
+        [e.target.name]:e.target.value})
+        setFormInputData(newInput)
     }
 
-    const handleChangeTitle = (e) => {
-        setTitleInput(e.target.value);      
-    }
-    const handleChangeDuration = (e) => {
-       setDurationInput(e.target.value); 
-    }
-    const handleChangeUrl = (e) => {
-       setVideoUrlInput(e.target.value); 
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        const newData = (data)=>([...data, formInputData])
+        setWorkoutList(newData);
+        const emptyInput = {titleInput: "", durationInput: 0, videoUrlInput: ""}
+        setFormInputData(emptyInput);
     }
 
     return (
@@ -42,7 +40,7 @@ function WorkoutForm() {
                     onChange={handleChangeTitle}/>
             </div>
             <div className="formSection">
-                <p className="formLabel">Duration<span>*</span></p>
+                <p className="formLabel">Duration<span>*</span ></p>
                 <input 
                     type="text" 
                     name="workoutDuration"

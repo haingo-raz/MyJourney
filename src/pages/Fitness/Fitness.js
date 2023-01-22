@@ -1,10 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Fitness.scss';
-import WorkoutForm from '../../components/Forms/WorkoutForm';
+import '../../components/Forms/Form.scss';
+//import WorkoutForm from '../../components/Forms/WorkoutForm';
 
 function Fitness() {
+
+    const [workoutList, setWorkoutList] = useState([]);
+
+    const [formInputData, setFormInputData] = useState(
+        {
+        titleInput: "",
+        durationInput: 0, 
+        videoUrlInput: ""
+        }
+    )
+
+    const handleChange = (e) => {
+        const newInput = (data) => ({...data, 
+        [e.target.name]:e.target.value})
+        setFormInputData(newInput)
+    }
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        const inputValidation = !Object.values(formInputData).every(res=> res==="" || res===0);
+
+        if(inputValidation){
+            const newData = (data)=>([...data, formInputData])
+            setWorkoutList(newData);
+            console.log(formInputData);
+            const emptyInput = {titleInput: "", durationInput: 0, videoUrlInput: ""}
+            setFormInputData(emptyInput); 
+        }   
+    }
+
     return (
         <div className="fitnessPage">
+            <div className="logo">
+                <Link to="/home"><i>MJ</i></Link>
+                <div className="navRight">
+                    <Link to="/fitness"><i>Workout</i></Link>
+                    <Link to="/wellbeing"><i>Wellbeing</i></Link>
+                </div>
+            </div>
 
             <section className="workoutSection">
 
@@ -12,28 +51,74 @@ function Fitness() {
 
                 <div className="workoutList" id="workoutList">
 
-                    <div className="workoutInstance">
-                        <div className="imgContainer">
-                            <img src="https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2021-12/211208-working-out-stock-mn-1310-55e1c7.jpg" alt=""/>
-                        </div>
-                        <div className="workoutDetails">
-                            <h1 className="workoutTitle">Warm up</h1>
-                            <p className="workout duration">15mn</p>
-                            <button className="workoutBtn">START TIMER</button>
-                        </div>
-                        <div className="formActions">
-                            <input type="checkbox" />
-                        </div>
-                    </div>
+                    {
+                        workoutList.map((data, index) => {
+                            return(
+                                <WorkoutInstance
+                                    key={index}
+                                    title={data.titleInput}
+                                    duration={data.durationInput}
+                                    videoUrl={data.videoUrlInput}
+                                />
+                            )
+                        })
+                    }
 
                 </div>   
 
             </section>
 
             <section className="workoutForm">
-                <WorkoutForm/>
+                {/* Form */}
+                <form className="accountForm">
+                    <h1 className="formTitle">ADD WORKOUT</h1>
+                    <p>Add a new workout to your routine here.</p>
+                    <div className="formSection">
+                        <p className="formLabel">Title<span>*</span></p>
+                        <input 
+                            type="text" 
+                            name="titleInput"
+                            defaultValue={formInputData.titleInput}
+                            onChange={handleChange}/>
+                    </div>
+                    <div className="formSection">
+                        <p className="formLabel">Duration (in minutes)<span>*</span></p>
+                        <input 
+                            type="text" 
+                            name="durationInput"
+                            defaultValue={formInputData.durationInput}
+                            onChange={handleChange}/>
+                    </div>
+                    <div className="formSection">
+                        <p className="formLabel">Video url<span>*</span></p>
+                        <input 
+                            type="text" 
+                            name="videoUrlInput"
+                            defaultValue={formInputData.videoUrlInput}
+                            onChange={handleChange}/>
+                    </div>
+                    <input type="submit" onClick={handleSubmit} className="formButton"/>
+                </form>
             </section>
             
+        </div>
+    );
+}
+
+const WorkoutInstance = ({title, duration, videoUrl}) => {
+    return(
+        <div className="workoutInstance">
+            <div className="imgContainer">
+                <img src="./assets/workout.png" alt=""/>
+            </div>
+            <div className="workoutDetails">
+                <h1 className="workoutTitle">{title}</h1>
+                <p className="workout duration">{duration}mn</p>
+                <a href={videoUrl} target="_blank" className="workoutBtn">START</a>
+            </div>
+            <div className="formActions">
+                <input type="checkbox" />
+            </div>
         </div>
     );
 }

@@ -5,6 +5,13 @@ import './Home.scss';
 function Home() {
     return (
         <div className="homeSection">
+            <div className="logo">
+                <Link to="/home"><i>MJ</i></Link>
+                <div className="navRight">
+                    <Link to="/fitness"><i>Workout</i></Link>
+                    <Link to="/wellbeing"><i>Wellbeing</i></Link>
+                </div>
+            </div>
             <section className="fitnessSection">
                 <div>
                   <h1>My fitness program</h1>  

@@ -1,6 +1,5 @@
 @import './../../../App.scss';
 
-
 .modal{
     position: absolute;
     top: 25%;
@@ -9,6 +8,11 @@
     border: 2px solid $beige;
     color: $beige;
     z-index: 2;
+
+    a{
+        text-decoration: none;
+        color: $beige;
+    }
 
     .close{
         position: absolute;
