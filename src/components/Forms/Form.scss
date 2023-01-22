@@ -1,9 +1,9 @@
 @import './../../App.scss';
 
 .accountForm{
-    background: $beige;
+    background: $form-color;
     width: 250px;
-    color: $dark-brown;
+    color: $form-text;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -25,20 +25,20 @@
         }
     }
 
-    .formLabel{
-
-    }
-
     .formButton{
         @include buttonStyle;
         width: 100%;
-        background: $dark-brown;
-        color: $black;
+        background: $form-text; 
         margin-top: 15px;
         border: none;   
+
+        a{
+            text-decoration: none;
+            color: black;
+        }
     }
 }
 
-a{
+.logo a{
     color: $beige-variance;
 }

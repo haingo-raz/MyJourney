@@ -20,7 +20,7 @@ function SignUpForm() {
                 <p className="formLabel">Password<span>*</span></p>
                 <input type="password" name="loginPass"/>
             </div>
-            <button className="formButton"><Link to="/home">Join today</Link></button>
+            <button className="formButton"><Link to="/home"><b>Join today</b></Link></button>
         </form>
     );
 }

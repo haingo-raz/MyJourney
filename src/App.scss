@@ -1,9 +1,17 @@
 //Color palette 
 $lightbrown : #ceaa95;
-$dark-brown : #6a4a3b; //#004aad;
+$dark-brown : #004aad; 
 $beige : #ede8e2;
 $beige-variance : #846252;
-$black : #000;
+$black : #846252;
+$form-color: #fdfdfc;
+$form-text: #6a4a3b;
+
+// $lightbrown : #ceaa95;
+// $dark-brown : #6a4a3b; //#004aad;
+// $beige : #ede8e2;
+// $beige-variance : #846252;
+// $black : #000;
 
 
 //Fonts 
@@ -35,7 +43,7 @@ $texteLg: 22px;
     height: 100vh;
     display: flex;
     flex-wrap: wrap;
-    background: $lightbrown;
+    background: $beige;
     align-items: center;
     justify-content: center;
 }

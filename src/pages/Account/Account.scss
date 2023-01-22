@@ -5,7 +5,7 @@
     height: 90vh;
     display: flex;
     flex-wrap: wrap;
-    background: $lightbrown;
+    background: $beige;
     
     section{
         display: flex;  
@@ -16,12 +16,12 @@
 .textWeb{
     justify-content: center;
     flex-direction: column;
-    color: $dark-brown;
+    color: $form-text;
     h1{  
         font-size: $logoLg;  
         padding-bottom: 25px;
         margin-bottom: 25px;
-        border-bottom: 5px solid $dark-brown;
+        border-bottom: 5px solid $form-text;
     }
     p{
         font-size: $texteLg;
