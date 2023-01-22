@@ -1,0 +1,44 @@
+@import './../../App.scss';
+
+.accountForm{
+    background: $beige;
+    width: 250px;
+    color: $dark-brown;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 50px;
+
+    .formTitle{
+        font-weight: 400;
+        font-size: $titleLg;
+        text-align: center;
+    }
+
+    .formSection{
+        width: 100%;
+
+        input{
+            @include inputStyle;
+        }
+    }
+
+    .formLabel{
+
+    }
+
+    .formButton{
+        @include buttonStyle;
+        width: 100%;
+        background: $dark-brown;
+        color: $black;
+        margin-top: 15px;
+        border: none;   
+    }
+}
+
+a{
+    color: $beige-variance;
+}

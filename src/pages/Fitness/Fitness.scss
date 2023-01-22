@@ -1,0 +1,74 @@
+@import './../../App.scss';
+
+.fitnessPage{
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+
+    section{
+        width: 50%;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;    
+    }
+}
+
+.workoutList{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.workoutSection{
+    color: $beige;
+
+    .sectionTitle{
+        width: 100%;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid $beige;
+    }
+
+    .workoutInstance{
+        border: 2px solid $beige;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 160px 410px 35px;
+        padding: 8px;
+    }
+
+    .imgContainer{
+        height: 90px;
+
+        img{
+            height: 100%;
+            border-radius: 5%;
+        }
+    }
+
+    .workoutDetails{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .workoutBtn{
+        @include buttonStyle;
+        width: 150px;
+        padding: 5px 10px;
+        border: 1px solid $beige;
+        background : none;
+        color: $beige;
+    }
+
+    .formActions{
+        display: flex;
+        align-items:center;
+        justify-content:center;
+    }
+}
+
+.workoutForm{ 
+    align-items: center;
+    justify-content: center;
+}

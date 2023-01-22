@@ -1,0 +1,56 @@
+@import './../../App.scss';
+
+.homeSection{
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+
+    section{
+        width: 50%;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 350px;
+    }
+
+    h1{
+        width: 100%;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid;
+        font-size: $titleLg;
+    }
+
+    .homeButton{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+    }
+
+    button{
+        @include buttonStyle;
+        width: 200px; 
+        background: transparent;
+    }
+}
+
+.fitnessSection{
+    background: $dark-brown;
+    color: $beige;
+
+    button{
+        border: 2px solid $beige;
+        color: $beige;
+    }
+}
+
+.wellbeingSection{
+    background: $beige;
+    color: $beige-variance;
+
+    button{
+        border: 1px solid $beige-variance;
+        color: $beige-variance;
+    }
+}

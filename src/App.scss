@@ -1,0 +1,53 @@
+//Color palette 
+$lightbrown : #ceaa95;
+$dark-brown : #6a4a3b; //#004aad;
+$beige : #ede8e2;
+$beige-variance : #846252;
+$black : #000;
+
+
+//Fonts 
+
+//Font size
+$logoLg: 120px;
+$titleLg : 30px;
+$texteLg: 22px;
+
+
+//buttons
+@mixin buttonStyle(){
+    padding: 10px 15px;
+
+    &:hover{
+        cursor: pointer;
+        transform:scale(1.05)
+    }
+}
+
+@mixin inputStyle(){
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+}
+
+
+.App{
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    background: $lightbrown;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: $titleLg;
+    a{
+     text-decoration: none;   
+    }   
+}
+
+

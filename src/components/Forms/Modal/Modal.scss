@@ -1,0 +1,38 @@
+@import './../../../App.scss';
+
+
+.modal{
+    position: absolute;
+    top: 25%;
+    background: $lightbrown;
+    padding: 40px;
+    border: 2px solid $beige;
+    color: $beige;
+    z-index: 2;
+
+    .close{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    h1{
+        margin-bottom: 20px;
+    }
+
+    ul li{
+        margin-bottom: 12px;
+    }
+}
+
+
+.backdrop{
+    background: $lightbrown;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
