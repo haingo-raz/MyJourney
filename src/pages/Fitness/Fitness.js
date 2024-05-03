@@ -12,10 +12,12 @@ function Fitness() {
     const [formInputData, setFormInputData] = useState(
         {
         titleInput: "",
-        durationInput: 0, 
+        durationInput: 10, 
         videoUrlInput: ""
         }
     )
+
+    const [feedback, setFeedback] = useState("")
 
     const handleChange = (e) => {
         const newInput = (data) => ({...data, 
@@ -25,14 +27,39 @@ function Fitness() {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        const inputValidation = !Object.values(formInputData).every(res=> res==="" || res===0);
+        // Only proceed if not all inputs are empty
+        const areInputsValid = !Object.values(formInputData).every(res=> res==="" || res===0 || res===" ");
 
-        if(inputValidation){
+        // Title should be more than 5 characters
+        const isTitleValid = formInputData?.titleInput.length > 5;
+        if (!isTitleValid) {
+            setFeedback("The workout title should be more than 5 characters.")
+            setTimeout(() => {
+                setFeedback("")
+            }, 5000)
+        }
+
+        // Make sure that the video url is a youtube url
+        const urlPattern = new RegExp(
+            '^(https?\\:\\/\\/)?'+
+            '((www\\.)?youtube\\.com|youtu\\.?be)'+
+            '\\/.+$','i');  
+
+        const isUrlValid = urlPattern.test(formInputData?.videoUrlInput)
+        if (!isUrlValid) {
+            setFeedback("Url format incorrect")
+            setTimeout(() => {
+                setFeedback("")
+            }, 5000)
+        }
+
+        if(areInputsValid & isTitleValid & isUrlValid){
             const newData = (data)=>([...data, formInputData])
             setWorkoutList(newData);
             console.log(formInputData);
-            const emptyInput = {titleInput: "", durationInput: 0, videoUrlInput: ""}
+            const emptyInput = {titleInput: "", durationInput: 10, videoUrlInput: ""}
             setFormInputData(emptyInput); 
+            setFeedback("");
         }   
     }
 
@@ -74,15 +101,15 @@ function Fitness() {
                         <input 
                             type="text" 
                             name="titleInput"
-                            defaultValue={formInputData.titleInput}
+                            value={formInputData.titleInput}
                             onChange={handleChange}/>
                     </div>
                     <div className="formSection">
                         <p className="formLabel">Duration (in minutes)<span>*</span></p>
                         <input 
-                            type="text" 
+                            type="number" 
                             name="durationInput"
-                            defaultValue={formInputData.durationInput}
+                            value={formInputData.durationInput}
                             onChange={handleChange}/>
                     </div>
                     <div className="formSection">
@@ -90,9 +117,10 @@ function Fitness() {
                         <input 
                             type="text" 
                             name="videoUrlInput"
-                            defaultValue={formInputData.videoUrlInput}
+                            value={formInputData.videoUrlInput}
                             onChange={handleChange}/>
                     </div>
+                    <div id="workout-form-feedback">{feedback}</div>
                     <input type="submit" onClick={handleSubmit} className="formButton"/>
                 </form>
             </section>
@@ -110,10 +138,17 @@ const WorkoutInstance = ({title, duration, videoUrl}) => {
             <div className="workoutDetails">
                 <h1 className="workoutTitle">{title}</h1>
                 <p className="workout duration">{duration}mn</p>
-                <a href={videoUrl} target="_blank" className="workoutBtn">START</a>
+                <a href={videoUrl} target="_blank" rel="noreferrer" className="workoutBtn">START</a>
             </div>
             <div className="formActions">
-                <input type="checkbox" />
+                <div>
+                    <label>Mark as done </label>
+                    <input type="checkbox" />
+                </div>
+                <div className="icon-actions">
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
             </div>
         </div>
     );
