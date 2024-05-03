@@ -3,7 +3,7 @@
 .fitnessPage{
     display: flex;
     width: 90vw;
-    height: 90vh;
+    height: 85vh;
     background: $dark-brown;
 
     section{
@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    overflow: auto;
 }
 
 .workoutSection{
@@ -32,9 +33,9 @@
 
     .workoutInstance{
         border: 2px solid $beige;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 160px 410px 35px;
+        //width: 100%;
+        display: flex;
+        justify-content: space-between;
         padding: 8px;
     }
 
@@ -66,8 +67,19 @@
 
     .formActions{
         display: flex;
+        flex-direction: column;
         align-items:center;
         justify-content:center;
+        gap: 15px;
+    }
+
+    .icon-actions{
+        display: flex;
+        gap: 10px;
+
+        button{
+            padding: 4px 8px;
+        }
     }
 }
 

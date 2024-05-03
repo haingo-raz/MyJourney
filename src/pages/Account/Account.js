@@ -15,7 +15,7 @@ function Account({component}) {
         <div className="accountPage">
             <section className="textWeb">
                 <h1>My journey</h1>
-                <p>For a better you</p>
+                <p>An easier way to manage your workout.</p>
             </section>
 
             <section className="formSection">

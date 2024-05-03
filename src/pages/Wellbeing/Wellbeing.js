@@ -4,6 +4,7 @@ import './Wellbeing.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Navbar from '../../components/Navbar/Navbar';
 
 function Wellbeing() {
 
@@ -17,13 +18,7 @@ function Wellbeing() {
 
     return (
         <div className="wellbeingPage">
-            <div className="logo">
-                <Link to="/home"><i>MJ</i></Link>
-                <div className="navRight">
-                    <Link to="/fitness"><i>Workout</i></Link>
-                    <Link to="/wellbeing"><i>Wellbeing</i></Link>
-                </div>
-            </div>
+            <Navbar/>
             <h1>
                 My wellbeing
             </h1>
@@ -33,25 +28,25 @@ function Wellbeing() {
                     <div className="articleBox">
                         <h3 className="articleTitle">5 ways to combat stress</h3>
                         <div className="btnContainer">
-                            <button><Link to="/info1">SHOW ME</Link></button>
+                            <button><Link to="/combat_stress">SHOW ME</Link></button>
                         </div>
                     </div>
                     <div className="articleBox">
                         <h3 className="articleTitle">5 communication tips</h3>
                         <div className="btnContainer">
-                            <button><Link to="/info2">SHOW ME</Link></button>
+                            <button><Link to="/communication_tips">SHOW ME</Link></button>
                         </div>
                     </div>
                     <div className="articleBox">
                         <h3 className="articleTitle">5 tips to avoid procrastination</h3>
                         <div className="btnContainer">
-                            <button><Link to="/info3">SHOW ME</Link></button>
+                            <button><Link to="/avoid_procastination">SHOW ME</Link></button>
                         </div>
                     </div>
                     <div className="articleBox">
                         <h3 className="articleTitle">5 ways to increase happiness</h3>
                         <div className="btnContainer">
-                            <button><Link to="/info4">SHOW ME</Link></button>
+                            <button><Link to="/increase_happiness">SHOW ME</Link></button>
                         </div>
                     </div>
                 </Slider>

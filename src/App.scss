@@ -47,28 +47,3 @@ $texteLg: 22px;
     align-items: center;
     justify-content: center;
 }
-
-.logo{
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    font-size: $titleLg;
-    display: flex;
-    width: 100%;
-    a{
-        text-decoration: none;   
-        padding-bottom: 5px;
-
-        &:hover{
-            border-bottom: 2px solid $beige-variance;
-        }
-    }   
-    .navRight{
-        display: flex; 
-        justify-content: flex-end;
-        width: 90%;
-        gap: 15px;
-    }
-}
-
-

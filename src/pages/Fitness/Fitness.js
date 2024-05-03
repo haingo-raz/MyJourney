@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Fitness.scss';
 import '../../components/Forms/Form.scss';
+import Navbar from '../../components/Navbar/Navbar';
 //import WorkoutForm from '../../components/Forms/WorkoutForm';
 
 function Fitness() {
@@ -37,17 +38,13 @@ function Fitness() {
 
     return (
         <div className="fitnessPage">
-            <div className="logo">
-                <Link to="/home"><i>MJ</i></Link>
-                <div className="navRight">
-                    <Link to="/fitness"><i>Workout</i></Link>
-                    <Link to="/wellbeing"><i>Wellbeing</i></Link>
-                </div>
-            </div>
+            <Navbar/>
 
             <section className="workoutSection">
 
-                <h1 className="sectionTitle">My fitness program : {new Date().toLocaleString("en-US", { month: "long" })} {new Date().toLocaleString("en-US", { day : '2-digit'})}</h1>
+                <h1 className="sectionTitle">
+                    My fitness program : {new Date().toLocaleString("en-US", { month: "long" })} {new Date().toLocaleString("en-US", { day : '2-digit'}) }, {new Date().getFullYear()}
+                </h1>
 
                 <div className="workoutList" id="workoutList">
 
@@ -63,7 +60,6 @@ function Fitness() {
                             )
                         })
                     }
-
                 </div>   
 
             </section>
