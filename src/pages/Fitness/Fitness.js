@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './Fitness.scss';
 import '../../components/Forms/Form.scss';
 import Navbar from '../../components/Navbar/Navbar';
-//import WorkoutForm from '../../components/Forms/WorkoutForm';
 
 function Fitness() {
 
@@ -19,13 +17,17 @@ function Fitness() {
 
     const [feedback, setFeedback] = useState("")
 
+    const [editId, setEditId] = useState(null)
+
+    const emptyInput = {titleInput: "", durationInput: 10, videoUrlInput: ""}
+
     const handleChange = (e) => {
         const newInput = (data) => ({...data, 
         [e.target.name]:e.target.value})
         setFormInputData(newInput)
     }
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         // Only proceed if not all inputs are empty
         const areInputsValid = !Object.values(formInputData).every(res=> res==="" || res===0 || res===" ");
@@ -54,13 +56,78 @@ function Fitness() {
         }
 
         if(areInputsValid & isTitleValid & isUrlValid){
-            const newData = (data)=>([...data, formInputData])
-            setWorkoutList(newData);
-            console.log(formInputData);
-            const emptyInput = {titleInput: "", durationInput: 10, videoUrlInput: ""}
+
+            // edit workout
+            if (editId !== null) {
+                let editedWorkout = workoutList.map(workout => {                    
+                    if(workout.id === editId) {
+                        workout.title = formInputData.titleInput;
+                        workout.duration = formInputData.durationInput;
+                        workout.videoUrl = formInputData.videoUrlInput;
+                    }
+                    return workout
+                })
+                setWorkoutList(editedWorkout)
+                setEditId(null)
+            } else {
+                // new workout
+                const workoutId = `${formInputData.titleInput.slice(0,3)}${Math.floor(Math.random()*90)}`;
+
+                const newWorkout = {
+                    id: workoutId,
+                    title: formInputData.titleInput,
+                    duration: formInputData.durationInput,
+                    videoUrl: formInputData.videoUrlInput
+                };
+
+                setWorkoutList(prevWorkouts => [...prevWorkouts, newWorkout]);
+            }
             setFormInputData(emptyInput); 
             setFeedback("");
         }   
+    }
+
+    function removeWorkout(idToRemove){
+        // Remove the item with the specified id form the workout list
+        let updatedWorkout = workoutList.filter(workout => workout.id !== idToRemove)
+        setWorkoutList(updatedWorkout)
+    }
+
+
+    function handleEditWorkout (idToEdit, title, duration, videoUrl) {
+        setEditId(idToEdit)
+        setFormInputData(prevData => ({
+            ...prevData,
+            titleInput: title,
+            durationInput: duration,
+            videoUrlInput: videoUrl
+        }))
+    }
+
+
+    const WorkoutInstance = ({id, title, duration, videoUrl}) => {
+        return(
+            <div className="workoutInstance">
+                <div className="imgContainer">
+                    <img src="./assets/workout.png" alt=""/>
+                </div>
+                <div className="workoutDetails">
+                    <h1 className="workoutTitle">{title}</h1>
+                    <p className="workout duration">{duration}mn</p>
+                    <a href={videoUrl} target="_blank" rel="noreferrer" className="workoutBtn">START</a>
+                </div>
+                <div className="formActions">
+                    <div>
+                        <label>Mark as done </label>
+                        <input type="checkbox" />
+                    </div>
+                    <div className="icon-actions">
+                        <button onClick={() => handleEditWorkout(id, title, duration, videoUrl)} disabled={editId !== null}>Edit</button>
+                        <button onClick={() => removeWorkout(id)}>Delete</button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -80,9 +147,10 @@ function Fitness() {
                             return(
                                 <WorkoutInstance
                                     key={index}
-                                    title={data.titleInput}
-                                    duration={data.durationInput}
-                                    videoUrl={data.videoUrlInput}
+                                    id={data.id}
+                                    title={data.title}
+                                    duration={data.duration}
+                                    videoUrl={data.videoUrl}
                                 />
                             )
                         })
@@ -121,35 +189,11 @@ function Fitness() {
                             onChange={handleChange}/>
                     </div>
                     <div id="workout-form-feedback">{feedback}</div>
-                    <input type="submit" onClick={handleSubmit} className="formButton"/>
+                    
+                    <input type="submit" value={editId !== null ? "Save" : "Submit"} onClick={handleSubmit} className="formButton"/>
                 </form>
             </section>
             
-        </div>
-    );
-}
-
-const WorkoutInstance = ({title, duration, videoUrl}) => {
-    return(
-        <div className="workoutInstance">
-            <div className="imgContainer">
-                <img src="./assets/workout.png" alt=""/>
-            </div>
-            <div className="workoutDetails">
-                <h1 className="workoutTitle">{title}</h1>
-                <p className="workout duration">{duration}mn</p>
-                <a href={videoUrl} target="_blank" rel="noreferrer" className="workoutBtn">START</a>
-            </div>
-            <div className="formActions">
-                <div>
-                    <label>Mark as done </label>
-                    <input type="checkbox" />
-                </div>
-                <div className="icon-actions">
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-            </div>
         </div>
     );
 }

@@ -4,8 +4,8 @@ A web application where users can:
  * Log in with authentication.
  * Log out.
  * Create their own workout routine by adding a video by title, duration and url.
- * Cross off workout that have been completed.
- * Rearrage workout with drag and drop.
+ * Cross out workout that have been completed.
+ * Rearrange workout with drag and drop.
  * Delete a workout from a list.
  * Re-schedule an appointment for the next day.
 
@@ -15,10 +15,10 @@ The system should be able to:
  * Show the current date and year.
  * Store the details of users in an SQL database.
  * Provide feedback with the login form.
- * Provide feedback witht the sign in form.
+ * Provide feedback with the sign in form.
  * Provide feedback with the workout form.
  * Check if the workout title is more than 5 characters.
- * Check that the video url is a working url.
+ * Check that the video url is a valid url.
  * Display the name of the logged in user.
 
 Future implementation:
