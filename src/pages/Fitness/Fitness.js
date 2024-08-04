@@ -147,70 +147,70 @@ function Fitness() {
     };
 
     return (
-        <div className="fitnessPage">
+        <>
             <Navbar />
+            <div className="fitnessPage">
+                <section className="workoutSection">
 
-            <section className="workoutSection">
+                    <h1 className="sectionTitle">
+                        My fitness program : {new Date().toLocaleString("en-US", { month: "long" })} {new Date().toLocaleString("en-US", { day: '2-digit' })}, {new Date().getFullYear()}
+                    </h1>
 
-                <h1 className="sectionTitle">
-                    My fitness program : {new Date().toLocaleString("en-US", { month: "long" })} {new Date().toLocaleString("en-US", { day: '2-digit' })}, {new Date().getFullYear()}
-                </h1>
+                    <div className="workoutList" id="workoutList">
 
-                <div className="workoutList" id="workoutList">
-
-                    {
-                        workoutList.map((data, index) => {
-                            return (
-                                <WorkoutInstance
-                                    key={index}
-                                    id={data.id}
-                                    title={data.title}
-                                    duration={data.duration}
-                                    videoUrl={data.videoUrl}
-                                />
-                            );
-                        })
-                    }
-                </div>
-
-            </section>
-
-            <section className="workoutForm">
-                {/* Form */}
-                <form action="POST" className="accountForm" onSubmit={handleSubmit}>
-                    <h1 className="formTitle">ADD WORKOUT</h1>
-                    <p>Add a new workout to your routine here.</p>
-                    <div className="formSection">
-                        <p className="formLabel">Title<span>*</span></p>
-                        <input
-                            type="text"
-                            name="titleInput"
-                            value={formInputData.titleInput}
-                            onChange={handleChange} />
+                        {
+                            workoutList.map((data, index) => {
+                                return (
+                                    <WorkoutInstance
+                                        key={index}
+                                        id={data.id}
+                                        title={data.title}
+                                        duration={data.duration}
+                                        videoUrl={data.videoUrl}
+                                    />
+                                );
+                            })
+                        }
                     </div>
-                    <div className="formSection">
-                        <p className="formLabel">Duration (in minutes)<span>*</span></p>
-                        <input
-                            type="number"
-                            name="durationInput"
-                            value={formInputData.durationInput}
-                            onChange={handleChange} />
-                    </div>
-                    <div className="formSection">
-                        <p className="formLabel">Video url<span>*</span></p>
-                        <input
-                            type="text"
-                            name="videoUrlInput"
-                            value={formInputData.videoUrlInput}
-                            onChange={handleChange} />
-                    </div>
-                    <div id="workout-form-feedback">{feedback}</div>
 
-                    <button type="submit" className="formButton">{editId !== null ? "Save" : "Submit"}</button>
-                </form>
-            </section>
+                </section>
 
-        </div>
+                <section className="workoutForm">
+                    {/* Form */}
+                    <form action="POST" className="accountForm" onSubmit={handleSubmit}>
+                        <h1 className="formTitle">ADD WORKOUT</h1>
+                        <p>Add a new workout to your routine here.</p>
+                        <div className="formSection">
+                            <p className="formLabel">Title<span>*</span></p>
+                            <input
+                                type="text"
+                                name="titleInput"
+                                value={formInputData.titleInput}
+                                onChange={handleChange} />
+                        </div>
+                        <div className="formSection">
+                            <p className="formLabel">Duration (in minutes)<span>*</span></p>
+                            <input
+                                type="number"
+                                name="durationInput"
+                                value={formInputData.durationInput}
+                                onChange={handleChange} />
+                        </div>
+                        <div className="formSection">
+                            <p className="formLabel">Video url<span>*</span></p>
+                            <input
+                                type="text"
+                                name="videoUrlInput"
+                                value={formInputData.videoUrlInput}
+                                onChange={handleChange} />
+                        </div>
+                        <div id="workout-form-feedback">{feedback}</div>
+
+                        <button type="submit" className="formButton">{editId !== null ? "Save" : "Submit"}</button>
+                    </form>
+                </section>
+            </div>
+        </>
     );
 }
 

@@ -62,3 +62,13 @@
        color: $beige-variance; 
     }
 }
+
+@media (max-width: 996px) {
+    .homeSection{
+        display: block;
+        section{
+            width: 85%;
+            height: 30vh;
+        }
+    }
+}

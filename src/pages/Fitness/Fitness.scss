@@ -3,7 +3,6 @@
 .fitnessPage{
     display: flex;
     width: 90vw;
-    height: 85vh;
     background: $dark-brown;
 
     section{
@@ -86,4 +85,19 @@
 .workoutForm{ 
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 996px) {
+    .fitnessPage {
+        flex-direction: column;
+        section{
+            width: 100%;
+            padding: 20px;  
+        }
+    }
+    .workoutSection{
+        .workoutInstance{
+            overflow: auto;
+        }
+    }
 }

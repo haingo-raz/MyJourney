@@ -32,3 +32,17 @@
     align-items: center;
     justify-content: center;
 }
+
+@media (max-width: 996px) {
+    .textWeb{
+        h1{
+            font-size: $logoMd;
+        }
+    }
+    .accountPage{
+        gap: 15px;
+        section {
+            width: 100%;
+        }
+    }
+}

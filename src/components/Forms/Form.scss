@@ -46,3 +46,9 @@
 .logo a{
     color: $beige-variance;
 }
+
+@media (max-width: 996px) {
+    .accountForm{ 
+        padding: 15px 30px;
+    }
+}
