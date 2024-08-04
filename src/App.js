@@ -8,6 +8,7 @@ import Home from './pages/Home/Home';
 import Fitness from './pages/Fitness/Fitness';
 import Wellbeing from './pages/Wellbeing/Wellbeing';
 import Modal from './components/Forms/Modal/Modal';
+import Profile from './pages/Profile/Profile';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/home" element={<Home />}/>
         <Route path="/fitness" element={<Fitness />}/>
         <Route path="/wellbeing" element={<Wellbeing />}/>
+        <Route path="/profile" element={<Profile />}/>
         <Route path="/combat_stress" element={<Modal title="5 ways to combat stress" advice1="Use guided meditation" advice2="Use guided meditation" advice3="Maintain physical exercise and good nutrition" advice4="Manage social media time" advice5="Connect with others"/>}/>
         <Route path="/communication_tips" element={<Modal title="5 communication tips" advice1="Be Present" advice2="Really Listen" advice3="Seek to Understand" advice4="Use Active/Reflective Listening" advice5="Practice Silence"/>}/>
         <Route path="/avoid_procastination" element={<Modal title="5 tips to avoid procrastination" advice1="Set small goals " advice2="Organise your tasks " advice3="Focus your attention " advice4="Remove distractions" advice5="Forgive yourself"/>}/>
