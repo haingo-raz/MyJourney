@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Fitness.scss';
 import '../../components/Forms/Form.scss';
 import Navbar from '../../components/Navbar/Navbar';
@@ -18,6 +18,14 @@ function Fitness() {
     const [feedback, setFeedback] = useState("")
 
     const [editId, setEditId] = useState(null)
+
+    useEffect(() => {
+        fetch('http://localhost:8080/workout')
+        .then(res => res.json())
+        .then(res => setWorkoutList(res))
+        .catch(err => console.log(err))
+
+    }, [])
 
     const emptyInput = {titleInput: "", durationInput: 10, videoUrlInput: ""}
 
