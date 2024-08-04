@@ -18,6 +18,25 @@ function login(res, user){
     });
 }
 
+function addWorkout(res, workout){
+    let sql = "INSERT INTO workout (user_email, videoUrl, title, duration) VALUES ('" + workout.user_email + "', '" + workout.videoUrl + "', '" + workout.title + "', '" + workout.duration + "')";
+
+    db.query(sql, (err, result) => {
+        if (err) return res.json(err);
+        return res.json("Success");
+
+    });
+}
+
+function deleteWorkoutById(res, id){
+    let sql = "DELETE FROM workout WHERE id = " + id;
+
+    db.query(sql, (err, result) => {
+        if (err) return res.json(err);
+        return res.json(result);
+    });
+}
+
 function getWorkout(res){
     let sql = "SELECT * FROM workout";
 
@@ -30,3 +49,5 @@ function getWorkout(res){
 
 module.exports.getWorkout = getWorkout;
 module.exports.login = login;
+module.exports.addWorkout = addWorkout;
+module.exports.deleteWorkoutById = deleteWorkoutById;
