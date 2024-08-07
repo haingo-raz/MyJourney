@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Home.scss';
 import Navbar from '../../components/Navbar/Navbar';
 
@@ -13,7 +12,7 @@ function Home() {
                   <p>Manage your fitness journey. Create your own workout routine</p>
                 </div>
                 <div className="homeButton">
-                    <button><Link to="/fitness">LET'S GO</Link></button>
+                    <button onClick={() => window.location.href = "/fitness"}>LET'S GO</button>
                 </div>
             </section>
 
@@ -23,7 +22,7 @@ function Home() {
                   <p>Learn the best ways to improve your mental health.</p>
                 </div>
                 <div className="homeButton">
-                    <button><Link to="/wellbeing">LET'S GO</Link></button>
+                    <button onClick={() => window.location.href = "/wellbeing"}>LET'S GO</button>
                 </div>
             </section>
         </div>
