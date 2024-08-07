@@ -1,15 +1,7 @@
 import React from 'react';
 import './Account.scss';
-// import SignUpForm from '../../components/Forms/SignUpForm';
-// import LoginForm from '../../components/Forms/LoginForm';
-// import { useDispatch, useSelector } from 'react-redux';
 
 function Account({component}) {
-
-    // const signUp = useSelector(
-    //     (state) => state.formSignUp.signUp
-    // );
-
 
     return (
         <div className="accountPage">
