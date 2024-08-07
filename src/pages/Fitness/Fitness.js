@@ -8,6 +8,10 @@ function Fitness() {
 
     const [workoutList, setWorkoutList] = useState([]);
 
+    useEffect(() => {  
+        console.log(workoutList)
+    }, [workoutList])
+
     const [formInputData, setFormInputData] = useState({
         titleInput: "",
         durationInput: 10,
@@ -28,7 +32,7 @@ function Fitness() {
             .then(res => res.json())
             .then(res => setWorkoutList(res))
             .catch(err => console.log(err));
-    }, [loggedInUser]);
+    }, []);
 
     const emptyInput = { titleInput: "", durationInput: 10, videoUrlInput: "" };
 
@@ -71,15 +75,18 @@ function Fitness() {
 
             // edit workout
             if (editId !== null) {
-                let editedWorkout = workoutList.map(workout => {
-                    if (workout.id === editId) {
-                        workout.title = formInputData.titleInput;
-                        workout.duration = formInputData.durationInput;
-                        workout.videoUrl = formInputData.videoUrlInput;
-                    }
-                    return workout;
-                });
-                setWorkoutList(editedWorkout);
+                axios.put(`http://localhost:8080/edit/${editId}`, {
+                    workoutId: editId,
+                    title: formInputData.titleInput,
+                    videoUrl: formInputData.videoUrlInput,
+                    duration: formInputData.durationInput
+                })
+                .then(res => {
+                    console.log(res)
+                    setWorkoutList(res)
+                    window.location.reload();
+                })
+                .catch(err => console.log(err));
                 setEditId(null);
             } else {
                 const newWorkout = {
@@ -109,21 +116,21 @@ function Fitness() {
         if (window.confirm("Are you sure you want to delete this workout?")) {
             axios.delete(`http://localhost:8080/delete/${idToRemove}`)
                 .then(res => {
-                    setWorkoutList(prevWorkouts => prevWorkouts.filter(workout => workout.id !== idToRemove));
+                    setWorkoutList(prevWorkouts => Array.isArray(prevWorkouts) ? prevWorkouts.filter(workout => workout.workoutId !== idToRemove) : []);
                 })
                 .catch(err => console.log(err));
         }
-    };
+    };    
 
 
     function handleEditWorkout(idToEdit, title, duration, videoUrl) {
-        setEditId(idToEdit);
         setFormInputData(prevData => ({
             ...prevData,
             titleInput: title,
-            durationInput: duration,
-            videoUrlInput: videoUrl
+            videoUrlInput: videoUrl,
+            durationInput: duration
         }));
+        setEditId(idToEdit);
     }
 
 
@@ -163,13 +170,12 @@ function Fitness() {
                     </h1>
 
                     <div className="workoutList" id="workoutList">
-
                         {
-                            workoutList.map((data, index) => {
+                            Array.isArray(workoutList) && workoutList.map((data, index) => {
                                 return (
                                     <WorkoutInstance
                                         key={index}
-                                        id={data.id}
+                                        id={data.workoutId}
                                         title={data.title}
                                         duration={data.duration}
                                         videoUrl={data.videoUrl}
