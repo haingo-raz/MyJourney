@@ -1,34 +1,20 @@
-# My Journey
-A web application where users can:
- * Create an account.
- * Log in with authentication.
- * Log out.
- * Create their own workout routine by adding a video by title, duration and url.
- * Cross out workout that have been completed.
- * Rearrange workout with drag and drop.
- * Delete a workout from a list.
- * Re-schedule an appointment for the next day.
+# About
+MyJourney is a web application where users can:
+- Create an account.
+- Log in with the created credentials or log out.
+- Create their own workout routine by adding a title, YouTube video URL, and duration into a form.
+- Update an existing workout.
+- Delete a workout from the list.
 
-The system should be able to:
- * Show the active page.
- * Show the total duration of daily workout.
- * Show the current date and year.
- * Store the details of users in an SQL database.
- * Provide feedback with the login form.
- * Provide feedback with the sign in form.
- * Provide feedback with the workout form.
- * Check if the workout title is more than 5 characters.
- * Check that the video url is a valid url.
- * Display the name of the logged in user.
+# Technology
+## Frontend (this project)
+- React.js
+- SCSS
+## Backend
+- Node.js/Express
+- MySQL
 
-Future implementation:
- * A chatbot that can answer basic and customized questions.
- * Make the web app mobile responsive.
- * Display past workout history.
- * Duplicate past workout history for current day.
- * Unit testing
-
-# Screenshots 
+# UI
 ## Login
 ![Login](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/login.png)
 
@@ -44,16 +30,25 @@ Future implementation:
 ## Wellbeing page
 ![Wellbeing](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/wellbeingPage.png)
 
-## Wellbeing pop ups
-![Pop up](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/modal.png)
+## Wellbeing pop-ups
+![Pop-up](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/modal.png)
 
+# Future work
+* Develop a chatbot that can answer basic and customized questions.
+* Add a statistics page or perform data analysis.
+* Display past workout history.
+* Duplicate a past workout history for the current day.
+* Rearrange the order of workouts with drag and drop.
+* Add the possibility to reschedule a workout item for the next day.
 
 # How to run it on your computer
 
-1. Clone the project using the command ```git clone https://github.com/haingo-raz/MyJourney.git```
+This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-API) and a MySQL database to work. However, here are the steps to run the frontend on your computer:
 
-1. Run `npm install`
+1. Clone the project using the command `git clone https://github.com/haingo-raz/MyJourney.git`.
 
-1. Run `npm start`
+2. Run `npm install`.
 
-1. Open `localhost:3000` (insert your chosen port)
+3. Run `npm start`.
+
+4. Open `localhost:3000` in your browser.
