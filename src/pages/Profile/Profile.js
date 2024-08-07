@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./Profile.scss";
 import Navbar from '../../components/Navbar/Navbar';
 
@@ -8,10 +9,17 @@ function Profile(props) {
     const [feedback, setFeedback] = useState("")
     const [formData, setFormData] = useState("password")
 
+    const loggedInUser = localStorage.getItem("user_email");
+    const navigate = useNavigate(); 
+
     const handleSubmit  = (e) => {  
     }
 
-    const onLogout = (e) => {
+    const onLogout = () => {
+        if(window.confirm("Are you sure you want to log out?")){
+            localStorage.removeItem("user_email");
+            navigate("/")
+        }
     }
 
     const onDeleteAccount = (e) => {
@@ -28,7 +36,7 @@ function Profile(props) {
                     {/* Show logged in user's email here */}
                     <div className="formSection">
                         <p className="formLabel">Email</p>
-                        <input type="email" id="email" name="email" required readOnly></input>
+                        <input type="email" id="email" name="email" required value={loggedInUser} readOnly></input>
                     </div>
 
                     <div>

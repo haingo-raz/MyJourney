@@ -18,12 +18,17 @@ function Fitness() {
 
     const [editId, setEditId] = useState(null);
 
+    const loggedInUser = localStorage.getItem("user_email");
+
+    const today = `${new Date().getFullYear()}-${("0" + (new Date().getMonth() + 1)).slice(-2)}-${("0" + new Date().getDate()).slice(-2)}`;
+
+    // Fetch workouts from the backend
     useEffect(() => {
-        fetch('http://localhost:8080/workout')
+        fetch(`http://localhost:8080/workout/${loggedInUser}`)
             .then(res => res.json())
             .then(res => setWorkoutList(res))
             .catch(err => console.log(err));
-    }, []);
+    }, [loggedInUser]);
 
     const emptyInput = { titleInput: "", durationInput: 10, videoUrlInput: "" };
 
@@ -78,10 +83,11 @@ function Fitness() {
                 setEditId(null);
             } else {
                 const newWorkout = {
-                    user_email: "test@mj.com", // Add logged in user here
                     title: formInputData.titleInput,
+                    videoUrl: formInputData.videoUrlInput,
                     duration: formInputData.durationInput,
-                    videoUrl: formInputData.videoUrlInput
+                    user_email: loggedInUser,
+                    dayCreated: today
                 };
 
                 axios.post('http://localhost:8080/add', newWorkout)
@@ -153,7 +159,7 @@ function Fitness() {
                 <section className="workoutSection">
 
                     <h1 className="sectionTitle">
-                        My fitness program : {new Date().toLocaleString("en-US", { month: "long" })} {new Date().toLocaleString("en-US", { day: '2-digit' })}, {new Date().getFullYear()}
+                        My fitness program : {today}
                     </h1>
 
                     <div className="workoutList" id="workoutList">
@@ -186,7 +192,8 @@ function Fitness() {
                                 type="text"
                                 name="titleInput"
                                 value={formInputData.titleInput}
-                                onChange={handleChange} />
+                                onChange={handleChange} 
+                                required/>
                         </div>
                         <div className="formSection">
                             <p className="formLabel">Duration (in minutes)<span>*</span></p>
@@ -194,7 +201,8 @@ function Fitness() {
                                 type="number"
                                 name="durationInput"
                                 value={formInputData.durationInput}
-                                onChange={handleChange} />
+                                onChange={handleChange} 
+                                required/>
                         </div>
                         <div className="formSection">
                             <p className="formLabel">Video url<span>*</span></p>
@@ -202,7 +210,8 @@ function Fitness() {
                                 type="text"
                                 name="videoUrlInput"
                                 value={formInputData.videoUrlInput}
-                                onChange={handleChange} />
+                                onChange={handleChange} 
+                                required/>
                         </div>
                         <div id="workout-form-feedback">{feedback}</div>
 

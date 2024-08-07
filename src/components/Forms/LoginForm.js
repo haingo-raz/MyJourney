@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { json, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Form.scss';
 
@@ -18,12 +18,12 @@ function LoginForm(props) {
             password: password
         })
         .then(res => {
-            if (res.data === "Success") {
+            if (res.data.message === "Success" && res.data.email && res.status === 200) {
+                localStorage.setItem("user_email", res.data.email);
                 navigate('/home');
-                console.log(JSON.stringify(res))
-            } else {
+            } else if (res.data.message !== "Success") {
                 setFeedback("Invalid email or password")
-            }
+            } else { setFeedback("An error occurred. Please try again.") }
             console.log(JSON.stringify(res))
         })
         .catch(err => console.log(err))
@@ -36,12 +36,12 @@ function LoginForm(props) {
             <div className="formSection">
                 <p className="formLabel">Email<span>*</span></p>
                 <input type="email" name="userEmail"
-                    onChange={e => setEmail(e.target.value)} />
+                    onChange={e => setEmail(e.target.value)} required/>
             </div>
             <div className="formSection">
                 <p className="formLabel">Password<span>*</span></p>
                 <input type="password" name="userPass"
-                    onChange={e => setPassword(e.target.value)} />
+                    onChange={e => setPassword(e.target.value)} required/>
             </div>
             <button className="formButton" type="submit"><b>Sign In</b></button>
             {feedback && <p>{feedback}</p>}
