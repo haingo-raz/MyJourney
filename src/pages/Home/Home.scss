@@ -31,7 +31,9 @@
     button{
         @include buttonStyle;
         width: 200px; 
-        background: transparent;
+        background: $white;
+        color: $form-text;
+        font-weight: bold;
     }
 }
 
@@ -65,7 +67,6 @@
         display: block;
         section{
             width: 85%;
-            height: 30vh;
         }
     }
 }

@@ -16,13 +16,16 @@ MyJourney is a web application where users can:
 
 # UI
 ## Login
-![Login](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/login.png)
+![Login](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/loginPage.png)
 
 ## Sign up
-![Signup](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/signup.png)
+![Signup](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/signupPage.png)
+
+## Profile page
+![Signup](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/profilePage.png)
 
 ## Home
-![Home](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/home.png)
+![Home](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/homepage.png)
 
 ## Workout page
 ![Fitness](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage.png)
