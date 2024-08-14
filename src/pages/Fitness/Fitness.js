@@ -3,14 +3,24 @@ import './Fitness.scss';
 import '../../components/Forms/Form.scss';
 import Navbar from '../../components/Navbar/Navbar';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { dateFormatter } from '../../utils/helper';
 
 function Fitness() {
 
+    const today = new Date();
     const [workoutList, setWorkoutList] = useState([]);
+    const [chosenDate, setChosenDate] = useState(today);
+    const [formattedDate, setFormattedDate] = useState(dateFormatter(today));
 
     useEffect(() => {  
         console.log(workoutList)
     }, [workoutList])
+
+    useEffect(() => {
+        setFormattedDate(dateFormatter(chosenDate));
+    }, [chosenDate]);
 
     const [formInputData, setFormInputData] = useState({
         titleInput: "",
@@ -24,15 +34,13 @@ function Fitness() {
 
     const loggedInUser = localStorage.getItem("user_email");
 
-    const today = `${new Date().getFullYear()}-${("0" + (new Date().getMonth() + 1)).slice(-2)}-${("0" + new Date().getDate()).slice(-2)}`;
-
     // Fetch workouts from the backend
     useEffect(() => {
-        fetch(`http://localhost:8080/workout/${loggedInUser}`)
+        fetch(`http://localhost:8080/workout/${loggedInUser}/${formattedDate}`)
             .then(res => res.json())
             .then(res => setWorkoutList(res))
             .catch(err => console.log(err));
-    }, []);
+    }, [formattedDate, loggedInUser]);
 
     const emptyInput = { titleInput: "", durationInput: 10, videoUrlInput: "" };
 
@@ -133,6 +141,10 @@ function Fitness() {
         setEditId(idToEdit);
     }
 
+    function handleDateChange(date) {
+        setChosenDate(date);
+    }
+
 
     const WorkoutInstance = ({ id, title, duration, videoUrl }) => {
         return (
@@ -164,10 +176,15 @@ function Fitness() {
             <Navbar />
             <div className="fitnessPage">
                 <section className="workoutSection">
-
-                    <h1 className="sectionTitle">
-                        My fitness program : {today}
-                    </h1>
+                    <div className="sectionTitle">
+                        <h1>
+                            My fitness program :
+                        </h1>
+                        <DatePicker 
+                            selected={chosenDate} 
+                            onChange={(date) => handleDateChange(date)} 
+                        />
+                    </div>
 
                     <div className="workoutList" id="workoutList">
                         {
