@@ -155,12 +155,23 @@ function Fitness() {
         setChosenDate(date);
     }
 
+    function getImageSrc(title) {
+        if (title.toLowerCase().includes("stretching") || title.toLowerCase().includes("yoga") || title.toLowerCase().includes("stretch")) {
+            return "./assets/stretching.png";
+        } else if (title.toLowerCase().includes("train") || title.toLowerCase().includes("weight")) {
+            return "./assets/weight.png";
+        } else if (title.toLowerCase().includes("cardio") || title.toLowerCase().includes("hiit")) {
+            return "./assets/cardio.png";
+        } else {
+            return "./assets/workout.png";
+        }
+    }
 
     const WorkoutInstance = ({ id, title, duration, videoUrl }) => {
         return (
             <div className="workoutInstance">
                 <div className="imgContainer">
-                    <img src="./assets/workout.png" alt="" />
+                    <img src={getImageSrc(title)} alt="" />
                 </div>
                 <div className="workoutDetails">
                     <h1 className="workoutTitle">{title}</h1>

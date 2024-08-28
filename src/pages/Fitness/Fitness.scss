@@ -102,10 +102,14 @@
 @media (max-width: 996px) {
     .fitnessPage {
         flex-direction: column;
+        width: unset;
         section{
-            width: 100%;
+            width: unset;
             padding: 20px;  
         }
+    }
+    .workoutList{
+        width: 80vw;
     }
     .workoutSection{
         .workoutInstance{

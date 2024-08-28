@@ -65,8 +65,9 @@
 @media (max-width: 996px) {
     .homeSection{
         display: block;
+        height: initial;
         section{
-            width: 85%;
+            width: initial;
         }
     }
 }

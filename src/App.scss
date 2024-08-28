@@ -38,11 +38,28 @@ $texteLg: 22px;
 
 
 .App{
-    width: 100vw;
+    width: 99.5vw;
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     background: $beige;
     align-items: center;
     justify-content: center;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+    width: 8px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px $form-text; 
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $black; 
+    border-radius: 10px;
 }

@@ -30,6 +30,9 @@ MyJourney is a web application where users can:
 ## Workout page
 ![Fitness](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage.png)
 
+## Workout page mobile view
+![Fitness SM](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage-sm.png)
+
 # Future work
 * Develop a chatbot that can answer basic and customized questions.
 * Add a statistics page or perform data analysis.
