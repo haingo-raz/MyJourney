@@ -173,7 +173,7 @@ function Fitness() {
 
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <div className="fitnessPage">
                 <section className="workoutSection">
                     <div className="sectionTitle">

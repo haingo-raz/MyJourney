@@ -1,15 +1,13 @@
 @import "./../../App.scss";
 
 .logo{
-    position: absolute;
-    top: 18px;
-    left: 20px;
     font-size: $titleLg;
     display: flex;
-    width: 100%;
+    width: inherit;
+    box-shadow: 0 4px 3px -2px $black;
+    padding: 5px 20px 10px 20px;
     a{
         text-decoration: none;   
-        padding-bottom: 5px;
         font-size: 22px;
 
         &:hover{
@@ -19,7 +17,7 @@
     .navRight{
         display: flex; 
         justify-content: flex-end;
-        width: 90%;
+        flex: 1;
         gap: 15px;
     }
 }

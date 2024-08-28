@@ -30,12 +30,6 @@ MyJourney is a web application where users can:
 ## Workout page
 ![Fitness](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage.png)
 
-## Wellbeing page
-![Wellbeing](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/wellbeingPage.png)
-
-## Wellbeing pop-ups
-![Pop-up](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/modal.png)
-
 # Future work
 * Develop a chatbot that can answer basic and customized questions.
 * Add a statistics page or perform data analysis.
