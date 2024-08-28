@@ -14,6 +14,12 @@
     }
 }
 
+.workoutInfo {
+    display: flex;
+    gap: 5px;
+    align-items: flex-end;
+}
+
 .workoutList{
     display: flex;
     flex-direction: column;

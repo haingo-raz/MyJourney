@@ -13,10 +13,8 @@ function Fitness() {
     const [workoutList, setWorkoutList] = useState([]);
     const [chosenDate, setChosenDate] = useState(today);
     const [formattedDate, setFormattedDate] = useState(dateFormatter(today));
-
-    useEffect(() => {  
-        console.log(workoutList)
-    }, [workoutList])
+    const [count, setCount] = useState(0);
+    const [duration, setDuration] = useState(0);
 
     useEffect(() => {
         setFormattedDate(dateFormatter(chosenDate));
@@ -38,9 +36,21 @@ function Fitness() {
     useEffect(() => {
         fetch(`http://localhost:8080/workout/${loggedInUser}/${formattedDate}`)
             .then(res => res.json())
-            .then(res => setWorkoutList(res))
+            .then(res => {
+                setWorkoutList(res.workouts)
+            })
             .catch(err => console.log(err));
     }, [formattedDate, loggedInUser]);
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/workout/${loggedInUser}/${formattedDate}`)
+            .then(res => res.json())
+            .then(res => {
+                setCount(res.count)
+                setDuration(res.totalDuration)
+            })
+            .catch(err => console.log(err));
+    }, [formattedDate, loggedInUser, workoutList]);
 
     const emptyInput = { titleInput: "", durationInput: 10, videoUrlInput: "" };
 
@@ -184,6 +194,13 @@ function Fitness() {
                             selected={chosenDate} 
                             onChange={(date) => handleDateChange(date)} 
                         />
+                    </div>
+
+                    <div className="workoutInfo"> 
+                        <h3>Number of exercises:</h3>
+                        <span> {count}</span>
+                        <h3>Total duration:</h3>
+                        <span> {duration} mn</span>
                     </div>
 
                     <div className="workoutList" id="workoutList">
