@@ -3,13 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Form.scss';
 import apiUrl from '../../const/const';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/reducer/userSlice';
 
 function LoginForm(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [feedback, setFeedback] = useState(""); // New state for feedback
+    const [feedback, setFeedback] = useState("");
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -20,6 +23,7 @@ function LoginForm(props) {
         })
         .then(res => {
             if (res.data.message === "Success" && res.data.email && res.status === 200) {
+                dispatch(loginUser(res.data.email));
                 localStorage.setItem("user_email", res.data.email);
                 navigate('/home');
             } else if (res.data.message !== "Success") {

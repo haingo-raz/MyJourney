@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Profile.scss";
 import Navbar from '../../components/Navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../redux/reducer/userSlice';
 
 function Profile(props) {
 
@@ -9,8 +11,9 @@ function Profile(props) {
     const [feedback, setFeedback] = useState("")
     const [formData, setFormData] = useState("password")
 
-    const loggedInUser = localStorage.getItem("user_email");
+    const loggedInUser = useSelector((state) => state.user.email);
     const navigate = useNavigate(); 
+    const dispatch = useDispatch();
 
     const handleSubmit  = (e) => {  
     }
@@ -18,6 +21,7 @@ function Profile(props) {
     const onLogout = () => {
         if(window.confirm("Are you sure you want to log out?")){
             localStorage.removeItem("user_email");
+            dispatch(logoutUser());
             navigate("/")
         }
     }
