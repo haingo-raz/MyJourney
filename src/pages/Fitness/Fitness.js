@@ -6,6 +6,7 @@ import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { dateFormatter } from '../../utils/helper';
+import apiUrl from '../../const/const';
 
 function Fitness() {
 
@@ -34,7 +35,7 @@ function Fitness() {
 
     // Fetch workouts from the backend
     useEffect(() => {
-        fetch(`http://localhost:8080/workout/${loggedInUser}/${formattedDate}`)
+        fetch(`${apiUrl}/workout/${loggedInUser}/${formattedDate}`)
             .then(res => res.json())
             .then(res => {
                 setWorkoutList(res.workouts)
@@ -43,7 +44,7 @@ function Fitness() {
     }, [formattedDate, loggedInUser]);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/workout/${loggedInUser}/${formattedDate}`)
+        fetch(`${apiUrl}/workout/${loggedInUser}/${formattedDate}`)
             .then(res => res.json())
             .then(res => {
                 setCount(res.count)
@@ -93,7 +94,7 @@ function Fitness() {
 
             // edit workout
             if (editId !== null) {
-                axios.put(`http://localhost:8080/edit/${editId}`, {
+                axios.put(`${apiUrl}/edit/${editId}`, {
                     workoutId: editId,
                     title: formInputData.titleInput,
                     videoUrl: formInputData.videoUrlInput,
@@ -115,7 +116,7 @@ function Fitness() {
                     dayCreated: today
                 };
 
-                axios.post('http://localhost:8080/add', newWorkout)
+                axios.post(`${apiUrl}/add`, newWorkout)
                     .then(res => {
                         if (res.data === "Success") {
                             setWorkoutList(prevWorkouts => [
@@ -132,7 +133,7 @@ function Fitness() {
 
     function removeWorkout(idToRemove) {
         if (window.confirm("Are you sure you want to delete this workout?")) {
-            axios.delete(`http://localhost:8080/delete/${idToRemove}`)
+            axios.delete(`${apiUrl}/delete/${idToRemove}`)
                 .then(res => {
                     setWorkoutList(prevWorkouts => Array.isArray(prevWorkouts) ? prevWorkouts.filter(workout => workout.workoutId !== idToRemove) : []);
                 })
