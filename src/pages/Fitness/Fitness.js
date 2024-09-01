@@ -7,19 +7,30 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { dateFormatter } from '../../utils/helper';
 import apiUrl from '../../const/const';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Fitness() {
 
     const today = new Date();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialDate = queryParams.get('date') ? new Date(queryParams.get('date') + 'T00:00:00-05:00') : today;
+
     const [workoutList, setWorkoutList] = useState([]);
-    const [chosenDate, setChosenDate] = useState(today);
-    const [formattedDate, setFormattedDate] = useState(dateFormatter(today));
+    const [chosenDate, setChosenDate] = useState(initialDate);
+    const [formattedDate, setFormattedDate] = useState(dateFormatter(initialDate));
     const [count, setCount] = useState(0);
     const [duration, setDuration] = useState(0);
 
     useEffect(() => {
         setFormattedDate(dateFormatter(chosenDate));
     }, [chosenDate]);
+
+    useEffect(() => {
+        // Update the URL with the selected date in UTC
+        navigate(`?date=${chosenDate.toISOString().split('T')[0]}`);
+    }, [chosenDate, navigate]);
 
     const [formInputData, setFormInputData] = useState({
         titleInput: "",
@@ -28,9 +39,7 @@ function Fitness() {
     });
 
     const [feedback, setFeedback] = useState("");
-
     const [editId, setEditId] = useState(null);
-
     const loggedInUser = localStorage.getItem("user_email");
 
     // Fetch workouts from the backend
