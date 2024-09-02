@@ -122,7 +122,8 @@ function Fitness() {
                     videoUrl: formInputData.videoUrlInput,
                     duration: formInputData.durationInput,
                     user_email: loggedInUser,
-                    dayCreated: today
+                    dayCreated: today,
+                    status: "False"
                 };
 
                 axios.post(`${apiUrl}/add`, newWorkout)
