@@ -6,7 +6,6 @@ import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { dateFormatter } from '../../utils/helper';
-import apiUrl from '../../const/const';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Fitness() {
@@ -44,7 +43,7 @@ function Fitness() {
 
     // Fetch workouts from the backend
     useEffect(() => {
-        fetch(`${apiUrl}/workout/${loggedInUser}/${formattedDate}`)
+        fetch(`${process.env.REACT_APP_API_URL}/workout/${loggedInUser}/${formattedDate}`)
             .then(res => res.json())
             .then(res => {
                 setWorkoutList(res.workouts)
@@ -53,7 +52,7 @@ function Fitness() {
     }, [formattedDate, loggedInUser]);
 
     useEffect(() => {
-        fetch(`${apiUrl}/workout/${loggedInUser}/${formattedDate}`)
+        fetch(`${process.env.REACT_APP_API_URL}/workout/${loggedInUser}/${formattedDate}`)
             .then(res => res.json())
             .then(res => {
                 setCount(res.count)
@@ -103,7 +102,7 @@ function Fitness() {
 
             // edit workout
             if (editId !== null) {
-                axios.put(`${apiUrl}/edit/${editId}`, {
+                axios.put(`${process.env.REACT_APP_API_URL}/edit/${editId}`, {
                     workoutId: editId,
                     title: formInputData.titleInput,
                     videoUrl: formInputData.videoUrlInput,
@@ -126,7 +125,7 @@ function Fitness() {
                     status: "False"
                 };
 
-                axios.post(`${apiUrl}/add`, newWorkout)
+                axios.post(`${process.env.REACT_APP_API_URL}/add`, newWorkout)
                     .then(res => {
                         if (res.data === "Success") {
                             setWorkoutList(prevWorkouts => [
@@ -144,7 +143,7 @@ function Fitness() {
 
     function removeWorkout(idToRemove) {
         if (window.confirm("Are you sure you want to delete this workout?")) {
-            axios.delete(`${apiUrl}/delete/${idToRemove}`)
+            axios.delete(`${process.env.REACT_APP_API_URL}/delete/${idToRemove}`)
                 .then(res => {
                     setWorkoutList(prevWorkouts => Array.isArray(prevWorkouts) ? prevWorkouts.filter(workout => workout.workoutId !== idToRemove) : []);
                 })

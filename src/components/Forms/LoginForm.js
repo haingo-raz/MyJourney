@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Form.scss';
-import apiUrl from '../../const/const';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../redux/reducer/userSlice';
 
@@ -17,7 +16,7 @@ function LoginForm(props) {
     function handleSubmit(e) {
         e.preventDefault();
         // Pass data to the backend
-        axios.post(apiUrl + '/login', {
+        axios.post(process.env.REACT_APP_API_URL + '/login', {
             email: email,
             password: password
         })

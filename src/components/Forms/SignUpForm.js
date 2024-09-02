@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Form.scss';
 import axios from 'axios';
-import apiUrl from '../../const/const';
 
 function SignUpForm() {
     const [email, setEmail] = useState("");
@@ -13,7 +12,7 @@ function SignUpForm() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post(apiUrl + '/signup', {
+        axios.post(process.env.REACT_APP_API_URL + '/signup', {
             email: email,
             password: password
         })
