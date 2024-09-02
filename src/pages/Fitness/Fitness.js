@@ -132,6 +132,7 @@ function Fitness() {
                             setWorkoutList(prevWorkouts => [
                                 ...prevWorkouts, newWorkout
                             ]);
+                            setFeedback("Workout added successfully.");
                         }
                     })
                     .catch(err => console.log(err));
