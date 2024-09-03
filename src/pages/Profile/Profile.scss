@@ -1,3 +1,5 @@
+@import "./../../App.scss";
+
 .profileContainer {
   display: flex;
   flex-direction: column;
@@ -10,4 +12,8 @@
   gap: 20px;
   margin-top: 45px;
   padding-bottom: 20px;
+}
+
+.no-match {
+  border: 1px solid red;
 }

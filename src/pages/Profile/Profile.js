@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Profile.scss";
 import Navbar from '../../components/Navbar/Navbar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../redux/reducer/userSlice';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ function Profile(props) {
 
     const [emailChangeData, setEmailChangeData] = useState([]);
     const [passwordChangeData, setPasswordChangeData] = useState([]);
+    const [isPasswordMatching, setIsPasswordMatching] = useState(false);
     const [feedback, setFeedback] = useState("");
     const [formData, setFormData] = useState("password");
 
@@ -19,7 +20,7 @@ function Profile(props) {
     const dispatch = useDispatch();
 
     const onEmailChange = (e) => {
-        const newInput = (data) => ({...data, [e.target.name]: e.target.value});
+        const newInput = (data) => ({ ...data, [e.target.name]: e.target.value });
         setEmailChangeData(newInput);
     }
 
@@ -31,24 +32,58 @@ function Profile(props) {
                 newEmail: emailChangeData.newEmail,
                 password: emailChangeData.password
             })
-            .then (res => {
-                console.log(res.data);
-                if (res.data === "Success") {
-                    setFeedback("Email updated successfully")
-                    localStorage.setItem("user_email", emailChangeData.newEmail);
-                } else {
-                    setFeedback("Invalid password. Please try again.")
-                }
-            })
-            .catch(err => setFeedback(err))
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data === "Success") {
+                        setFeedback("Email updated successfully")
+                        localStorage.setItem("user_email", emailChangeData.newEmail);
+                    } else {
+                        setFeedback("Invalid password. Please try again.")
+                    }
+                })
+                .catch(err => setFeedback(err))
         } else {
-            setFeedback("Email update cancelled")
-            return;
+            setFeedback("Email update cancelled.")
         }
     }
 
-    const onEditPasswordSubmit = (e) => {
+    const onPasswordChange = (e) => {
+        const newInput = (data) => ({ ...data, [e.target.name]: e.target.value });
+        setPasswordChangeData(newInput);
+    }
+
+    useEffect(() => {
+        if (passwordChangeData.confirmPassword && (passwordChangeData.newPassword === passwordChangeData.confirmPassword)) {
+            setIsPasswordMatching(true);
+        } else {
+            setIsPasswordMatching(false);
+        }
+    }, [passwordChangeData.newPassword, passwordChangeData.confirmPassword])
+
+    const onEditPasswordSubmit = async (e) => {
         e.preventDefault();
+        if (!isPasswordMatching) {
+            setFeedback("The confirmed password field should match with the first one.")
+        } else {
+            if (window.confirm("Are you sure you want to change your password?")) {
+                try {
+                    const res = await axios.put(process.env.REACT_APP_API_URL + '/update-password', {
+                        email: loggedInUser,
+                        newPassword: passwordChangeData.newPassword,
+                        password: passwordChangeData.currentPassword
+                    });
+                    if (res.data === "Success") {
+                        setFeedback("Password updated successfully.")
+                    } else {
+                        setFeedback("Invalid password. Please try again.")
+                    }
+                } catch (err) {
+                    setFeedback(err.message);
+                }
+            } else {
+                setFeedback("Password update cancelled.")
+            }
+        }
     }
 
     const onLogout = () => {
@@ -89,24 +124,24 @@ function Profile(props) {
 
                                 <div className="formSection">
                                     <p className="formLabel">New Email*</p>
-                                    <input 
-                                        type="email" 
-                                        id="newEmail" 
-                                        name="newEmail" 
+                                    <input
+                                        type="email"
+                                        id="newEmail"
+                                        name="newEmail"
                                         value={emailChangeData.newEmail}
-                                        onChange = {onEmailChange}
+                                        onChange={onEmailChange}
                                         required
                                     />
                                 </div>
 
                                 <div className="formSection">
                                     <p className="formLabel">Password<span>*</span></p>
-                                    <input 
-                                        type="password" 
-                                        id="password" 
-                                        name="password" 
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
                                         value={emailChangeData.password}
-                                        onChange = {onEmailChange}
+                                        onChange={onEmailChange}
                                         required
                                     />
                                 </div>
@@ -120,22 +155,50 @@ function Profile(props) {
 
                                 <div className="formSection">
                                     <p className="formLabel">New Password<span>*</span></p>
-                                    <input type="newPassword" id="newPassword" name="newPassword" required></input>
+                                    <input
+                                        type="password"
+                                        id="newPassword"
+                                        name="newPassword"
+                                        value={passwordChangeData.newPassword}
+                                        onChange={onPasswordChange}
+                                        required
+                                    />
                                 </div>
 
                                 <div className="formSection">
                                     <p className="formLabel">Confirm password<span>*</span></p>
-                                    <input type="confirmPassword" id="confirmPassword" name="confirmPassword" required></input>
+                                    <input
+                                        type="password"
+                                        id="confirmPassword"
+                                        className={isPasswordMatching ? "" : "no-match"}
+                                        title={isPasswordMatching ? "" : "The password should match with the above password." }
+                                        name="confirmPassword"
+                                        value={passwordChangeData.confirmPassword}
+                                        onChange={onPasswordChange}
+                                        required
+                                    />
                                 </div>
 
                                 <div className="formSection">
                                     <p className="formLabel">Password<span>*</span></p>
-                                    <input type="password" id="password" name="password" required></input>
+                                    <input
+                                        type="password"
+                                        id="currentPassword"
+                                        name="currentPassword"
+                                        value={passwordChangeData.currentPassword}
+                                        onChange={onPasswordChange}
+                                        required
+                                    />
                                 </div>
 
                                 <div id="workout-form-feedback">{feedback}</div>
 
-                                <button type="submit" className="formButton">Update</button>
+                                <button 
+                                    type="submit" 
+                                    className="formButton" 
+                                >
+                                    Update
+                                </button>
                             </form>
                         }
                     </div>
