@@ -6,21 +6,19 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../redux/reducer/userSlice';
 import axios from 'axios';
 
-function Profile(props) {
-
-    const [emailChangeData, setEmailChangeData] = useState([]);
-    const [passwordChangeData, setPasswordChangeData] = useState([]);
+function Profile() {
+    const [emailChangeData, setEmailChangeData] = useState({});
+    const [passwordChangeData, setPasswordChangeData] = useState({});
     const [isPasswordMatching, setIsPasswordMatching] = useState(false);
     const [feedback, setFeedback] = useState("");
     const [formData, setFormData] = useState("password");
 
-    // const loggedInUser = useSelector((state) => state.user.email);
     const loggedInUser = localStorage.getItem("user_email");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const onEmailChange = (e) => {
-        const newInput = (data) => ({ ...data, [e.target.name]: e.target.value });
+        const newInput = { ...emailChangeData, [e.target.name]: e.target.value };
         setEmailChangeData(newInput);
     }
 
@@ -36,6 +34,7 @@ function Profile(props) {
                     console.log(res.data);
                     if (res.data === "Success") {
                         setFeedback("Email updated successfully")
+                        setEmailChangeData({})
                         localStorage.setItem("user_email", emailChangeData.newEmail);
                     } else {
                         setFeedback("Invalid password. Please try again.")
@@ -48,7 +47,7 @@ function Profile(props) {
     }
 
     const onPasswordChange = (e) => {
-        const newInput = (data) => ({ ...data, [e.target.name]: e.target.value });
+        const newInput = { ...passwordChangeData, [e.target.name]: e.target.value };
         setPasswordChangeData(newInput);
     }
 
@@ -74,6 +73,7 @@ function Profile(props) {
                     });
                     if (res.data === "Success") {
                         setFeedback("Password updated successfully.")
+                        setPasswordChangeData({})
                     } else {
                         setFeedback("Invalid password. Please try again.")
                     }
@@ -103,7 +103,6 @@ function Profile(props) {
             <Navbar />
             <div className="profileContainer">
                 <section className="profileSection">
-
                     <div className="accountForm">
                         <h1 className="formTitle">My profile</h1>
                         <div className="formSection">
@@ -128,7 +127,7 @@ function Profile(props) {
                                         type="email"
                                         id="newEmail"
                                         name="newEmail"
-                                        value={emailChangeData.newEmail}
+                                        value={emailChangeData.newEmail || ""}
                                         onChange={onEmailChange}
                                         required
                                     />
@@ -140,7 +139,7 @@ function Profile(props) {
                                         type="password"
                                         id="password"
                                         name="password"
-                                        value={emailChangeData.password}
+                                        value={emailChangeData.password || ""}
                                         onChange={onEmailChange}
                                         required
                                     />
@@ -159,7 +158,7 @@ function Profile(props) {
                                         type="password"
                                         id="newPassword"
                                         name="newPassword"
-                                        value={passwordChangeData.newPassword}
+                                        value={passwordChangeData.newPassword || ""}
                                         onChange={onPasswordChange}
                                         required
                                     />
@@ -171,9 +170,9 @@ function Profile(props) {
                                         type="password"
                                         id="confirmPassword"
                                         className={isPasswordMatching ? "" : "no-match"}
-                                        title={isPasswordMatching ? "" : "The password should match with the above password." }
+                                        title={isPasswordMatching ? "" : "The password should match with the above password."}
                                         name="confirmPassword"
-                                        value={passwordChangeData.confirmPassword}
+                                        value={passwordChangeData.confirmPassword || ""}
                                         onChange={onPasswordChange}
                                         required
                                     />
@@ -185,7 +184,7 @@ function Profile(props) {
                                         type="password"
                                         id="currentPassword"
                                         name="currentPassword"
-                                        value={passwordChangeData.currentPassword}
+                                        value={passwordChangeData.currentPassword || ""}
                                         onChange={onPasswordChange}
                                         required
                                     />
@@ -193,9 +192,9 @@ function Profile(props) {
 
                                 <div id="workout-form-feedback">{feedback}</div>
 
-                                <button 
-                                    type="submit" 
-                                    className="formButton" 
+                                <button
+                                    type="submit"
+                                    className="formButton"
                                 >
                                     Update
                                 </button>
@@ -205,15 +204,12 @@ function Profile(props) {
                     <form action="" className="accountForm" onSubmit={onLogout}>
                         <h1 className="formTitle">Log out</h1>
                         <button className="formButton" type="submit"><b>Logout</b></button>
-                        {feedback && <p>{feedback}</p>}
                     </form>
 
                     <form action="" className="accountForm" onSubmit={onDeleteAccount}>
                         <h1 className="formTitle">Danger zone</h1>
                         <button className="formButton danger" type="submit"><b>Delete Account</b></button>
-                        {feedback && <p>{feedback}</p>}
                     </form>
-
                 </section>
             </div>
         </>

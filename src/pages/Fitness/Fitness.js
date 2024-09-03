@@ -9,7 +9,6 @@ import { dateFormatter } from '../../utils/helper';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Fitness() {
-
     const today = new Date();
     const navigate = useNavigate();
     const location = useLocation();
@@ -108,12 +107,12 @@ function Fitness() {
                     videoUrl: formInputData.videoUrlInput,
                     duration: formInputData.durationInput
                 })
-                .then(res => {
-                    console.log(res)
-                    setWorkoutList(res)
-                    window.location.reload();
-                })
-                .catch(err => console.log(err));
+                    .then(res => {
+                        console.log(res)
+                        setWorkoutList(res)
+                        window.location.reload();
+                    })
+                    .catch(err => console.log(err));
                 setEditId(null);
             } else {
                 const newWorkout = {
@@ -149,8 +148,7 @@ function Fitness() {
                 })
                 .catch(err => console.log(err));
         }
-    };    
-
+    };
 
     function handleEditWorkout(idToEdit, title, duration, videoUrl) {
         setFormInputData(prevData => ({
@@ -205,20 +203,20 @@ function Fitness() {
 
     return (
         <>
-            <Navbar/>
+            <Navbar />
             <div className="fitnessPage">
                 <section className="workoutSection">
                     <div className="sectionTitle">
                         <h1>
                             My fitness program :
                         </h1>
-                        <DatePicker 
-                            selected={chosenDate} 
-                            onChange={(date) => handleDateChange(date)} 
+                        <DatePicker
+                            selected={chosenDate}
+                            onChange={(date) => handleDateChange(date)}
                         />
                     </div>
 
-                    <div className="workoutInfo"> 
+                    <div className="workoutInfo">
                         <h3>Number of exercises:</h3>
                         <span> {count}</span>
                         <h3>Total duration:</h3>
@@ -254,8 +252,8 @@ function Fitness() {
                                 type="text"
                                 name="titleInput"
                                 value={formInputData.titleInput}
-                                onChange={handleChange} 
-                                required/>
+                                onChange={handleChange}
+                                required />
                         </div>
                         <div className="formSection">
                             <p className="formLabel">Duration (in minutes)<span>*</span></p>
@@ -263,8 +261,8 @@ function Fitness() {
                                 type="number"
                                 name="durationInput"
                                 value={formInputData.durationInput}
-                                onChange={handleChange} 
-                                required/>
+                                onChange={handleChange}
+                                required />
                         </div>
                         <div className="formSection">
                             <p className="formLabel">Video url<span>*</span></p>
@@ -272,8 +270,8 @@ function Fitness() {
                                 type="text"
                                 name="videoUrlInput"
                                 value={formInputData.videoUrlInput}
-                                onChange={handleChange} 
-                                required/>
+                                onChange={handleChange}
+                                required />
                         </div>
                         <div id="workout-form-feedback">{feedback}</div>
 

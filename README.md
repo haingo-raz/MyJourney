@@ -12,6 +12,7 @@ MyJourney is a web application where users can:
 - SCSS
 ## Backend
 - Node.js/Express
+- AzureSQL
 - MySQL
 
 # UI
@@ -36,14 +37,12 @@ MyJourney is a web application where users can:
 # Future work
 * Develop a chatbot that can answer basic and customized questions.
 * Add a statistics page or perform data analysis.
-* Display past workout history.
 * Duplicate a past workout history for the current day.
-* Rearrange the order of workouts with drag and drop.
 * Add the possibility to reschedule a workout item for the next day.
 
 # How to run it on your computer
 
-This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-API) and a MySQL database to work. However, here are the steps to run the frontend on your computer:
+This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-API) and an Azure SQL (or MySQL) database to work. However, here are the steps to run the frontend on your computer:
 
 1. Clone the project using the command `git clone https://github.com/haingo-raz/MyJourney.git`.
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import "./Navbar.scss";
+import './Navbar.scss';
 import { Link } from 'react-router-dom';
 
-function Navbar(props) {
+function Navbar() {
     return (
         <div className="logo">
             <Link to="/home"><i>MJ</i></Link>
