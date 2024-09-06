@@ -55,3 +55,6 @@ This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-AP
 * Add a statistics page or perform data analysis.
 * Duplicate a past workout history for the current day.
 * Add the possibility to reschedule a workout item for the next day.
+
+# Useful ressources
+- [Redux persist tutorial](https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/)
