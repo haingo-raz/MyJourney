@@ -1,26 +1,16 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useRoutes } from 'react-router-dom';
+import routes from './routes/routes';
 import './App.scss';
-import Account from './pages/Account/Account';
-import LoginForm from './components/Forms/LoginForm';
-import SignUpForm from './components/Forms/SignUpForm';
-import Home from './pages/Home/Home';
-import Fitness from './pages/Fitness/Fitness';
-import Profile from './pages/Profile/Profile';
-import Chatbot from './components/Chatbot/Chatbot';
 
 function App() {
+  const isLoggedIn  = useSelector((state) => state.user.isLoggedIn);
+  const routing = useRoutes(routes(isLoggedIn));
+
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Account component={<LoginForm />} />} />
-        <Route path="/signup" element={<Account component={<SignUpForm />} />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/fitness" element={<Fitness />} />
-        <Route path="/chat" element={<Chatbot />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      {routing}
     </div>
   );
 }

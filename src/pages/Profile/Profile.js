@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Profile.scss";
 import Navbar from '../../components/Navbar/Navbar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/reducer/userSlice';
 import axios from 'axios';
 
@@ -13,7 +13,8 @@ function Profile() {
     const [feedback, setFeedback] = useState("");
     const [formData, setFormData] = useState("password");
 
-    const loggedInUser = localStorage.getItem("user_email");
+    const loggedInUser = useSelector((state) => state.user.email);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
