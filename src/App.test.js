@@ -47,7 +47,7 @@ describe('App Component', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <Account element={<LoginForm />} />
+          <Account component={<LoginForm />} />
         </MemoryRouter>
       </Provider>
     );
@@ -68,7 +68,7 @@ describe('App Component', () => {
   test('renders signup screen', () => {
     render(
       <MemoryRouter>
-        <Account element={<SignUpForm/>} />
+        <Account component={<SignUpForm/>} />
       </MemoryRouter>
     );
 
@@ -86,7 +86,7 @@ describe('App Component', () => {
 
     render(
       <MemoryRouter>
-        <SignUpForm />
+        <Account component={<SignUpForm/>} />
       </MemoryRouter>
     );
 
