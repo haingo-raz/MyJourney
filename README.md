@@ -23,7 +23,7 @@ This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-AP
 
 1. Clone the project using the command `git clone https://github.com/haingo-raz/MyJourney.git`.
 
-2. Install the required libraries using `npm install`.
+2. Install the project dependencies using `npm install`.
 
 3. Set up the environment variable by creating a .env file. Follow the content of the example.env file. The default URL of the [Node.js API](https://github.com/haingo-raz/MyJourney-API) is `http://localhost:8080` when run locally.
 
@@ -58,3 +58,4 @@ This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-AP
 
 # Useful ressources
 - [Redux persist tutorial](https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/)
+- [Testing with jest and React Testing library](https://www.digitalocean.com/community/tutorials/how-to-test-a-react-app-with-jest-and-react-testing-library)
