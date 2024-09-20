@@ -13,7 +13,7 @@ function Fitness() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const initialDate = queryParams.get('date') ? new Date(queryParams.get('date') + 'T00:00:00-05:00') : today;
+    const initialDate = queryParams.get('date') ? new Date(queryParams.get('date')) : today;
 
     const [workoutList, setWorkoutList] = useState([]);
     const [chosenDate, setChosenDate] = useState(initialDate);
@@ -120,7 +120,7 @@ function Fitness() {
                     videoUrl: formInputData.videoUrlInput,
                     duration: formInputData.durationInput,
                     user_email: loggedInUser,
-                    dayCreated: today,
+                    dayCreated: dateFormatter(today),
                     status: "False"
                 };
 
