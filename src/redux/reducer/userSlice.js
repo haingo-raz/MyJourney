@@ -17,8 +17,11 @@ const userSlice = createSlice({
       state.email = null;
       state.isLoggedIn = false;
     },
+    updateEmail: (state, action) => {
+      state.email = action.payload
+    }
   },
 });
 
-export const { loginUser, logoutUser } = userSlice.actions;
+export const { loginUser, logoutUser, updateEmail } = userSlice.actions;
 export default userSlice.reducer;

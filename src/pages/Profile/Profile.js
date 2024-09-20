@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "./Profile.scss";
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../redux/reducer/userSlice';
+import { logoutUser, updateEmail } from '../../redux/reducer/userSlice';
 import axios from 'axios';
 
 function Profile() {
@@ -38,6 +38,7 @@ function Profile() {
                         setFeedback("Email updated successfully")
                         setEmailChangeData({})
                         localStorage.setItem("user_email", emailChangeData.newEmail);
+                        dispatch(updateEmail(emailChangeData.newEmail));
                     } else {
                         setFeedback("Invalid password. Please try again.")
                     }
