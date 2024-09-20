@@ -10,8 +10,9 @@ function Profile() {
     const [emailChangeData, setEmailChangeData] = useState({});
     const [passwordChangeData, setPasswordChangeData] = useState({});
     const [accountDeletePassword, setAccountDeletePassword] = useState();
-    const [isPasswordMatching, setIsPasswordMatching] = useState(false);
+    const [isPasswordMatching, setIsPasswordMatching] = useState(true);
     const [feedback, setFeedback] = useState("");
+    const [dangerZonefeedback, setDangerZoneFeedback] = useState("");
     const [formData, setFormData] = useState("password");
 
     const loggedInUser = useSelector((state) => state.user.email);
@@ -55,7 +56,7 @@ function Profile() {
     }
 
     useEffect(() => {
-        if (passwordChangeData.confirmPassword && (passwordChangeData.newPassword === passwordChangeData.confirmPassword)) {
+        if ( passwordChangeData.newPassword === passwordChangeData.confirmPassword ) {
             setIsPasswordMatching(true);
         } else {
             setIsPasswordMatching(false);
@@ -112,11 +113,12 @@ function Profile() {
                         dispatch(logoutUser());
                         navigate("/");
                     } else {
-                        setFeedback("Invalid password. Please try again.")
+                        setDangerZoneFeedback("Invalid password. Please try again.")
                     }
                 })
-                .catch(err => setFeedback(err))
+                .catch(err => setDangerZoneFeedback(err))
         }
+        alert("Your account has been deleted.")
     }
 
     return (
@@ -241,7 +243,7 @@ function Profile() {
                             />
                         </div>
                         <button className="formButton danger" type="submit"><b>Delete Account</b></button>
-                        <div>{feedback}</div>
+                        <div>{dangerZonefeedback}</div>
                     </form>
                 </section>
             </div>
