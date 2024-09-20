@@ -9,6 +9,7 @@ import axios from 'axios';
 function Profile() {
     const [emailChangeData, setEmailChangeData] = useState({});
     const [passwordChangeData, setPasswordChangeData] = useState({});
+    const [accountDeletePassword, setAccountDeletePassword] = useState();
     const [isPasswordMatching, setIsPasswordMatching] = useState(false);
     const [feedback, setFeedback] = useState("");
     const [formData, setFormData] = useState("password");
@@ -96,7 +97,25 @@ function Profile() {
     }
 
     const onDeleteAccount = (e) => {
-        // Handle account deletion
+        e.preventDefault();
+        if (window.confirm("Are you sure you want to delete your account? This action is irreversible.")) {
+            axios.delete(process.env.REACT_APP_API_URL + '/delete-account', {
+                data: {
+                    email: loggedInUser,
+                    password: accountDeletePassword
+                }
+            })
+                .then(res => {
+                    if (res.data === "Success") {
+                        localStorage.removeItem("user_email");
+                        dispatch(logoutUser());
+                        navigate("/");
+                    } else {
+                        setFeedback("Invalid password. Please try again.")
+                    }
+                })
+                .catch(err => setFeedback(err))
+        }
     }
 
     return (
@@ -107,7 +126,7 @@ function Profile() {
                     <div className="accountForm">
                         <h1 className="formTitle">My profile</h1>
                         <div className="formSection">
-                            <p className="formLabel">Email</p>
+                            <label className="formLabel">Email</label>
                             <input type="email" id="email" name="email" required value={loggedInUser} readOnly></input>
                         </div>
 
@@ -123,7 +142,7 @@ function Profile() {
                                 <p>Update your email</p>
 
                                 <div className="formSection">
-                                    <p className="formLabel">New Email*</p>
+                                    <label className="formLabel">New Email*</label>
                                     <input
                                         type="email"
                                         id="newEmail"
@@ -135,7 +154,7 @@ function Profile() {
                                 </div>
 
                                 <div className="formSection">
-                                    <p className="formLabel">Password<span>*</span></p>
+                                    <label className="formLabel">Password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="password"
@@ -146,7 +165,7 @@ function Profile() {
                                     />
                                 </div>
 
-                                <div id="workout-form-feedback">{feedback}</div>
+                                <div>{feedback}</div>
                                 <button type="submit" className="formButton">Update</button>
                             </form>
                             :
@@ -154,7 +173,7 @@ function Profile() {
                                 <p>Update your password</p>
 
                                 <div className="formSection">
-                                    <p className="formLabel">New Password<span>*</span></p>
+                                    <label className="formLabel">New Password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="newPassword"
@@ -166,7 +185,7 @@ function Profile() {
                                 </div>
 
                                 <div className="formSection">
-                                    <p className="formLabel">Confirm password<span>*</span></p>
+                                    <label className="formLabel">Confirm password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="confirmPassword"
@@ -180,7 +199,7 @@ function Profile() {
                                 </div>
 
                                 <div className="formSection">
-                                    <p className="formLabel">Password<span>*</span></p>
+                                    <label className="formLabel">Password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="currentPassword"
@@ -191,7 +210,7 @@ function Profile() {
                                     />
                                 </div>
 
-                                <div id="workout-form-feedback">{feedback}</div>
+                                <div>{feedback}</div>
 
                                 <button
                                     type="submit"
@@ -209,7 +228,19 @@ function Profile() {
 
                     <form action="" className="accountForm" onSubmit={onDeleteAccount}>
                         <h1 className="formTitle">Danger zone</h1>
+                        <label className="formLabel">Password<span>*</span></label>
+                        <div className="formSection">
+                            <input
+                                type="password"
+                                id="password-delete"
+                                name="password-delete"
+                                value={accountDeletePassword || ""}
+                                onChange={(e) => setAccountDeletePassword(e.target.value)}
+                                required
+                            />
+                        </div>
                         <button className="formButton danger" type="submit"><b>Delete Account</b></button>
+                        <div>{feedback}</div>
                     </form>
                 </section>
             </div>

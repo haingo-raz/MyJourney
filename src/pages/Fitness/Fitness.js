@@ -273,7 +273,7 @@ function Fitness() {
                                 onChange={handleChange}
                                 required />
                         </div>
-                        <div id="workout-form-feedback">{feedback}</div>
+                        <div>{feedback}</div>
 
                         <button type="submit" className="formButton">{editId !== null ? "Save" : "Submit"}</button>
                     </form>
