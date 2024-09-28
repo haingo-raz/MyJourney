@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import "./Chatbot.scss";
 import "../Forms/Form.scss";
+import axios from 'axios';
 
 function Chatbot(props) {
     const [userMessage, setUserMessage] = React.useState("");
@@ -9,14 +10,30 @@ function Chatbot(props) {
     const questions = [
         "What is the best workout for me?",
         "How many times should I workout in a week?",
-    ]
+    ];
 
-    const updateMessage = (e) => { 
-        e.preventDefault();
-        setMessageHistory([...messageHistory, userMessage]);
+    function fetchResponse(newMessageHistory) {
+        axios.post(process.env.REACT_APP_API_URL + '/chat', { userMessage })
+            .then(res => {
+                setMessageHistory([...newMessageHistory, res.data]);
+            });
         document.getElementById("userMessage").value = "";
-        // Backend logic
     }
+
+    const updateMessage = async (e) => {
+        e.preventDefault();
+        const newMessageHistory = [...messageHistory, userMessage];
+        setMessageHistory(newMessageHistory);
+        fetchResponse(newMessageHistory);
+    };
+
+    const addQuestion = (e) => {
+        e.preventDefault();
+        const newMessageHistory = [...messageHistory, e.target.textContent];
+        setMessageHistory(newMessageHistory);
+        setUserMessage(e.target.textContent);
+        fetchResponse(newMessageHistory);
+    };
 
     return (
         <>
@@ -27,12 +44,12 @@ function Chatbot(props) {
                         <h1>Ask questions about your workout journey</h1>
                     </div>
                     <div className="questions">
-                        { questions.map((question, index) => {
+                        {questions.map((question, index) => {
                             return (
-                                <div className="question" key={index}>
+                                <div className="question" key={index} onClick={addQuestion}>
                                     <p>{question}</p>
                                 </div>
-                            )
+                            );
                         })}
                     </div>
                     <form className="chatbot" onSubmit={updateMessage}>
@@ -44,7 +61,7 @@ function Chatbot(props) {
                                             <p>{message}</p>
                                         </div>
                                     </div>
-                                )
+                                );
                             })}
                         </div>
                         <div className="message_input">
@@ -52,8 +69,8 @@ function Chatbot(props) {
                             <button className="formButton" type="submit">Send</button>
                         </div>
                     </form>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </>
     );
 }
