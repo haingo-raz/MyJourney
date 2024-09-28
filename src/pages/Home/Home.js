@@ -8,6 +8,11 @@ function Home() {
             <Navbar />
             <div className="homeSection">
                 <section className="section-1">
+                    <h1>My Journey</h1>
+                    <p>Manage and enhance your fitness journey.</p>
+                </section>
+
+                <section className="section-2">
                     <div>
                         <h1>My Fitness Program</h1>
                         <p>Manage your fitness journey. Create your own workout routine.</p>
@@ -15,9 +20,6 @@ function Home() {
                     <div className="homeButton">
                         <button onClick={() => (window.location.href = "/fitness")}>LET'S GO</button>
                     </div>
-                </section>
-
-                <section className="section-2">
                     <div>
                         <h1>Chat</h1>
                         <p>Learn about workouts and fitness journey.</p>

@@ -224,27 +224,29 @@ function Profile() {
                             </form>
                         }
                     </div>
-                    <form action="" className="accountForm" onSubmit={onLogout}>
-                        <h1 className="formTitle">Log out</h1>
-                        <button className="formButton" type="submit"><b>Logout</b></button>
-                    </form>
+                    <div className="accountStatusActions">
+                        <form action="" className="accountForm" onSubmit={onLogout}>
+                            <h1 className="formTitle">Log out</h1>
+                            <button className="formButton" type="submit"><b>Logout</b></button>
+                        </form>
 
-                    <form action="" className="accountForm" onSubmit={onDeleteAccount}>
-                        <h1 className="formTitle">Danger zone</h1>
-                        <label className="formLabel">Password<span>*</span></label>
-                        <div className="formSection">
-                            <input
-                                type="password"
-                                id="password-delete"
-                                name="password-delete"
-                                value={accountDeletePassword || ""}
-                                onChange={(e) => setAccountDeletePassword(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <button className="formButton danger" type="submit"><b>Delete Account</b></button>
-                        <div>{dangerZonefeedback}</div>
-                    </form>
+                        <form action="" className="accountForm" onSubmit={onDeleteAccount}>
+                            <h1 className="formTitle">Danger zone</h1>
+                            <label className="formLabel">Password<span>*</span></label>
+                            <div className="formSection">
+                                <input
+                                    type="password"
+                                    id="password-delete"
+                                    name="password-delete"
+                                    value={accountDeletePassword || ""}
+                                    onChange={(e) => setAccountDeletePassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <button className="formButton danger" type="submit"><b>Delete Account</b></button>
+                            <div>{dangerZonefeedback}</div>
+                        </form>
+                    </div>
                 </section>
             </div>
         </>

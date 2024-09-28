@@ -4,7 +4,6 @@
     display: flex;
     min-height: 90vh;
     width: 90vw;
-    background: $dark-brown;
 
     section{
         width: 50%;
@@ -27,17 +26,17 @@
     overflow: auto;
     max-height: 60vh;
     padding: 15px;
-    box-shadow: 0 4px 3px -2px $white;
+    box-shadow: 0 4px 3px -2px $form-text;
 }
 
 .workoutSection{
-    color: $beige;
+    color: $form-text;
 
     .sectionTitle{
         width: 100%;
         padding-bottom: 15px;
         margin-bottom: 15px;
-        border-bottom: 2px solid $beige;
+        border-bottom: 2px solid $form-text;
         display: flex;
         gap: 5px;
         align-items: baseline;
@@ -48,6 +47,7 @@
         display: flex;
         justify-content: space-between;
         padding: 8px;
+        background-color: $white;
     }
 
     .imgContainer{
@@ -69,10 +69,10 @@
         @include buttonStyle;
         width: 150px;
         padding: 5px 10px;
-        border: 1px solid $beige;
+        border: 1px solid $form-text;
         background : none;
         text-decoration: none;
-        color: $beige; 
+        color: $form-text; 
         text-align: center;
     }
 

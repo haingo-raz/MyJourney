@@ -1,7 +1,6 @@
 @import '../../App.scss';
 
 .chatbotPage {
-    min-height: 90vh;
     width: 90vw;
 }
 
@@ -13,7 +12,6 @@
     }
     gap: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 5px $form-text;
     padding: 10px;
 
     .title {
