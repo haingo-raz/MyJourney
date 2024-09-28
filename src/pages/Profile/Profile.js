@@ -124,28 +124,28 @@ function Profile() {
     return (
         <>
             <Navbar />
-            <div className="profileContainer">
-                <section className="profileSection">
-                    <div className="accountForm">
-                        <h1 className="formTitle">My profile</h1>
-                        <div className="formSection">
-                            <label className="formLabel">Email</label>
+            <div className="profile-container">
+                <section className="profile-section">
+                    <div className="account-form">
+                        <h1 className="form-title">My profile</h1>
+                        <div className="form-section">
+                            <label className="form-label">Email</label>
                             <input type="email" id="email" name="email" required value={loggedInUser} readOnly></input>
                         </div>
 
                         <div>
                             {formData === "email" ?
-                                <button className="formButton" onClick={() => setFormData("password")}>Update password instead</button> :
-                                <button className="formButton" onClick={() => setFormData("email")}>Update email instead</button>
+                                <button className="form-button" onClick={() => setFormData("password")}>Update password instead</button> :
+                                <button className="form-button" onClick={() => setFormData("email")}>Update email instead</button>
                             }
                         </div>
 
                         {formData === "email" ?
-                            <form action="POST" className="accountForm" onSubmit={onEditEmailSubmit}>
+                            <form action="POST" className="account-form" onSubmit={onEditEmailSubmit}>
                                 <p>Update your email</p>
 
-                                <div className="formSection">
-                                    <label className="formLabel">New Email*</label>
+                                <div className="form-section">
+                                    <label className="form-label">New Email*</label>
                                     <input
                                         type="email"
                                         id="newEmail"
@@ -156,8 +156,8 @@ function Profile() {
                                     />
                                 </div>
 
-                                <div className="formSection">
-                                    <label className="formLabel">Password<span>*</span></label>
+                                <div className="form-section">
+                                    <label className="form-label">Password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="password"
@@ -169,14 +169,14 @@ function Profile() {
                                 </div>
 
                                 <div>{feedback}</div>
-                                <button type="submit" className="formButton">Update</button>
+                                <button type="submit" className="form-button">Update</button>
                             </form>
                             :
-                            <form action="POST" className="accountForm" onSubmit={onEditPasswordSubmit}>
+                            <form action="POST" className="account-form" onSubmit={onEditPasswordSubmit}>
                                 <p>Update your password</p>
 
-                                <div className="formSection">
-                                    <label className="formLabel">New Password<span>*</span></label>
+                                <div className="form-section">
+                                    <label className="form-label">New Password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="newPassword"
@@ -187,8 +187,8 @@ function Profile() {
                                     />
                                 </div>
 
-                                <div className="formSection">
-                                    <label className="formLabel">Confirm password<span>*</span></label>
+                                <div className="form-section">
+                                    <label className="form-label">Confirm password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="confirmPassword"
@@ -201,8 +201,8 @@ function Profile() {
                                     />
                                 </div>
 
-                                <div className="formSection">
-                                    <label className="formLabel">Password<span>*</span></label>
+                                <div className="form-section">
+                                    <label className="form-label">Password<span>*</span></label>
                                     <input
                                         type="password"
                                         id="currentPassword"
@@ -217,23 +217,23 @@ function Profile() {
 
                                 <button
                                     type="submit"
-                                    className="formButton"
+                                    className="form-button"
                                 >
                                     Update
                                 </button>
                             </form>
                         }
                     </div>
-                    <div className="accountStatusActions">
-                        <form action="" className="accountForm" onSubmit={onLogout}>
-                            <h1 className="formTitle">Log out</h1>
-                            <button className="formButton" type="submit"><b>Logout</b></button>
+                    <div className="account-status-actions">
+                        <form action="" className="account-form" onSubmit={onLogout}>
+                            <h1 className="form-title">Log out</h1>
+                            <button className="form-button" type="submit"><b>Logout</b></button>
                         </form>
 
-                        <form action="" className="accountForm" onSubmit={onDeleteAccount}>
-                            <h1 className="formTitle">Danger zone</h1>
-                            <label className="formLabel">Password<span>*</span></label>
-                            <div className="formSection">
+                        <form action="" className="account-form" onSubmit={onDeleteAccount}>
+                            <h1 className="form-title">Danger zone</h1>
+                            <label className="form-label">Password<span>*</span></label>
+                            <div className="form-section">
                                 <input
                                     type="password"
                                     id="password-delete"
@@ -243,7 +243,7 @@ function Profile() {
                                     required
                                 />
                             </div>
-                            <button className="formButton danger" type="submit"><b>Delete Account</b></button>
+                            <button className="form-button danger" type="submit"><b>Delete Account</b></button>
                             <div>{dangerZonefeedback}</div>
                         </form>
                     </div>

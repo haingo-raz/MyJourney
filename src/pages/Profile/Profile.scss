@@ -1,15 +1,15 @@
 @import "./../../App.scss";
 
-.profileContainer {
+.profile-container {
     min-height: 90vh;
     padding: 20px;
-    .profileSection {
+    .profile-section {
         display: flex;
         flex-direction: row;
         gap: 20px;
     }
 
-    .accountStatusActions {
+    .account-status-actions {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -18,6 +18,4 @@
     .no-match {
         border: 1px solid red;
     }
-
-  }
-
+}

@@ -28,18 +28,18 @@ function SignUpForm() {
     }
 
     return (
-        <form className="accountForm" onSubmit={handleSubmit}>
-            <h1 className="formTitle">CREATE A NEW ACCOUNT</h1>
+        <form className="account-form" onSubmit={handleSubmit}>
+            <h1 className="form-title">CREATE A NEW ACCOUNT</h1>
             <p>Already have one? <Link to="/">Log in here</Link></p>
-            <div className="formSection">
-                <label htmlFor="loginEmail" className="formLabel">Email<span>*</span></label>
+            <div className="form-section">
+                <label htmlFor="loginEmail" className="form-label">Email<span>*</span></label>
                 <input type="email" id="loginEmail" name="loginEmail" onChange={e => setEmail(e.target.value)} required />
             </div>
-            <div className="formSection">
-                <label htmlFor="loginPass" className="formLabel">Password<span>*</span></label>
+            <div className="form-section">
+                <label htmlFor="loginPass" className="form-label">Password<span>*</span></label>
                 <input type="password" id="loginPass" name="loginPass" onChange={e => setPassword(e.target.value)} required />
             </div>
-            <button className="formButton" type="submit">Join today</button>
+            <button className="form-button" type="submit">Join today</button>
             {feedback && <p>{feedback}</p>}
         </form>
     );

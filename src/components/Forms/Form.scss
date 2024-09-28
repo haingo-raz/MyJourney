@@ -1,6 +1,6 @@
 @import './../../App.scss';
 
-.accountForm{
+.account-form{
     background: $form-color;
     width: 250px;
     color: $form-text;
@@ -11,13 +11,13 @@
     justify-content: center;
     padding: 35px 50px;
 
-    .formTitle{
+    .form-title{
         font-weight: 400;
         font-size: $titleLg;
         text-align: center;
     }
 
-    .formSection{
+    .form-section{
         width: 100%;
 
         input{
@@ -25,7 +25,7 @@
         }
     }
 
-    .formButton{
+    .form-button{
         @include buttonStyle;
         width: 100%;
         background: $form-text; 

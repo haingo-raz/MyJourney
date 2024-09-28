@@ -1,6 +1,6 @@
 @import './../../App.scss';
 
-.accountPage{
+.account-page{
     width: 90vw;
     height: 90vh;
     display: flex;
@@ -13,7 +13,7 @@
     }
 }
 
-.textWeb{
+.text-web{
     justify-content: center;
     flex-direction: column;
     color: $form-text;
@@ -28,18 +28,18 @@
     }
 }
 
-.formSection{
+.form-section{
     align-items: center;
     justify-content: center;
 }
 
 @media (max-width: 996px) {
-    .textWeb{
+    .text-web{
         h1{
             font-size: $logoMd;
         }
     }
-    .accountPage{
+    .account-page{
         gap: 15px;
         section {
             width: 100%;

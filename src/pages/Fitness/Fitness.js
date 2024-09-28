@@ -178,16 +178,16 @@ function Fitness() {
 
     const WorkoutInstance = ({ id, title, duration, videoUrl }) => {
         return (
-            <div className="workoutInstance">
-                <div className="imgContainer">
+            <div className="workout-instance">
+                <div className="img-container">
                     <img src={getImageSrc(title)} alt="" />
                 </div>
-                <div className="workoutDetails">
-                    <h1 className="workoutTitle">{title}</h1>
+                <div className="workout-details">
+                    <h1 className="workout-title">{title}</h1>
                     <p className="workout duration">{duration}mn</p>
-                    <a href={videoUrl} target="_blank" rel="noreferrer" className="workoutBtn">START</a>
+                    <a href={videoUrl} target="_blank" rel="noreferrer" className="workout-btn">START</a>
                 </div>
-                <div className="formActions">
+                <div className="form-actions">
                     <div>
                         <label>Mark as done </label>
                         <input type="checkbox" />
@@ -204,9 +204,9 @@ function Fitness() {
     return (
         <>
             <Navbar />
-            <div className="fitnessPage">
-                <section className="workoutSection">
-                    <div className="sectionTitle">
+            <div className="fitness-page">
+                <section className="workout-section">
+                    <div className="section-title">
                         <h1>
                             My fitness program :
                         </h1>
@@ -216,14 +216,14 @@ function Fitness() {
                         />
                     </div>
 
-                    <div className="workoutInfo">
+                    <div className="workout-info">
                         <h3>Number of exercises:</h3>
                         <span> {count}</span>
                         <h3>Total duration:</h3>
                         <span> {duration} mn</span>
                     </div>
 
-                    <div className="workoutList" id="workoutList">
+                    <div className="workout-list" id="workout-list">
                         {
                             Array.isArray(workoutList) && workoutList.map((data, index) => {
                                 return (
@@ -241,13 +241,13 @@ function Fitness() {
 
                 </section>
 
-                <section className="workoutForm">
+                <section className="workout-form">
                     {/* Form */}
-                    <form action="POST" className="accountForm" onSubmit={handleSubmit}>
-                        <h1 className="formTitle">ADD WORKOUT</h1>
+                    <form action="POST" className="account-form" onSubmit={handleSubmit}>
+                        <h1 className="form-title">ADD WORKOUT</h1>
                         <p>Add a new workout to your routine here.</p>
-                        <div className="formSection">
-                            <p className="formLabel">Title<span>*</span></p>
+                        <div className="form-section">
+                            <p className="form-label">Title<span>*</span></p>
                             <input
                                 type="text"
                                 name="titleInput"
@@ -255,8 +255,8 @@ function Fitness() {
                                 onChange={handleChange}
                                 required />
                         </div>
-                        <div className="formSection">
-                            <p className="formLabel">Duration (in minutes)<span>*</span></p>
+                        <div className="form-section">
+                            <p className="form-label">Duration (in minutes)<span>*</span></p>
                             <input
                                 type="number"
                                 name="durationInput"
@@ -264,7 +264,7 @@ function Fitness() {
                                 onChange={handleChange}
                                 required />
                         </div>
-                        <div className="formSection">
+                        <div className="form-section">
                             <p className="formLabel">Video url<span>*</span></p>
                             <input
                                 type="text"
@@ -275,7 +275,7 @@ function Fitness() {
                         </div>
                         <div>{feedback}</div>
 
-                        <button type="submit" className="formButton">{editId !== null ? "Save" : "Submit"}</button>
+                        <button type="submit" className="form-button">{editId !== null ? "Save" : "Submit"}</button>
                     </form>
                 </section>
             </div>

@@ -1,11 +1,11 @@
 @import './../../App.scss';
 
-.fitnessPage{
+.fitness-page {
     display: flex;
     min-height: 90vh;
     width: 90vw;
 
-    section{
+    section {
         width: 50%;
         padding: 40px;
         display: flex;
@@ -13,13 +13,13 @@
     }
 }
 
-.workoutInfo {
+.workout-info {
     display: flex;
     gap: 5px;
     align-items: flex-end;
 }
 
-.workoutList{
+.workout-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -29,10 +29,10 @@
     box-shadow: 0 4px 3px -2px $form-text;
 }
 
-.workoutSection{
+.workout-section {
     color: $form-text;
 
-    .sectionTitle{
+    .section-title {
         width: 100%;
         padding-bottom: 15px;
         margin-bottom: 15px;
@@ -42,7 +42,7 @@
         align-items: baseline;
     }
 
-    .workoutInstance{
+    .workout-instance {
         border: 2px solid $beige;
         display: flex;
         justify-content: space-between;
@@ -50,69 +50,69 @@
         background-color: $white;
     }
 
-    .imgContainer{
+    .img-container {
         height: 90px;
 
-        img{
+        img {
             height: 100%;
             border-radius: 5%;
         }
     }
 
-    .workoutDetails{
+    .workout-details {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
     }
 
-    .workoutBtn{
+    .workout-btn {
         @include buttonStyle;
         width: 150px;
         padding: 5px 10px;
         border: 1px solid $form-text;
-        background : none;
+        background: none;
         text-decoration: none;
         color: $form-text; 
         text-align: center;
     }
 
-    .formActions{
+    .form-actions {
         display: flex;
         flex-direction: column;
-        align-items:center;
-        justify-content:center;
+        align-items: center;
+        justify-content: center;
         gap: 15px;
     }
 
-    .icon-actions{
+    .icon-actions {
         display: flex;
         gap: 10px;
 
-        button{
+        button {
             padding: 4px 8px;
         }
     }
 }
 
-.workoutForm{ 
+.workout-form { 
     align-items: center;
     justify-content: center;
 }
 
 @media (max-width: 996px) {
-    .fitnessPage {
+    .fitness-page {
         flex-direction: column;
         width: unset;
-        section{
+        section {
             width: unset;
             padding: 20px;  
         }
     }
-    .workoutList{
+    .workout-list {
         width: 80vw;
     }
-    .workoutSection{
-        .workoutInstance{
+    .workout-section {
+        .workout-instance {
             overflow: auto;
         }
     }

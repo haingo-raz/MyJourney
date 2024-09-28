@@ -36,18 +36,18 @@ function LoginForm(props) {
     }
 
     return (
-        <form action="" className="accountForm" onSubmit={handleSubmit}>
-            <h1 className="formTitle">LOGIN</h1>
+        <form action="" className="account-form" onSubmit={handleSubmit}>
+            <h1 className="form-title">LOGIN</h1>
             <p>New here? <Link to="/signup">Create a new account.</Link></p>
-            <div className="formSection">
-                <label htmlFor="userEmail" className="formLabel">Email<span>*</span></label>
+            <div className="form-section">
+                <label htmlFor="userEmail" className="form-label">Email<span>*</span></label>
                 <input type="email" id="userEmail" name="userEmail" onChange={e => setEmail(e.target.value)} required />
             </div>
-            <div className="formSection">
-                <label htmlFor="userPass" className="formLabel">Password<span>*</span></label>
+            <div className="form-section">
+                <label htmlFor="userPass" className="form-label">Password<span>*</span></label>
                 <input type="password" id="userPass" name="userPass" onChange={e => setPassword(e.target.value)} required />
             </div>
-            <button className="formButton" type="submit"><b>Sign In</b></button>
+            <button className="form-button" type="submit"><b>Sign In</b></button>
             {feedback && <p>{feedback}</p>}
         </form>
     );
