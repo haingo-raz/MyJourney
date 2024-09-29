@@ -14,22 +14,30 @@ MyJourney is a web application where users can:
 
 ## Backend
 - Node.js/Express
-- Azure SQL
-- MySQL
+- MySQL (Azure SQL)
+
+# Other
+- YouTube API
 
 # How to run it on your computer
 
-This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-API) and an Azure SQL (or MySQL) database to work. However, here are the steps to run the frontend on your computer:
+This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-API) and a MySQL (or Azure SQL) database to work. However, here are the steps to run the frontend on your computer:
 
 1. Clone the project using the command `git clone https://github.com/haingo-raz/MyJourney.git`.
 
 2. Install the project dependencies using `npm install`.
 
-3. Set up the environment variable by creating a .env file. Follow the content of the example.env file. The default URL of the [Node.js API](https://github.com/haingo-raz/MyJourney-API) is `http://localhost:8080` when run locally.
+3. Get a YouTube API key to automatically fill entries when creating a workout. Find out how to get your own API [here](https://developers.google.com/youtube/v3/getting-started).
 
-4. Run `npm start`.
+4. Set up the environment variables by creating a .env file. Follow the content of the example.env file. The default URL of the [Node.js API](https://github.com/haingo-raz/MyJourney-API) is `http://localhost:8080` when run locally. Also, add your YouTube API key here.
+ 
+5. Run `npm start`.
 
-5. View the app on `localhost:3000` in your browser.
+6. View the app on `localhost:3000` in your browser.
+
+# Useful resources
+- [Redux persist tutorial](https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/)
+- [Testing with Jest and React Testing Library](https://www.digitalocean.com/community/tutorials/how-to-test-a-react-app-with-jest-and-react-testing-library)
 
 # UI
 ## Login
@@ -49,13 +57,3 @@ This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-AP
 
 ## Workout page mobile view
 ![Fitness SM](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage-sm.png)
-
-# Future work
-* Develop a chatbot that can answer basic and customized questions.
-* Add a statistics page or perform data analysis.
-* Duplicate a past workout history for the current day.
-* Add the possibility to reschedule a workout item for the next day.
-
-# Useful ressources
-- [Redux persist tutorial](https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/)
-- [Testing with jest and React Testing library](https://www.digitalocean.com/community/tutorials/how-to-test-a-react-app-with-jest-and-react-testing-library)
