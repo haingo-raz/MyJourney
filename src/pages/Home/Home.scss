@@ -1,12 +1,10 @@
 @import './../../App.scss';
 
 .home-section {
-    display: flex;
     width: 90vw;
-    height: 85vh;
+    justify-content: center;
 
     section {
-        width: 50%;
         padding: 40px;
         display: flex;
         flex-direction: column;
@@ -60,15 +58,5 @@
     gap: 40px;
     h1 {
         border-bottom: 2px solid;
-    }
-}
-
-@media (max-width: 996px) {
-    .home-section {
-        display: block;
-        height: initial;
-        section {
-            width: initial;
-        }
     }
 }

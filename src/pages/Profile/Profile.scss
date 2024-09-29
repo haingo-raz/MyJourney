@@ -19,3 +19,11 @@
         border: 1px solid red;
     }
 }
+
+@media (max-width: 996px) {
+    .profile-container {
+        .profile-section {
+            flex-direction: column;
+        }
+    }
+}

@@ -79,3 +79,9 @@
         @include inputStyle;
     }
 }
+
+@media (max-width: 996px) {
+    .container {
+        display: block;
+    }
+}

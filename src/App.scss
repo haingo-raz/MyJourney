@@ -38,12 +38,11 @@ $texteLg: 22px;
 
 .App{
     width: 99.5vw;
-    min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     background: $beige;
-    align-items: center;
     justify-content: center;
+    min-height: 100vh;
 }
 
 // Scrollbar
