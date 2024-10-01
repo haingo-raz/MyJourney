@@ -20,7 +20,7 @@
     .form-section{
         width: 100%;
 
-        input{
+        input, select, textarea {
             @include inputStyle;
         }
     }

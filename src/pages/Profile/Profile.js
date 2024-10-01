@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser, updateEmail } from '../../redux/reducer/userSlice';
 import axios from 'axios';
+import ProfileDetails from '../../components/Profile/ProfileDetails';
 
 function Profile() {
     const [emailChangeData, setEmailChangeData] = useState({});
@@ -126,6 +127,7 @@ function Profile() {
             <Navbar />
             <div className="profile-container">
                 <section className="profile-section">
+                    <ProfileDetails/> 
                     <div className="account-form">
                         <h1 className="form-title">My profile</h1>
                         <div className="form-section">
