@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -6,7 +6,25 @@ function ProfileDetails() {
     const [profileDataValue, setProfileDataValue] = useState({});
     const [feedback, setFeedback] = useState('');
 
-    const loggedInUser = useSelector((state) => state.user.email)
+    const loggedInUser = useSelector((state) => state.user.email);
+
+    useEffect(() => {
+        fetchUserProfileDetails();
+    }, [loggedInUser]);
+
+    const fetchUserProfileDetails = () => {
+        axios.get(process.env.REACT_APP_API_URL + `/profile/${loggedInUser}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            setProfileDataValue(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,15 +41,15 @@ function ProfileDetails() {
             user_email: loggedInUser,
             profileDataValue: profileDataValue
         })
-            .then(res => {
-                if (res.data === "Success") {
-                    setFeedback('Profile details updated successfully');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                setFeedback('Profile details update failed');
-            });
+        .then(res => {
+            if (res.data === "Success") {
+                setFeedback('Profile details updated successfully');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            setFeedback('Profile details update failed');
+        });
     };
 
     return (
@@ -68,7 +86,7 @@ function ProfileDetails() {
                     <textarea id="fitnessGoals" name="fitnessGoals" value={profileDataValue.fitnessGoals || ''} onChange={handleChange}></textarea>
                 </div>
                 <div className="form-section">
-                    <label htmlFor="weightGoal">Weight Goals:</label>
+                    <label htmlFor="weightGoal">Weight Goal (kg):</label>
                     <input type="number" id="weightGoal" name="weightGoal" value={profileDataValue.weightGoal || ''} onChange={handleChange} />
                 </div>
                 <button type="submit" className="form-button">Save</button>
