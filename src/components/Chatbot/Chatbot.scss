@@ -55,10 +55,10 @@
     }
     .chatbot__message {
         display: flex;
-        &:nth-child(even) {
+        &:nth-child(odd) {
             justify-content: flex-end;
         }
-        &:nth-child(odd) {
+        &:nth-child(even) {
             justify-content: flex-start;
         }
     }

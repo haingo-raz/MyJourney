@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import "./Chatbot.scss";
 import "../Forms/Form.scss";
@@ -7,8 +7,10 @@ import { chatbotQuestions } from '../../utils/const';
 import { useSelector } from 'react-redux';
 
 function Chatbot(props) {
-    const [userMessage, setUserMessage] = React.useState("");
-    const [messageHistory, setMessageHistory] = React.useState(["Hello, how can I help you today?"]);
+    const [userMessage, setUserMessage] = useState("");
+    const [messageHistory, setMessageHistory] = useState([]);
+    const [AImessageHistory, setAIMessageHistory] = useState([]);
+    const [isChattingWithAI, setIsChattingWithAI] = useState(false);
 
     const loggedInUser = useSelector(state => state.user.email);
 
@@ -36,9 +38,35 @@ function Chatbot(props) {
         fetchResponse(newMessageHistory, message);
     };
 
-    const chatWithAI = (e) => {
-        e.preventDefault();
+    const updateChatStatus = () => {
+        setIsChattingWithAI(!isChattingWithAI);
     }
+
+    const chatWithAI = async (e) => {
+        e.preventDefault();
+    
+        try {
+            const response = await axios.post(process.env.REACT_APP_API_URL + '/chat/ai', {
+                history: AImessageHistory,
+                message: userMessage
+            });
+            const data = response.data;
+            setAIMessageHistory((oldChatHistory) => [
+                ...oldChatHistory,
+                {
+                  role: "user",
+                  parts: [{ text: userMessage }],
+                }, {
+                  role: "model",
+                  parts: [{ text: data }],
+                },
+            ]);
+            document.getElementById("userMessage").value = "";
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
 
     return (
         <>
@@ -56,21 +84,31 @@ function Chatbot(props) {
                                 </div>
                             );
                         })}
-                        <div className="question ai" onClick={chatWithAI}>
-                            <p>Chat with AI ✨</p>
+                        <div className="question ai" onClick={updateChatStatus}>
+                            <p>{isChattingWithAI ? 'You are chatting with an AI. Click here to go back to normal chat' : 'Chat with AI ✨'}</p>
                         </div>
                     </div>
-                    <form className="chatbot" onSubmit={updateMessage}>
+                    <form className="chatbot" onSubmit={isChattingWithAI ? chatWithAI : updateMessage}>
                         <div className="chatbot__body">
-                            {messageHistory.map((message, index) => {
-                                return (
-                                    <div className="chatbot__message" key={index}>
-                                        <div className="chatbot__message__content">
-                                            <p>{message}</p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                            {
+                                isChattingWithAI ? (
+                                    AImessageHistory.map((message, _index) => {
+                                        return (
+                                            <div key={_index} className="chatbot__message">
+                                                <p className="chatbot__message__content">{message.parts[0].text}</p>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    messageHistory.map((message, index) => {
+                                        return (
+                                            <div key={index} className="chatbot__message">
+                                                <p className="chatbot__message__content">{JSON.stringify(message)}</p>
+                                            </div>
+                                        );
+                                    })
+                                )
+                            }
                         </div>
                         <div className="message_input">
                             <input type="text" id="userMessage" name="userMessage" onChange={(e) => setUserMessage(e.target.value)} required />
