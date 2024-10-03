@@ -103,7 +103,7 @@ function Chatbot(props) {
                                     messageHistory.map((message, index) => {
                                         return (
                                             <div key={index} className="chatbot__message">
-                                                <p className="chatbot__message__content">{JSON.stringify(message)}</p>
+                                                <p className="chatbot__message__content">{message}</p>
                                             </div>
                                         );
                                     })
