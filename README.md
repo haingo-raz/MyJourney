@@ -66,7 +66,7 @@ This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-AP
 ![Fitness SM](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/fitnessPage-sm.png)
 
 ## Chat page (rule-based)
-![Chat](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/chatPage-sm.png)
+![Chat](https://raw.githubusercontent.com/haingo-raz/MyJourney/refs/heads/master/public/UI/chatPage.png)
 
 ## Chat with AI page
-![Chat with AI](https://raw.githubusercontent.com/haingo-raz/MyJourney/master/public/UI/chatPageWithAI-sm.png)
+![Chat with AI](https://raw.githubusercontent.com/haingo-raz/MyJourney/refs/heads/master/public/UI/chatPageWithAI.png)
