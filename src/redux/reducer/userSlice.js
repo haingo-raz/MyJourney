@@ -18,8 +18,8 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
     },
     updateEmail: (state, action) => {
-      state.email = action.payload
-    }
+      state.email = action.payload;
+    },
   },
 });
 

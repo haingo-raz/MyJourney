@@ -1,16 +1,18 @@
 # About
-MyJourney is a web application where users can create, save, and edit their workout journey. Furthermore, they have the option to chat with an AI or ask questions about their journey.
+MyJourney is a web application where users can create, save, and edit their workout journey. Furthermore, they have the option to chat with an AI or ask questions about their workout journey.
 
 # Features
+Users can :
 - Create an account.
-- Log in with the created credentials or log out.
+- Log in with the created credentials.
+- Log out.
 - Update their email or password.
 - Delete their account.
-- Add their profile details such as height, weight, etc.
-- Create their own workout routine by adding a YouTube video URL in the form on the fitness page. The title of the video and duration will be automatically filled. Users can still edit the title to their own liking.
+- Design personalized workout routines by submitting a YouTube video URL in the fitness page form. The video title and duration will be auto-filled with the help of the YouTube API, but users can customize the title as desired.
 - Update an existing workout.
 - Delete a workout from the list.
-- Ask questions about their workout journey through a chatbot or chat with an AI.
+- Ask questions about their workout journey through a rule-based chatbot.
+- Chat with an AI using GEMINI.
 
 # Technology
 ## Frontend (this project)
@@ -41,6 +43,8 @@ This project requires a [Node.js API](https://github.com/haingo-raz/MyJourney-AP
 5. Run `npm start`.
 
 6. View the app on `localhost:3000` in your browser.
+
+7. To ensure code consistency, run `npm run format` after making any changes. This command uses Prettier to format all files within the `src` directory.
 
 # Useful resources
 - [Redux persist tutorial](https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/)

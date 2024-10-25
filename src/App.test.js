@@ -31,7 +31,7 @@ describe('App Component', () => {
         <MemoryRouter>
           <App />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/login/i)).toBeInTheDocument();
@@ -49,18 +49,24 @@ describe('App Component', () => {
         <MemoryRouter>
           <Account component={<LoginForm />} />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     const wrongUserEmail = 'wronguser@test.com';
     const wrongPassword = 'wrongpassword';
 
-    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: wrongUserEmail } });
-    fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: wrongPassword } });
+    fireEvent.change(screen.getByLabelText(/Email/i), {
+      target: { value: wrongUserEmail },
+    });
+    fireEvent.change(screen.getByLabelText(/Password/i), {
+      target: { value: wrongPassword },
+    });
     fireEvent.click(screen.getByText(/Sign In/i));
 
     await waitFor(() => {
-      expect(screen.getByText(/Invalid email or password/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Invalid email or password/i),
+      ).toBeInTheDocument();
     });
   });
 
@@ -68,8 +74,8 @@ describe('App Component', () => {
   test('renders signup screen', () => {
     render(
       <MemoryRouter>
-        <Account component={<SignUpForm/>} />
-      </MemoryRouter>
+        <Account component={<SignUpForm />} />
+      </MemoryRouter>,
     );
 
     expect(screen.getByText(/CREATE A NEW ACCOUNT/i)).toBeInTheDocument();
@@ -81,24 +87,30 @@ describe('App Component', () => {
   test('successful signup', async () => {
     // Mock axios post request for successful signup
     axios.post.mockResolvedValue({
-      data: "Success",
+      data: 'Success',
     });
 
     render(
       <MemoryRouter>
-        <Account component={<SignUpForm/>} />
-      </MemoryRouter>
+        <Account component={<SignUpForm />} />
+      </MemoryRouter>,
     );
 
     const newEmail = 'newuser@test.com';
     const newPassword = 'newpassword';
 
-    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: newEmail } });
-    fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: newPassword } });
+    fireEvent.change(screen.getByLabelText(/Email/i), {
+      target: { value: newEmail },
+    });
+    fireEvent.change(screen.getByLabelText(/Password/i), {
+      target: { value: newPassword },
+    });
     fireEvent.click(screen.getByText(/Join today/i));
 
     await waitFor(() => {
-      expect(screen.getByText(/Account created successfully. You can now log in/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Account created successfully. You can now log in/i),
+      ).toBeInTheDocument();
     });
   });
 });

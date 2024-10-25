@@ -5,14 +5,10 @@ import routes from './routes/routes';
 import './App.scss';
 
 function App() {
-  const isLoggedIn  = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const routing = useRoutes(routes(isLoggedIn));
 
-  return (
-    <div className="App">
-      {routing}
-    </div>
-  );
+  return <div className="App">{routing}</div>;
 }
 
 export default App;

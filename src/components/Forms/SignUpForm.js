@@ -4,45 +4,68 @@ import './Form.scss';
 import axios from 'axios';
 
 function SignUpForm() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [feedback, setFeedback] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [feedback, setFeedback] = useState('');
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        axios.post(process.env.REACT_APP_API_URL + '/signup', {
-            email: email,
-            password: password
-        })
-            .then(res => {
-                if (res.data === "Success") {
-                    setFeedback("Account created successfully. You can now log in");
-                    navigate('/');
-                } else {
-                    setFeedback("An error occurred while creating your account. Please try again.");
-                }
-            })
-            .catch(err => console.log(err));
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios
+      .post(process.env.REACT_APP_API_URL + '/signup', {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.data === 'Success') {
+          setFeedback('Account created successfully. You can now log in');
+          navigate('/');
+        } else {
+          setFeedback(
+            'An error occurred while creating your account. Please try again.',
+          );
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
-    return (
-        <form className="account-form" onSubmit={handleSubmit}>
-            <h1 className="form-title">CREATE A NEW ACCOUNT</h1>
-            <p>Already have one? <Link to="/">Log in here</Link></p>
-            <div className="form-section">
-                <label htmlFor="loginEmail" className="form-label">Email<span>*</span></label>
-                <input type="email" id="loginEmail" name="loginEmail" onChange={e => setEmail(e.target.value)} required />
-            </div>
-            <div className="form-section">
-                <label htmlFor="loginPass" className="form-label">Password<span>*</span></label>
-                <input type="password" id="loginPass" name="loginPass" onChange={e => setPassword(e.target.value)} required />
-            </div>
-            <button className="form-button" type="submit">Join today</button>
-            {feedback && <p>{feedback}</p>}
-        </form>
-    );
+  return (
+    <form className="account-form" onSubmit={handleSubmit}>
+      <h1 className="form-title">CREATE A NEW ACCOUNT</h1>
+      <p>
+        Already have one? <Link to="/">Log in here</Link>
+      </p>
+      <div className="form-section">
+        <label htmlFor="loginEmail" className="form-label">
+          Email<span>*</span>
+        </label>
+        <input
+          type="email"
+          id="loginEmail"
+          name="loginEmail"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-section">
+        <label htmlFor="loginPass" className="form-label">
+          Password<span>*</span>
+        </label>
+        <input
+          type="password"
+          id="loginPass"
+          name="loginPass"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+      <button className="form-button" type="submit">
+        Join today
+      </button>
+      {feedback && <p>{feedback}</p>}
+    </form>
+  );
 }
 
 export default SignUpForm;
