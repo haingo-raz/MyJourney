@@ -5,9 +5,9 @@ function dateFormatter(date) {
 }
 
 const urlPattern = new RegExp(
-    '^(https?\\:\\/\\/)?' +
-    '((www\\.)?youtube\\.com|youtu\\.?be)' +
-    '\\/.+$', 'i');
+  '^(https?\\:\\/\\/)?((www\\.)?youtube\\.com|youtu\\.?be)\\/.+$',
+  'i',
+);
 
 const getVideoYoutubeDetails = async (url) => {
   const videoId = url.split('v=')[1];

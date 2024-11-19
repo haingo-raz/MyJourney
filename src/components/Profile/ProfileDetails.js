@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -8,16 +8,10 @@ function ProfileDetails() {
 
   const loggedInUser = useSelector((state) => state.user.email);
 
-  useEffect(() => {
-    fetchUserProfileDetails();
-  }, [loggedInUser]);
-
-  const fetchUserProfileDetails = () => {
+  const fetchUserProfileDetails = useCallback(() => {
     axios
       .get(process.env.REACT_APP_API_URL + `/profile/${loggedInUser}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
         setProfileDataValue(res.data);
@@ -25,7 +19,11 @@ function ProfileDetails() {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, [loggedInUser]);
+
+  useEffect(() => {
+    fetchUserProfileDetails();
+  }, [loggedInUser, fetchUserProfileDetails]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

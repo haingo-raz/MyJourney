@@ -14,8 +14,14 @@ const persistedReducer = persistReducer(persistConfig, userSlice);
 export const store = configureStore({
   reducer: {
     user: persistedReducer,
-    middleware: [thunk],
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+        ignoredActionPaths: ['register', 'rehydrate'],
+      },
+    }).concat(thunk),
 });
 
 export const persistor = persistStore(store);
