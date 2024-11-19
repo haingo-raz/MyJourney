@@ -27,7 +27,12 @@ function SignUpForm() {
           );
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setFeedback(
+          'An error occurred while creating your account. Please try again.',
+        );
+      });
   }
 
   return (

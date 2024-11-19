@@ -37,7 +37,10 @@ function LoginForm() {
         }
         console.log(JSON.stringify(res));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setFeedback('An error occurred. Please try again.');
+      });
   }
 
   return (
