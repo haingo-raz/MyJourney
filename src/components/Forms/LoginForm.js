@@ -22,6 +22,7 @@ function LoginForm() {
         password: password,
       })
       .then((res) => {
+        console.log('Feedback' + res.data);
         if (
           res.data.message === 'Success' &&
           res.data.email &&
@@ -30,8 +31,6 @@ function LoginForm() {
           dispatch(loginUser(res.data.email));
           localStorage.setItem('user_email', res.data.email);
           navigate('/home');
-        } else if (res.data.message !== 'Success') {
-          setFeedback('Invalid email or password');
         } else {
           setFeedback('An error occurred. Please try again.');
         }
@@ -39,7 +38,13 @@ function LoginForm() {
       })
       .catch((err) => {
         console.log(err);
-        setFeedback('An error occurred. Please try again.');
+        if (err.response && err.response.status === 400) {
+          setFeedback('Invalid email or password');
+        } else if (err.response && err.response.status === 404) {
+          setFeedback('User not found');
+        } else {
+          setFeedback('An error occurred. Please try again.');
+        }
       });
   }
 

@@ -21,6 +21,7 @@ function SignUpForm() {
         if (res.data === 'Success') {
           setFeedback('Account created successfully. You can now log in');
           navigate('/');
+          alert('Account created successfully. You can now log in');
         } else {
           setFeedback(
             'An error occurred while creating your account. Please try again.',
