@@ -136,6 +136,8 @@ function Profile() {
             setDangerZoneFeedback('An error occurred. Please try again.');
           }
         });
+    } else {
+      setDangerZoneFeedback('Account deletion cancelled.');
     }
   };
 
