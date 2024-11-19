@@ -124,13 +124,19 @@ function Profile() {
             localStorage.removeItem('user_email');
             dispatch(logoutUser());
             navigate('/');
-          } else {
-            setDangerZoneFeedback('Invalid password. Please try again.');
+            alert('Your account has been deleted.');
           }
         })
-        .catch((err) => setDangerZoneFeedback(err));
+        .catch((err) => {
+          if (err.response) {
+            console.error('Error response from server:', err.response);
+            setDangerZoneFeedback(err.response.data.message);
+          } else {
+            console.error('Error during request:', err.message);
+            setDangerZoneFeedback('An error occurred. Please try again.');
+          }
+        });
     }
-    alert('Your account has been deleted.');
   };
 
   return (
