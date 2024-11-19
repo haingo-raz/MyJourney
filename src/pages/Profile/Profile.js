@@ -85,11 +85,13 @@ function Profile() {
           if (res.data === 'Success') {
             setFeedback('Password updated successfully.');
             setPasswordChangeData({});
-          } else {
-            setFeedback('Invalid password. Please try again.');
           }
         } catch (err) {
-          setFeedback(err.message);
+          if (err.response) {
+            setFeedback(err.response.data.message);
+          } else {
+            setFeedback('An error occurred. Please try again.');
+          }
         }
       } else {
         setFeedback('Password update cancelled.');
