@@ -42,11 +42,15 @@ function Profile() {
             setEmailChangeData({});
             localStorage.setItem('user_email', emailChangeData.newEmail);
             dispatch(updateEmail(emailChangeData.newEmail));
-          } else {
-            setFeedback('Invalid password. Please try again.');
           }
         })
-        .catch((err) => setFeedback(err));
+        .catch((err) => {
+          if (err.response) {
+            setFeedback(err.response.data.message);
+          } else {
+            setFeedback('An error occurred. Please try again.');
+          }
+        });
     } else {
       setFeedback('Email update cancelled.');
     }
