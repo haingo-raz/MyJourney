@@ -13,6 +13,7 @@ import {
   convertISO8601DurationToMinutes,
   getWorkoutImageSrc,
 } from '../../utils/helper';
+import PropTypes from 'prop-types';
 
 function Fitness() {
   const today = new Date();
@@ -166,7 +167,7 @@ function Fitness() {
     if (window.confirm('Are you sure you want to delete this workout?')) {
       axios
         .delete(`${process.env.REACT_APP_API_URL}/delete/${idToRemove}`)
-        .then((res) => {
+        .then(() => {
           setWorkoutList((prevWorkouts) =>
             Array.isArray(prevWorkouts)
               ? prevWorkouts.filter(
@@ -228,6 +229,13 @@ function Fitness() {
         </div>
       </div>
     );
+  };
+
+  WorkoutInstance.propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    videoUrl: PropTypes.string.isRequired,
   };
 
   return (

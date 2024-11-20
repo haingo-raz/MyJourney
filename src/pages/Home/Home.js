@@ -19,7 +19,7 @@ function Home() {
           </div>
           <div className="home-button">
             <button onClick={() => (window.location.href = '/fitness')}>
-              LET'S GO
+              LET&apos;S GO
             </button>
           </div>
           <div>
@@ -28,7 +28,7 @@ function Home() {
           </div>
           <div className="home-button">
             <button onClick={() => (window.location.href = '/chat')}>
-              LET'S GO
+              LET&apos;S GO
             </button>
           </div>
         </section>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Account.scss';
+import PropTypes from 'prop-types';
 
 function Account({ component }) {
   return (
@@ -13,5 +14,9 @@ function Account({ component }) {
     </div>
   );
 }
+
+Account.propTypes = {
+  component: PropTypes.element.isRequired,
+};
 
 export default Account;
