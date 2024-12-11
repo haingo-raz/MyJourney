@@ -108,7 +108,7 @@ function ProfileDetails() {
             type="number"
             id="dailyIntakeCalorie"
             name="dailyIntakeCalorie"
-            value={profileDataValue.dailyIntakeCalorie || ''}
+            value={profileDataValue.daily_intake_calorie || ''}
             onChange={handleChange}
           />
         </div>
@@ -117,7 +117,7 @@ function ProfileDetails() {
           <textarea
             id="fitnessGoals"
             name="fitnessGoals"
-            value={profileDataValue.fitnessGoals || ''}
+            value={profileDataValue.fitness_goals || ''}
             onChange={handleChange}
           ></textarea>
         </div>
@@ -127,7 +127,7 @@ function ProfileDetails() {
             type="number"
             id="weightGoal"
             name="weightGoal"
-            value={profileDataValue.weightGoal || ''}
+            value={profileDataValue.weight_goal || ''}
             onChange={handleChange}
           />
         </div>

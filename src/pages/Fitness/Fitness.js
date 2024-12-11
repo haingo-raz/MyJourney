@@ -126,9 +126,9 @@ function Fitness() {
       if (editId !== null) {
         axios
           .put(`${process.env.REACT_APP_API_URL}/edit/${editId}`, {
-            workoutId: editId,
+            workout_id: editId,
             title: formInputData.titleInput,
-            videoUrl: formInputData.videoUrlInput,
+            video_url: formInputData.videoUrlInput,
             duration: formInputData.durationInput,
           })
           .then((res) => {
@@ -141,10 +141,10 @@ function Fitness() {
       } else {
         const newWorkout = {
           title: formInputData.titleInput,
-          videoUrl: formInputData.videoUrlInput,
+          video_url: formInputData.videoUrlInput,
           duration: formInputData.durationInput,
           user_email: loggedInUser,
-          dayCreated: dateFormatter(today),
+          day_created: dateFormatter(today),
           status: 'False',
         };
 
