@@ -5,6 +5,7 @@ import '../Forms/Form.scss';
 import axios from 'axios';
 import { chatbotQuestions } from '../../utils/const';
 import { useSelector } from 'react-redux';
+import Markdown from 'react-markdown';
 
 function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
@@ -108,9 +109,9 @@ function Chatbot() {
                 ? AImessageHistory.map((message, _index) => {
                     return (
                       <div key={_index} className="chatbot__message">
-                        <p className="chatbot__message__content">
+                        <Markdown className="chatbot__message__content">
                           {message.parts[0].text}
-                        </p>
+                        </Markdown>
                       </div>
                     );
                   })
