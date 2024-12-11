@@ -31,6 +31,9 @@ function LoginForm() {
           dispatch(loginUser(res.data.email));
           localStorage.setItem('user_email', res.data.email);
           navigate('/home');
+          setTimeout(() => {
+            alert('User ' + res.data.email + ' has successfully logged in');
+          }, 100);
         } else {
           setFeedback('An error occurred. Please try again.');
         }
