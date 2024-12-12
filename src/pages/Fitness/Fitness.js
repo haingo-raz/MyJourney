@@ -264,10 +264,10 @@ function Fitness() {
                 return (
                   <WorkoutInstance
                     key={index}
-                    id={data.workoutId}
+                    id={data.workout_id}
                     title={data.title}
                     duration={data.duration}
-                    videoUrl={data.videoUrl}
+                    videoUrl={data.video_url}
                   />
                 );
               })}
