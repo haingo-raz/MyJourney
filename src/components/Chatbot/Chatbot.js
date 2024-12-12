@@ -23,6 +23,9 @@ function Chatbot() {
       })
       .then((res) => {
         setMessageHistory([...newMessageHistory, res.data]);
+      })
+      .catch((error) => {
+        console.error(error);
       });
     document.getElementById('userMessage').value = '';
   }
@@ -85,13 +88,6 @@ function Chatbot() {
             <h1>Ask questions about your workout journey</h1>
           </div>
           <div className="questions">
-            {chatbotQuestions.map((question, index) => {
-              return (
-                <div className="question" key={index} onClick={addQuestion}>
-                  <p>{question}</p>
-                </div>
-              );
-            })}
             <div className="question ai" onClick={updateChatStatus}>
               <p>
                 {isChattingWithAI
@@ -99,6 +95,14 @@ function Chatbot() {
                   : 'Chat with AI ✨'}
               </p>
             </div>
+            {!isChattingWithAI &&
+              chatbotQuestions.map((question, index) => {
+                return (
+                  <div className="question" key={index} onClick={addQuestion}>
+                    <p>{question}</p>
+                  </div>
+                );
+              })}
           </div>
           <form
             className="chatbot"
