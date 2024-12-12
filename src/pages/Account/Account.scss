@@ -16,12 +16,12 @@
 .text-web{
     justify-content: center;
     flex-direction: column;
-    color: $form-text;
+    color: $dark-brown;
     h1{  
         font-size: $logoLg;  
         padding-bottom: 25px;
         margin-bottom: 25px;
-        border-bottom: 5px solid $form-text;
+        border-bottom: 5px solid $dark-brown;
     }
     p{
         font-size: $texteLg;

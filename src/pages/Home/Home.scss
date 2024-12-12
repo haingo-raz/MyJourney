@@ -29,13 +29,13 @@
         @include buttonStyle;
         width: 200px; 
         background: $white;
-        color: $form-text;
+        color: $dark-brown;
         font-weight: bold;
     }
 }
 
 .section-1, .section-2 {
-    background: $form-color;
+    background: $light-color;
     color: $beige-variance;
 
     button {
