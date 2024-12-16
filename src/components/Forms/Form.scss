@@ -24,22 +24,22 @@
             @include inputStyle;
         }
     }
+}
 
-    .form-button{
-        @include buttonStyle;
-        width: 100%;
-        background: $dark-brown; 
-        margin-top: 15px;
-        border: none;  
-        
-        &.danger{
-            background: $red;
-        }
+.form-button{
+    @include buttonStyle;
+    width: 100%;
+    background: $dark-brown; 
+    margin-top: 15px;
+    border: none;  
+    
+    &.danger{
+        background: $red;
+    }
 
-        a{
-            text-decoration: none;
-            color: black;
-        }
+    a{
+        text-decoration: none;
+        color: black;
     }
 }
 

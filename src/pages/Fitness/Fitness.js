@@ -214,17 +214,23 @@ function Fitness() {
         </div>
         <div className="form-actions">
           <div>
-            <label>Mark as done </label>
+            <label> Done </label>
             <input type="checkbox" />
           </div>
           <div className="icon-actions">
             <button
               onClick={() => handleEditWorkout(id, title, duration, videoUrl)}
               disabled={editId !== null}
+              className="form-button"
             >
               Edit
             </button>
-            <button onClick={() => removeWorkout(id)}>Delete</button>
+            <button
+              onClick={() => removeWorkout(id)}
+              className="form-button danger"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
