@@ -257,27 +257,31 @@ function Fitness() {
             />
           </div>
 
-          <div className="workout-info">
-            <h3>Number of exercises:</h3>
-            <span> {count}</span>
-            <h3>Total duration:</h3>
-            <span> {duration} mn</span>
-          </div>
+          {workoutList.length !== 0 && (
+            <>
+              <div className="workout-info">
+                <h3>Number of exercises:</h3>
+                <span> {count}</span>
+                <h3>Total duration:</h3>
+                <span> {duration} mn</span>
+              </div>
 
-          <div className="workout-list" id="workout-list">
-            {Array.isArray(workoutList) &&
-              workoutList.map((data, index) => {
-                return (
-                  <WorkoutInstance
-                    key={index}
-                    id={data.workout_id}
-                    title={data.title}
-                    duration={data.duration}
-                    videoUrl={data.video_url}
-                  />
-                );
-              })}
-          </div>
+              <div className="workout-list" id="workout-list">
+                {Array.isArray(workoutList) &&
+                  workoutList.map((data, index) => {
+                    return (
+                      <WorkoutInstance
+                        key={index}
+                        id={data.workout_id}
+                        title={data.title}
+                        duration={data.duration}
+                        videoUrl={data.video_url}
+                      />
+                    );
+                  })}
+              </div>
+            </>
+          )}
         </section>
 
         <section className="workout-form">
