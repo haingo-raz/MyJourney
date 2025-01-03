@@ -1,8 +1,11 @@
 import React from 'react';
 import './Account.scss';
-import PropTypes from 'prop-types';
 
-function Account({ component }) {
+interface AccountProps {
+  component: React.ReactNode;
+}
+
+function Account({ component }: AccountProps) {
   return (
     <div className="account-page">
       <section className="text-web">
@@ -14,9 +17,5 @@ function Account({ component }) {
     </div>
   );
 }
-
-Account.propTypes = {
-  component: PropTypes.element.isRequired,
-};
 
 export default Account;

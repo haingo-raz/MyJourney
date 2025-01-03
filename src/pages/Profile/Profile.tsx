@@ -8,25 +8,25 @@ import axios from 'axios';
 import ProfileDetails from '../../components/Profile/ProfileDetails';
 
 function Profile() {
-  const [emailChangeData, setEmailChangeData] = useState({});
-  const [passwordChangeData, setPasswordChangeData] = useState({});
-  const [accountDeletePassword, setAccountDeletePassword] = useState();
+  const [emailChangeData, setEmailChangeData] = useState<{ newEmail: string; password: string }>({ newEmail: '', password: '' });
+  const [passwordChangeData, setPasswordChangeData] = useState<{ newPassword: string; confirmPassword: string; currentPassword: string }>({ newPassword: '', confirmPassword: '', currentPassword: '' });
+  const [accountDeletePassword, setAccountDeletePassword] = useState<string>('');
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const [feedback, setFeedback] = useState('');
   const [dangerZonefeedback, setDangerZoneFeedback] = useState('');
   const [formData, setFormData] = useState('password');
 
-  const loggedInUser = useSelector((state) => state.user.email);
+  const loggedInUser = useSelector((state: { user: { email: string } }) => state.user.email);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onEmailChange = (e) => {
+  const onEmailChange = (e: { target: { name: any; value: any; }; }) => {
     const newInput = { ...emailChangeData, [e.target.name]: e.target.value };
     setEmailChangeData(newInput);
   };
 
-  const onEditEmailSubmit = (e) => {
+  const onEditEmailSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (window.confirm('Are you sure you want to change your email?')) {
       axios
@@ -39,13 +39,13 @@ function Profile() {
           console.log(res.data);
           if (res.data === 'Success') {
             setFeedback('Email updated successfully');
-            setEmailChangeData({});
+            setEmailChangeData({ newEmail: '', password: '' });
             localStorage.setItem('user_email', emailChangeData.newEmail);
             dispatch(updateEmail(emailChangeData.newEmail));
           }
         })
         .catch((err) => {
-          if (err.response) {
+          if (axios.isAxiosError(err) && err.response) {
             setFeedback(err.response.data.message);
           } else {
             setFeedback('An error occurred. Please try again.');
@@ -56,7 +56,7 @@ function Profile() {
     }
   };
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = (e: { target: { name: any; value: any; }; }) => {
     const newInput = { ...passwordChangeData, [e.target.name]: e.target.value };
     setPasswordChangeData(newInput);
   };
@@ -69,7 +69,7 @@ function Profile() {
     }
   }, [passwordChangeData.newPassword, passwordChangeData.confirmPassword]);
 
-  const onEditPasswordSubmit = async (e) => {
+  const onEditPasswordSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (!isPasswordMatching) {
       setFeedback(
@@ -88,10 +88,10 @@ function Profile() {
           );
           if (res.data === 'Success') {
             setFeedback('Password updated successfully.');
-            setPasswordChangeData({});
+            setPasswordChangeData({ newPassword: '', confirmPassword: '', currentPassword: '' });
           }
         } catch (err) {
-          if (err.response) {
+          if (axios.isAxiosError(err) && err.response) {
             setFeedback(err.response.data.message);
           } else {
             setFeedback('An error occurred. Please try again.');
@@ -111,7 +111,7 @@ function Profile() {
     }
   };
 
-  const onDeleteAccount = (e) => {
+  const onDeleteAccount = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (
       window.confirm(

@@ -13,7 +13,7 @@ function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: { preventDefault: () => void; }) {
     e.preventDefault();
     // Pass data to the backend
     axios

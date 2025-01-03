@@ -1,13 +1,14 @@
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import Account from './../pages/Account/Account';
-import LoginForm from './../components/Forms/LoginForm';
-import SignUpForm from './../components/Forms/SignUpForm';
-import Home from './../pages/Home/Home';
-import Fitness from './../pages/Fitness/Fitness';
-import Profile from './../pages/Profile/Profile';
-import Chatbot from './../components/Chatbot/Chatbot';
+import Account from '../pages/Account/Account';
+import LoginForm from '../components/Forms/LoginForm';
+import SignUpForm from '../components/Forms/SignUpForm';
+import Home from '../pages/Home/Home';
+import Fitness from '../pages/Fitness/Fitness';
+import Profile from '../pages/Profile/Profile';
+import Chatbot from '../components/Chatbot/Chatbot';
 
-const routes = (isLoggedIn) => [
+const routes = (isLoggedIn: boolean) => [
   {
     path: '/',
     element: isLoggedIn ? <Home /> : <Account component={<LoginForm />} />,

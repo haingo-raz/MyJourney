@@ -8,6 +8,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.4",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
     "axios": "^1.7.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -23,6 +27,7 @@
     "redux-mock-store": "^1.5.4",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
+    "typescript": "^5.7.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

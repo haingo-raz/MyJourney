@@ -2,11 +2,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
+interface ProfileData {
+  age?: number;
+  gender?: string;
+  height?: number;
+  weight?: number;
+  daily_intake_calorie?: number;
+  fitness_goals?: string;
+  weight_goal?: number;
+}
+
 function ProfileDetails() {
-  const [profileDataValue, setProfileDataValue] = useState({});
+  const [profileDataValue, setProfileDataValue] = useState<ProfileData>({});
   const [feedback, setFeedback] = useState('');
 
-  const loggedInUser = useSelector((state) => state.user.email);
+  const loggedInUser = useSelector((state: { user: { email: string } }) => state.user.email);
 
   const fetchUserProfileDetails = useCallback(() => {
     axios
@@ -25,15 +35,18 @@ function ProfileDetails() {
     fetchUserProfileDetails();
   }, [loggedInUser, fetchUserProfileDetails]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
+  
+    // Convert numeric fields to numbers
+    const numericFields = ['age', 'height', 'weight', 'daily_intake_calorie', 'weight_goal'];
     setProfileDataValue((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: numericFields.includes(name) ? Number(value) : value,
     }));
   };
 
-  const updateUserProfileDetails = (e) => {
+  const updateUserProfileDetails = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log(profileDataValue);
     axios
@@ -42,6 +55,7 @@ function ProfileDetails() {
         profileDataValue: profileDataValue,
       })
       .then((res) => {
+        console.log("Profile udpate response", res); 
         if (res.data === 'Success') {
           setFeedback('Profile details updated successfully');
         }
@@ -103,30 +117,30 @@ function ProfileDetails() {
           />
         </div>
         <div className="form-section">
-          <label htmlFor="dailyIntakeCalorie">Daily Intake Calorie:</label>
+          <label htmlFor="daily_intake_calorie">Daily Intake Calorie:</label>
           <input
             type="number"
-            id="dailyIntakeCalorie"
-            name="dailyIntakeCalorie"
+            id="daily_intake_calorie"
+            name="daily_intake_calorie"
             value={profileDataValue.daily_intake_calorie || ''}
             onChange={handleChange}
           />
         </div>
         <div className="form-section">
-          <label htmlFor="fitnessGoals">Fitness Goals:</label>
+          <label htmlFor="fitness_goals">Fitness Goals:</label>
           <textarea
-            id="fitnessGoals"
-            name="fitnessGoals"
+            id="fitness_goals"
+            name="fitness_goals"
             value={profileDataValue.fitness_goals || ''}
             onChange={handleChange}
           ></textarea>
         </div>
         <div className="form-section">
-          <label htmlFor="weightGoal">Weight Goal (kg):</label>
+          <label htmlFor="weight_goal">Weight Goal (kg):</label>
           <input
             type="number"
-            id="weightGoal"
-            name="weightGoal"
+            id="weight_goal"
+            name="weight_goal"
             value={profileDataValue.weight_goal || ''}
             onChange={handleChange}
           />

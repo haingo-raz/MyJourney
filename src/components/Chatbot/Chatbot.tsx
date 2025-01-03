@@ -9,13 +9,13 @@ import Markdown from 'react-markdown';
 
 function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
-  const [messageHistory, setMessageHistory] = useState([]);
-  const [AImessageHistory, setAIMessageHistory] = useState([]);
+  const [messageHistory, setMessageHistory] = useState<string[]>([]);
+  const [AImessageHistory, setAIMessageHistory] = useState<{ role: string; parts: { text: string }[] }[]>([]);
   const [isChattingWithAI, setIsChattingWithAI] = useState(false);
 
-  const loggedInUser = useSelector((state) => state.user.email);
+  const loggedInUser = useSelector((state: { user: { email: string } }) => state.user.email);
 
-  function fetchResponse(newMessageHistory, userMessage) {
+  function fetchResponse(newMessageHistory: string[], userMessage: string) {
     axios
       .post(process.env.REACT_APP_API_URL + '/chat', {
         user_email: loggedInUser,
@@ -27,30 +27,35 @@ function Chatbot() {
       .catch((error) => {
         console.error(error);
       });
-    document.getElementById('userMessage').value = '';
+    const userMessageInput = document.getElementById('userMessage') as HTMLInputElement;
+    if (userMessageInput) {
+      userMessageInput.value = '';
+    }
   }
 
-  const updateMessage = async (e) => {
+  const updateMessage = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const newMessageHistory = [...messageHistory, userMessage];
     setMessageHistory(newMessageHistory);
     fetchResponse(newMessageHistory, userMessage);
   };
 
-  const addQuestion = (e) => {
+  const addQuestion = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const message = e.target.textContent;
-    setUserMessage(message);
-    const newMessageHistory = [...messageHistory, message];
-    setMessageHistory(newMessageHistory);
-    fetchResponse(newMessageHistory, message);
+    const message = (e.target as HTMLDivElement).textContent;
+    if (message) {
+      setUserMessage(message);
+      const newMessageHistory = [...messageHistory, message];
+      setMessageHistory(newMessageHistory);
+      fetchResponse(newMessageHistory, message);
+    }
   };
 
   const updateChatStatus = () => {
     setIsChattingWithAI(!isChattingWithAI);
   };
 
-  const chatWithAI = async (e) => {
+  const chatWithAI = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     try {
@@ -73,7 +78,10 @@ function Chatbot() {
           parts: [{ text: data }],
         },
       ]);
-      document.getElementById('userMessage').value = '';
+      const userMessageInput = document.getElementById('userMessage') as HTMLInputElement;
+      if (userMessageInput) {
+        userMessageInput.value = '';
+      }
     } catch (error) {
       console.error(error);
     }

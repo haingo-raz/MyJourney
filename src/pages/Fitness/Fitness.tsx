@@ -13,7 +13,6 @@ import {
   convertISO8601DurationToMinutes,
   getWorkoutImageSrc,
 } from '../../utils/helper';
-import PropTypes from 'prop-types';
 
 function Fitness() {
   const today = new Date();
@@ -21,10 +20,17 @@ function Fitness() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialDate = queryParams.get('date')
-    ? new Date(queryParams.get('date'))
+    ? new Date(queryParams.get('date') || today)
     : today;
 
-  const [workoutList, setWorkoutList] = useState([]);
+  interface Workout {
+    workout_id: number;
+    title: string;
+    duration: number;
+    video_url: string;
+  }
+
+  const [workoutList, setWorkoutList] = useState<Workout[]>([]);
   const [chosenDate, setChosenDate] = useState(initialDate);
   const [formattedDate, setFormattedDate] = useState(
     dateFormatter(initialDate),
@@ -32,7 +38,7 @@ function Fitness() {
   const [count, setCount] = useState(0);
   const [duration, setDuration] = useState(0);
   const [feedback, setFeedback] = useState('');
-  const [editId, setEditId] = useState(null);
+  const [editId, setEditId] = useState<number | null>(null);
   const loggedInUser = localStorage.getItem('user_email');
 
   useEffect(() => {
@@ -76,8 +82,8 @@ function Fitness() {
 
   const emptyInput = { titleInput: '', durationInput: 10, videoUrlInput: '' };
 
-  const handleChange = (e) => {
-    const newInput = (data) => ({ ...data, [e.target.name]: e.target.value });
+  const handleChange = (e: { target: { name: string; value: string; }; }) => {
+    const newInput = (data: any) => ({ ...data, [e.target.name]: e.target.value });
     setFormInputData(newInput);
 
     // Automatic title and duration fetching from youtube video url
@@ -95,7 +101,7 @@ function Fitness() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const areInputsValid = !Object.values(formInputData).every(
       (res) => res === '' || res === 0 || res === ' ',
@@ -121,7 +127,7 @@ function Fitness() {
       return;
     }
 
-    if (areInputsValid & isTitleValid & isUrlValid) {
+    if (areInputsValid && isTitleValid && isUrlValid) {
       // edit workout
       if (editId !== null) {
         axios
@@ -133,13 +139,13 @@ function Fitness() {
           })
           .then((res) => {
             console.log(res);
-            setWorkoutList(res);
-            window.location.reload();
+            setWorkoutList(res.data);
           })
           .catch((err) => console.log(err));
         setEditId(null);
       } else {
         const newWorkout = {
+          workout_id: Date.now(), // Generate a unique ID for the new workout
           title: formInputData.titleInput,
           video_url: formInputData.videoUrlInput,
           duration: formInputData.durationInput,
@@ -163,7 +169,7 @@ function Fitness() {
     }
   };
 
-  function removeWorkout(idToRemove) {
+  function removeWorkout(idToRemove: number) {
     if (window.confirm('Are you sure you want to delete this workout?')) {
       axios
         .delete(`${process.env.REACT_APP_API_URL}/delete/${idToRemove}`)
@@ -171,7 +177,7 @@ function Fitness() {
           setWorkoutList((prevWorkouts) =>
             Array.isArray(prevWorkouts)
               ? prevWorkouts.filter(
-                  (workout) => workout.workoutId !== idToRemove,
+                  (workout) => workout.workout_id !== idToRemove,
                 )
               : [],
           );
@@ -180,7 +186,7 @@ function Fitness() {
     }
   }
 
-  function handleEditWorkout(idToEdit, title, duration, videoUrl) {
+  function handleEditWorkout(idToEdit: number, title: any, duration: any, videoUrl: any) {
     setFormInputData((prevData) => ({
       ...prevData,
       titleInput: title,
@@ -190,11 +196,20 @@ function Fitness() {
     setEditId(idToEdit);
   }
 
-  function handleDateChange(date) {
-    setChosenDate(date);
+  function handleDateChange(date: React.SetStateAction<Date> | null) {
+      if (date !== null) {
+          setChosenDate(date);
+      }
   }
 
-  const WorkoutInstance = ({ id, title, duration, videoUrl }) => {
+  interface WorkoutInstanceProps {
+    id: number;
+    title: string;
+    duration: number;
+    videoUrl: string;
+  }
+
+  const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({ id, title, duration, videoUrl }) => {
     return (
       <div className="workout-instance">
         <div className="img-container">
@@ -235,13 +250,6 @@ function Fitness() {
         </div>
       </div>
     );
-  };
-
-  WorkoutInstance.propTypes = {
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    duration: PropTypes.number.isRequired,
-    videoUrl: PropTypes.string.isRequired,
   };
 
   return (
