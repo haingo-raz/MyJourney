@@ -273,6 +273,7 @@ function Fitness() {
           <div className="section-title">
             <h1>My fitness program :</h1>
             <DatePicker
+              showIcon
               selected={chosenDate}
               onChange={(date) => handleDateChange(date)}
             />
