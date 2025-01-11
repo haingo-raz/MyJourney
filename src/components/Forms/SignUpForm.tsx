@@ -30,9 +30,13 @@ function SignUpForm() {
       })
       .catch((err) => {
         console.log(err);
-        setFeedback(
-          'An error occurred while creating your account. Please try again.',
-        );
+        if (err.response.data.message === 'User already exists') {
+          setFeedback('An account with this email already exists.');
+        } else {
+          setFeedback(
+            'An error occurred while creating your account. Please try again.',
+          );
+        }
       });
   }
 
