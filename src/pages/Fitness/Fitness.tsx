@@ -11,8 +11,8 @@ import {
   urlPattern,
   getVideoYoutubeDetails,
   convertISO8601DurationToMinutes,
-  getWorkoutImageSrc,
 } from '../../utils/helper';
+import WorkoutInstance from './WorkoutInstance';
 
 function Fitness() {
   const today = new Date();
@@ -210,61 +210,6 @@ function Fitness() {
     }
   }
 
-  interface WorkoutInstanceProps {
-    id: number;
-    title: string;
-    duration: number;
-    videoUrl: string;
-  }
-
-  const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({
-    id,
-    title,
-    duration,
-    videoUrl,
-  }) => {
-    return (
-      <div className="workout-instance">
-        <div className="img-container">
-          <img src={getWorkoutImageSrc(title)} alt="" />
-        </div>
-        <div className="workout-details">
-          <h1 className="workout-title">{title}</h1>
-          <p className="workout duration">{duration}mn</p>
-          <a
-            href={videoUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="workout-btn"
-          >
-            START
-          </a>
-        </div>
-        <div className="form-actions">
-          <div>
-            <label> Done </label>
-            <input type="checkbox" />
-          </div>
-          <div className="icon-actions">
-            <button
-              onClick={() => handleEditWorkout(id, title, duration, videoUrl)}
-              disabled={editId !== null}
-              className="form-button"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => removeWorkout(id)}
-              className="form-button danger"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
       <Navbar />
@@ -298,6 +243,9 @@ function Fitness() {
                         title={data.title}
                         duration={data.duration}
                         videoUrl={data.video_url}
+                        removeWorkout={removeWorkout}
+                        handleEditWorkout={handleEditWorkout}
+                        editId={editId}
                       />
                     );
                   })}
