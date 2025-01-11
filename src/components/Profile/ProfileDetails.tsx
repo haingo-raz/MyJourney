@@ -16,7 +16,9 @@ function ProfileDetails() {
   const [profileDataValue, setProfileDataValue] = useState<ProfileData>({});
   const [feedback, setFeedback] = useState('');
 
-  const loggedInUser = useSelector((state: { user: { email: string } }) => state.user.email);
+  const loggedInUser = useSelector(
+    (state: { user: { email: string } }) => state.user.email,
+  );
 
   const fetchUserProfileDetails = useCallback(() => {
     axios
@@ -37,16 +39,22 @@ function ProfileDetails() {
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
-  
+
     // Convert numeric fields to numbers
-    const numericFields = ['age', 'height', 'weight', 'daily_intake_calorie', 'weight_goal'];
+    const numericFields = [
+      'age',
+      'height',
+      'weight',
+      'daily_intake_calorie',
+      'weight_goal',
+    ];
     setProfileDataValue((prevState) => ({
       ...prevState,
       [name]: numericFields.includes(name) ? Number(value) : value,
     }));
   };
 
-  const updateUserProfileDetails = (e: { preventDefault: () => void; }) => {
+  const updateUserProfileDetails = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log(profileDataValue);
     axios
@@ -55,7 +63,7 @@ function ProfileDetails() {
         profileDataValue: profileDataValue,
       })
       .then((res) => {
-        console.log("Profile udpate response", res); 
+        console.log('Profile udpate response', res);
         if (res.data === 'Success') {
           setFeedback('Profile details updated successfully');
         }

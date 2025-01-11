@@ -9,7 +9,6 @@ import { jest } from '@jest/globals';
 jest.mock('axios');
 
 describe('App Component', () => {
-
   // SignUpForm tests
   test('renders signup screen', () => {
     render(

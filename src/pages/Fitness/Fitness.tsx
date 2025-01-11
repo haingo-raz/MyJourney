@@ -82,8 +82,11 @@ function Fitness() {
 
   const emptyInput = { titleInput: '', durationInput: 10, videoUrlInput: '' };
 
-  const handleChange = (e: { target: { name: string; value: string; }; }) => {
-    const newInput = (data: any) => ({ ...data, [e.target.name]: e.target.value });
+  const handleChange = (e: { target: { name: string; value: string } }) => {
+    const newInput = (data: any) => ({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
     setFormInputData(newInput);
 
     // Automatic title and duration fetching from youtube video url
@@ -101,7 +104,7 @@ function Fitness() {
     }
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const areInputsValid = !Object.values(formInputData).every(
       (res) => res === '' || res === 0 || res === ' ',
@@ -186,7 +189,12 @@ function Fitness() {
     }
   }
 
-  function handleEditWorkout(idToEdit: number, title: any, duration: any, videoUrl: any) {
+  function handleEditWorkout(
+    idToEdit: number,
+    title: any,
+    duration: any,
+    videoUrl: any,
+  ) {
     setFormInputData((prevData) => ({
       ...prevData,
       titleInput: title,
@@ -197,9 +205,9 @@ function Fitness() {
   }
 
   function handleDateChange(date: React.SetStateAction<Date> | null) {
-      if (date !== null) {
-          setChosenDate(date);
-      }
+    if (date !== null) {
+      setChosenDate(date);
+    }
   }
 
   interface WorkoutInstanceProps {
@@ -209,7 +217,12 @@ function Fitness() {
     videoUrl: string;
   }
 
-  const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({ id, title, duration, videoUrl }) => {
+  const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({
+    id,
+    title,
+    duration,
+    videoUrl,
+  }) => {
     return (
       <div className="workout-instance">
         <div className="img-container">

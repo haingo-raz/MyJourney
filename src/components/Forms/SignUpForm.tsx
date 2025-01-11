@@ -10,7 +10,7 @@ function SignUpForm() {
 
   const navigate = useNavigate();
 
-  function handleSubmit(e: { preventDefault: () => void; }) {
+  function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
     axios
       .post(process.env.REACT_APP_API_URL + '/signup', {

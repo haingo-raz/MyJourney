@@ -10,10 +10,14 @@ import Markdown from 'react-markdown';
 function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
   const [messageHistory, setMessageHistory] = useState<string[]>([]);
-  const [AImessageHistory, setAIMessageHistory] = useState<{ role: string; parts: { text: string }[] }[]>([]);
+  const [AImessageHistory, setAIMessageHistory] = useState<
+    { role: string; parts: { text: string }[] }[]
+  >([]);
   const [isChattingWithAI, setIsChattingWithAI] = useState(false);
 
-  const loggedInUser = useSelector((state: { user: { email: string } }) => state.user.email);
+  const loggedInUser = useSelector(
+    (state: { user: { email: string } }) => state.user.email,
+  );
 
   function fetchResponse(newMessageHistory: string[], userMessage: string) {
     axios
@@ -27,13 +31,15 @@ function Chatbot() {
       .catch((error) => {
         console.error(error);
       });
-    const userMessageInput = document.getElementById('userMessage') as HTMLInputElement;
+    const userMessageInput = document.getElementById(
+      'userMessage',
+    ) as HTMLInputElement;
     if (userMessageInput) {
       userMessageInput.value = '';
     }
   }
 
-  const updateMessage = async (e: { preventDefault: () => void; }) => {
+  const updateMessage = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const newMessageHistory = [...messageHistory, userMessage];
     setMessageHistory(newMessageHistory);
@@ -55,7 +61,7 @@ function Chatbot() {
     setIsChattingWithAI(!isChattingWithAI);
   };
 
-  const chatWithAI = async (e: { preventDefault: () => void; }) => {
+  const chatWithAI = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
@@ -78,7 +84,9 @@ function Chatbot() {
           parts: [{ text: data }],
         },
       ]);
-      const userMessageInput = document.getElementById('userMessage') as HTMLInputElement;
+      const userMessageInput = document.getElementById(
+        'userMessage',
+      ) as HTMLInputElement;
       if (userMessageInput) {
         userMessageInput.value = '';
       }
