@@ -24,6 +24,7 @@ function Fitness() {
     : today;
 
   interface Workout {
+    status: number;
     workout_id: number;
     title: string;
     duration: number;
@@ -155,7 +156,7 @@ function Fitness() {
           duration: formInputData.durationInput,
           user_email: loggedInUser,
           day_created: dateFormatter(today),
-          status: 'False',
+          status: 0,
         };
 
         axios
@@ -211,6 +212,24 @@ function Fitness() {
     }
   }
 
+  function handleStatusChange(id: number, newStatus: number) {
+    console.log('id:', id, 'newStatus:', newStatus);
+    axios
+      .put(`${process.env.REACT_APP_API_URL}/workout/status/${id}`, {
+        status: newStatus,
+      })
+      .then(() => {
+        setWorkoutList((prevWorkouts) =>
+          prevWorkouts.map((workout) =>
+            workout.workout_id === id
+              ? { ...workout, status: newStatus }
+              : workout,
+          ),
+        );
+      })
+      .catch((err) => console.error('Failed to update status:', err));
+  }
+
   return (
     <>
       <Navbar />
@@ -244,6 +263,8 @@ function Fitness() {
                         title={data.title}
                         duration={data.duration}
                         videoUrl={data.video_url}
+                        status={data.status}
+                        handleStatusChange={handleStatusChange}
                         removeWorkout={removeWorkout}
                         handleEditWorkout={handleEditWorkout}
                         editId={editId}

@@ -6,6 +6,7 @@ interface WorkoutInstanceProps {
   title: string;
   duration: number;
   videoUrl: string;
+  status: number;
   removeWorkout: (id: number) => void;
   handleEditWorkout: (
     id: number,
@@ -13,6 +14,7 @@ interface WorkoutInstanceProps {
     duration: number,
     videoUrl: string,
   ) => void;
+  handleStatusChange: (id: number, newStatus: number) => void;
   editId: number | null;
 }
 
@@ -21,10 +23,18 @@ const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({
   title,
   duration,
   videoUrl,
+  status,
   removeWorkout,
   handleEditWorkout,
+  handleStatusChange,
   editId,
 }) => {
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newStatus = event.target.checked ? 1 : 0;
+    handleStatusChange(id, newStatus); // Call the function from Fitness.tsx
+  };
+
   return (
     <div className="workout-instance">
       <div className="img-container">
@@ -45,7 +55,11 @@ const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({
       <div className="form-actions">
         <div>
           <label> Done </label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={status === 1}
+            onChange={handleCheckboxChange}
+          />
         </div>
         <div className="icon-actions">
           <button
