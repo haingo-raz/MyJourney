@@ -146,6 +146,7 @@ function Fitness() {
           })
           .catch((err) => console.log(err));
         setEditId(null);
+        window.location.reload();
       } else {
         const newWorkout = {
           workout_id: Date.now(), // Generate a unique ID for the new workout
