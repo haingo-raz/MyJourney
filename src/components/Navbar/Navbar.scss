@@ -1,26 +1,32 @@
 @import "./../../App.scss";
 
-.logo{
+.logo {
     font-size: $titleLg;
     display: flex;
     width: inherit;
     height: 30px;
     box-shadow: 0 4px 3px -2px $black;
-    padding: 8px;
+    padding: 8px 20px;
     margin-bottom: 20px;
 
-    a{
-        text-decoration: none;   
+    a {
+        text-decoration: none;
         font-size: 22px;
-
-        &:hover{
+        &:hover {
             border-bottom: 2px solid $beige-variance;
         }
-    }   
-    .nav-right{
-        display: flex; 
-        justify-content: flex-end;
-        flex: 1;
-        gap: 15px;
+    }
+}
+
+.nav-right {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    gap: 35px;
+
+    a.active, a:hover {
+        background-color: $light-brown;
+        padding: 6px;
+        border-radius: 5px;
     }
 }
