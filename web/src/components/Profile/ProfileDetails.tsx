@@ -5,24 +5,24 @@ import axios from 'axios';
 interface ProfileData {
   age?: number;
   gender?: string;
-  height?: number;
-  weight?: number;
-  daily_intake_calorie?: number;
+  height_cm?: number;
+  weight_kg?: number;
+  daily_calorie_target?: number;
   fitness_goals?: string;
-  weight_goal?: number;
+  weight_goal_kg?: number;
 }
 
 function ProfileDetails() {
   const [profileDataValue, setProfileDataValue] = useState<ProfileData>({});
   const [feedback, setFeedback] = useState('');
 
-  const loggedInUser = useSelector(
-    (state: { user: { email: string } }) => state.user.email,
+  const userId = useSelector(
+    (state: { user: { userId: number } }) => state.user.userId,
   );
 
   const fetchUserProfileDetails = useCallback(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + `/profile/${loggedInUser}`, {
+      .get(process.env.REACT_APP_API_URL + `/profile/${userId}`, {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
@@ -31,11 +31,11 @@ function ProfileDetails() {
       .catch((err) => {
         console.log(err);
       });
-  }, [loggedInUser]);
+  }, [userId]);
 
   useEffect(() => {
     fetchUserProfileDetails();
-  }, [loggedInUser, fetchUserProfileDetails]);
+  }, [userId, fetchUserProfileDetails]);
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
@@ -43,10 +43,10 @@ function ProfileDetails() {
     // Convert numeric fields to numbers
     const numericFields = [
       'age',
-      'height',
-      'weight',
-      'daily_intake_calorie',
-      'weight_goal',
+      'height_cm',
+      'weight_kg',
+      'daily_calorie_target',
+      'weight_goal_kg',
     ];
     setProfileDataValue((prevState) => ({
       ...prevState,
@@ -59,7 +59,7 @@ function ProfileDetails() {
     console.log(profileDataValue);
     axios
       .put(process.env.REACT_APP_API_URL + '/profile', {
-        user_email: loggedInUser,
+        user_id: userId,
         profileDataValue: profileDataValue,
       })
       .then((res) => {
@@ -105,32 +105,32 @@ function ProfileDetails() {
           </select>
         </div>
         <div className="form-section">
-          <label htmlFor="height">Height (cm):</label>
+          <label htmlFor="height_cm">Height (cm):</label>
           <input
             type="number"
-            id="height"
-            name="height"
-            value={profileDataValue.height || ''}
+            id="height_cm"
+            name="height_cm"
+            value={profileDataValue.height_cm || ''}
             onChange={handleChange}
           />
         </div>
         <div className="form-section">
-          <label htmlFor="weight">Weight (kg):</label>
+          <label htmlFor="weight_kg">Weight (kg):</label>
           <input
             type="number"
-            id="weight"
-            name="weight"
-            value={profileDataValue.weight || ''}
+            id="weight_kg"
+            name="weight_kg"
+            value={profileDataValue.weight_kg || ''}
             onChange={handleChange}
           />
         </div>
         <div className="form-section">
-          <label htmlFor="daily_intake_calorie">Daily Intake Calorie:</label>
+          <label htmlFor="daily_calorie_target">Daily Calorie Target:</label>
           <input
             type="number"
-            id="daily_intake_calorie"
-            name="daily_intake_calorie"
-            value={profileDataValue.daily_intake_calorie || ''}
+            id="daily_calorie_target"
+            name="daily_calorie_target"
+            value={profileDataValue.daily_calorie_target || ''}
             onChange={handleChange}
           />
         </div>
@@ -144,12 +144,12 @@ function ProfileDetails() {
           ></textarea>
         </div>
         <div className="form-section">
-          <label htmlFor="weight_goal">Weight Goal (kg):</label>
+          <label htmlFor="weight_goal_kg">Weight Goal (kg):</label>
           <input
             type="number"
-            id="weight_goal"
-            name="weight_goal"
-            value={profileDataValue.weight_goal || ''}
+            id="weight_goal_kg"
+            name="weight_goal_kg"
+            value={profileDataValue.weight_goal_kg || ''}
             onChange={handleChange}
           />
         </div>

@@ -24,10 +24,10 @@ function Fitness() {
     : today;
 
   interface Workout {
-    status: number;
+    is_completed: number;
     workout_id: number;
     title: string;
-    duration: number;
+    duration_min: number;
     video_url: string;
   }
 
@@ -40,7 +40,7 @@ function Fitness() {
   const [duration, setDuration] = useState(0);
   const [feedback, setFeedback] = useState('');
   const [editId, setEditId] = useState<number | null>(null);
-  const loggedInUser = localStorage.getItem('user_email');
+  const loggedInUser = localStorage.getItem('user_id');
 
   useEffect(() => {
     setFormattedDate(dateFormatter(chosenDate));
@@ -139,7 +139,7 @@ function Fitness() {
             workout_id: editId,
             title: formInputData.titleInput,
             video_url: formInputData.videoUrlInput,
-            duration: formInputData.durationInput,
+            duration_min: formInputData.durationInput,
           })
           .then((res) => {
             console.log(res);
@@ -153,10 +153,9 @@ function Fitness() {
           workout_id: Date.now(), // Generate a unique ID for the new workout
           title: formInputData.titleInput,
           video_url: formInputData.videoUrlInput,
-          duration: formInputData.durationInput,
-          user_email: loggedInUser,
-          day_created: dateFormatter(today),
-          status: 0,
+          duration_min: formInputData.durationInput,
+          user_id: loggedInUser,
+          is_completed: 0,
         };
 
         axios
@@ -212,17 +211,16 @@ function Fitness() {
     }
   }
 
-  function handleStatusChange(id: number, newStatus: number) {
-    console.log('id:', id, 'newStatus:', newStatus);
+  function handleStatusChange(id: number, isCompleted: boolean) {
     axios
       .put(`${process.env.REACT_APP_API_URL}/workout/status/${id}`, {
-        status: newStatus,
+        is_completed: isCompleted,
       })
       .then(() => {
         setWorkoutList((prevWorkouts) =>
           prevWorkouts.map((workout) =>
             workout.workout_id === id
-              ? { ...workout, status: newStatus }
+              ? { ...workout, is_completed: isCompleted ? 1 : 0 }
               : workout,
           ),
         );
@@ -261,9 +259,9 @@ function Fitness() {
                         key={index}
                         id={data.workout_id}
                         title={data.title}
-                        duration={data.duration}
+                        duration={data.duration_min}
                         videoUrl={data.video_url}
-                        status={data.status}
+                        isCompleted={data.is_completed}
                         handleStatusChange={handleStatusChange}
                         removeWorkout={removeWorkout}
                         handleEditWorkout={handleEditWorkout}

@@ -25,10 +25,14 @@ function LoginForm() {
         console.log('Feedback' + res.data);
         if (
           res.data.message === 'Success' &&
+          res.data.user_id &&
           res.data.email &&
           res.status === 200
         ) {
-          dispatch(loginUser(res.data.email));
+          dispatch(
+            loginUser({ userId: res.data.user_id, email: res.data.email }),
+          );
+          localStorage.setItem('user_id', res.data.user_id);
           localStorage.setItem('user_email', res.data.email);
           navigate('/home');
           setTimeout(() => {

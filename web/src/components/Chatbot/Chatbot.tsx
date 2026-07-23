@@ -15,14 +15,14 @@ function Chatbot() {
   >([]);
   const [isChattingWithAI, setIsChattingWithAI] = useState(false);
 
-  const loggedInUser = useSelector(
-    (state: { user: { email: string } }) => state.user.email,
+  const userId = useSelector(
+    (state: { user: { userId: number } }) => state.user.userId,
   );
 
   function fetchResponse(newMessageHistory: string[], userMessage: string) {
     axios
       .post(process.env.REACT_APP_API_URL + '/chat', {
-        user_email: loggedInUser,
+        user_id: userId,
         user_message: userMessage,
       })
       .then((res) => {
