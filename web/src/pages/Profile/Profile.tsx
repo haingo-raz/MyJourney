@@ -27,6 +27,9 @@ function Profile() {
   const loggedInUser = useSelector(
     (state: { user: { email: string } }) => state.user.email,
   );
+  const userId = useSelector(
+    (state: { user: { userId: number } }) => state.user.userId,
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,7 +44,7 @@ function Profile() {
     if (window.confirm('Are you sure you want to change your email?')) {
       axios
         .put(process.env.REACT_APP_API_URL + '/update-email', {
-          email: loggedInUser,
+          userId: userId,
           newEmail: emailChangeData.newEmail,
           password: emailChangeData.password,
         })
@@ -91,7 +94,7 @@ function Profile() {
           const res = await axios.put(
             process.env.REACT_APP_API_URL + '/update-password',
             {
-              email: loggedInUser,
+              userId: userId,
               newPassword: passwordChangeData.newPassword,
               password: passwordChangeData.currentPassword,
             },
@@ -119,6 +122,7 @@ function Profile() {
 
   const onLogout = () => {
     if (window.confirm('Are you sure you want to log out?')) {
+      localStorage.removeItem('user_id');
       localStorage.removeItem('user_email');
       dispatch(logoutUser());
       navigate('/');
@@ -135,12 +139,13 @@ function Profile() {
       axios
         .delete(process.env.REACT_APP_API_URL + '/delete-account', {
           data: {
-            email: loggedInUser,
+            userId: userId,
             password: accountDeletePassword,
           },
         })
         .then((res) => {
           if (res.data === 'Success') {
+            localStorage.removeItem('user_id');
             localStorage.removeItem('user_email');
             dispatch(logoutUser());
             navigate('/');
