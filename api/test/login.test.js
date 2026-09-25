@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import request from 'supertest'
-import app from '../index.js'
+import app from '../app.js'
 
 describe('Login Tests', () => {
     it('should return success for valid credentials', (done) => {

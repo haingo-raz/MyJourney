@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import request from 'supertest'
-import app from '../index.js'
+import app from '../app.js'
 
 describe('Workout Tests', () => {
     it('should create a new workout instance with the appropriate properties', (done) => {
