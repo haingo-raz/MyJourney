@@ -22,7 +22,7 @@ MyJourney is a web application where users can create, save, and edit their work
 # Technology
 
 - Node.js / Express
-- MySQL hosted on [Aiven](https://aiven.io/)
+- MySQL (local)
 - Gemini API (Get your own API key [here](https://ai.google.dev/gemini-api/docs/api-key), then add it to your `.env` file.)
 
 # Database
@@ -64,21 +64,24 @@ data in [db/seed.sql](../db/seed.sql). Users are identified by a surrogate
 
 1. From the `api/` folder, run `npm install` to install packages and dependencies.
 
-## Aiven MySQL database
+## Local MySQL database
 
-The API connects to a MySQL database hosted on [Aiven](https://aiven.io/).
+The API connects to a local MySQL instance.
 
-1. Create a MySQL service on Aiven and download its **CA certificate** (e.g. save it as `ca.pem` inside `api/`).
-2. Copy `.env.example` to `.env` and fill in the connection details from your Aiven service's **Overview → Connection information**:
-   - `DB_HOST`: the Aiven service host (e.g. `your-service.aivencloud.com`).
-   - `DB_PORT`: the Aiven service port.
-   - `DB_USER` and `DB_PASSWORD`: the credentials used to authenticate the connection.
-   - `DB_NAME`: the name of the database.
-   - `DB_CA_CERT_PATH`: path to the CA certificate downloaded from Aiven (Aiven requires SSL).
+1. Install MySQL and ensure it is running locally.
+2. Copy `.env.example` to `.env` and fill in your connection details:
+   - `DB_HOST`: typically `localhost`.
+   - `DB_PORT`: typically `3306`.
+   - `DB_USER` and `DB_PASSWORD`: your local MySQL credentials.
+   - `DB_NAME`: the name of the database to use (e.g. `myjourney`).
    - `GEMINI_API_KEY`: your Google Gemini API key.
-3. Create the tables by running [db/schema.sql](../db/schema.sql) against your database (and optionally [db/seed.sql](../db/seed.sql) for sample data). See the [root README](../README.md#applying-the-schema) for the exact `mysql` command.
-4. Run `npm start` to execute the script `nodemon index.js`.
-5. Access `localhost:8080` in your browser.
+3. Create the database if it does not exist yet:
+   ```sql
+   CREATE DATABASE myjourney;
+   ```
+4. Create the tables by running [db/schema.sql](../db/schema.sql) against your database (and optionally [db/seed.sql](../db/seed.sql) for sample data). See the [root README](../README.md#applying-the-schema) for the exact `mysql` command.
+5. Run `npm start` to execute the script `nodemon server.js`.
+6. Access `localhost:8080` in your browser.
 
 ## Test
 
