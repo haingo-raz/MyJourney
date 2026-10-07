@@ -1,0 +1,4 @@
+spec: 'test/**/*.test.js'
+file: 'test/hooks.js'
+timeout: 10000
+exit: true
