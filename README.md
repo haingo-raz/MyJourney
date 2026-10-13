@@ -1,13 +1,13 @@
 # About
 
-MyJourney is a web application  where users cancreate, save, and edit their workout journey. Furthermore, they have the option to chat with an AI or ask questions about their workout journey.
+MyJourney is a web application where users can create, save, and edit their workout journey. Furthermore, they have the option to chat with an AI or ask questions about their workout journey.
 
 This repository is a monorepo containing both the frontend and the backend:
 
 ```
 MyJourney/
 ├── web/        React frontend (Redux, SCSS)
-├── api/        Node.js/Express API (MySQL on Aiven, Gemini)
+├── api/        Node.js/Express API (MySQL local, Gemini)
 ├── package.json  Root scripts to run everything with one command
 ```
 
@@ -37,7 +37,7 @@ Users can:
 ## Backend (`api/`)
 
 - Node.js / Express
-- MySQL hosted on [Aiven](https://aiven.io/)
+- MySQL (local)
 
 ## Other
 
@@ -81,11 +81,11 @@ The API talks to a MySQL database. The schema is kept as code in
 
 ## Applying the schema
 
-Run the schema (and optionally the seed data) against your Aiven MySQL database:
+Run the schema (and optionally the seed data) against your local MySQL database:
 
 ```bash
-mysql --host <host> --port <port> --user <user> --password --ssl-ca=api/ca.pem <database> < db/schema.sql
-mysql --host <host> --port <port> --user <user> --password --ssl-ca=api/ca.pem <database> < db/seed.sql
+mysql -u <user> -p <database> < db/schema.sql
+mysql -u <user> -p <database> < db/seed.sql
 ```
 
 # How to run it on your computer
@@ -104,19 +104,25 @@ npm run setup
 
 ## 2. Configure the API (`api/.env`)
 
-The API connects to a MySQL database on [Aiven](https://aiven.io/). Create the service on Aiven, then copy `api/.env.example` to `api/.env` and fill in the connection details found under your Aiven service's **Overview → Connection information**:
+The API connects to a local MySQL instance. Copy `api/.env.example` to `api/.env` and fill in your connection details:
 
 | Variable          | Description                                                        |
 | ----------------- | ----------------------------------------------------------------- |
-| `DB_HOST`         | Aiven service host, e.g. `your-service.aivencloud.com`            |
-| `DB_PORT`         | Aiven service port, e.g. `12345`                                  |
-| `DB_USER`         | Database user, e.g. `avnadmin`                                    |
-| `DB_PASSWORD`     | Database user password                                            |
-| `DB_NAME`         | Database name, e.g. `defaultdb`                                   |
-| `DB_CA_CERT_PATH` | Path to the CA certificate downloaded from Aiven (e.g. `./ca.pem`) |
+| `DB_HOST`         | MySQL host, typically `localhost`                                  |
+| `DB_PORT`         | MySQL port, typically `3306`                                       |
+| `DB_USER`         | MySQL user, e.g. `root`                                            |
+| `DB_PASSWORD`     | MySQL user password                                                |
+| `DB_NAME`         | Database name, e.g. `myjourney`                                    |
 | `GEMINI_API_KEY`  | Google Gemini API key ([get one here](https://ai.google.dev/gemini-api/docs/api-key)) |
+| `GEMINI_MODEL`    | Gemini model name, e.g. `gemini-1.5-flash` (optional)             |
 
-Aiven requires an SSL connection. Download the **CA certificate** from the Aiven service overview, place it inside `api/` (for example `api/ca.pem`), and point `DB_CA_CERT_PATH` at it.
+Make sure MySQL is installed and running locally before starting the API. Create the database if it does not exist yet:
+
+```sql
+CREATE DATABASE myjourney;
+```
+
+Then apply the schema as described in the [Database section](#applying-the-schema) below.
 
 ## 3. Configure the frontend (`web/.env`)
 
