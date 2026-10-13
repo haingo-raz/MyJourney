@@ -34,7 +34,9 @@ export async function create(email, passwordHash) {
             'INSERT INTO user (email, password_hash) VALUES (?, ?)',
             [email, passwordHash]
         )
-        await conn.query('INSERT INTO profile (user_id) VALUES (?)', [result.insertId])
+        await conn.query('INSERT INTO profile (user_id) VALUES (?)', [
+            result.insertId,
+        ])
         await conn.commit()
         return result.insertId
     } catch (err) {
@@ -46,7 +48,10 @@ export async function create(email, passwordHash) {
 }
 
 export async function updateEmail(userId, newEmail) {
-    await pool.query('UPDATE user SET email = ? WHERE user_id = ?', [newEmail, userId])
+    await pool.query('UPDATE user SET email = ? WHERE user_id = ?', [
+        newEmail,
+        userId,
+    ])
 }
 
 export async function updatePassword(userId, passwordHash) {
@@ -61,7 +66,9 @@ export async function deleteById(userId) {
 }
 
 export async function getProfile(userId) {
-    const [rows] = await pool.query('SELECT * FROM profile WHERE user_id = ?', [userId])
+    const [rows] = await pool.query('SELECT * FROM profile WHERE user_id = ?', [
+        userId,
+    ])
     return rows[0] ?? null
 }
 
@@ -72,5 +79,8 @@ export async function saveProfile(userId, profile) {
     if (columns.length === 0) return
     const setClause = columns.map((col) => `${col} = ?`).join(', ')
     const values = [...columns.map((col) => profile[col]), userId]
-    await pool.query(`UPDATE profile SET ${setClause} WHERE user_id = ?`, values)
+    await pool.query(
+        `UPDATE profile SET ${setClause} WHERE user_id = ?`,
+        values
+    )
 }

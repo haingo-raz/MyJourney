@@ -12,7 +12,9 @@ const mockedPut = axios.put as jest.Mock;
 
 const store = configureStore({
   reducer: { user: userReducer },
-  preloadedState: { user: { userId: 1, email: 'test@test.com', isLoggedIn: true } } as any,
+  preloadedState: {
+    user: { userId: 1, email: 'test@test.com', isLoggedIn: true },
+  } as any,
 });
 
 const renderProfileDetails = () =>
@@ -42,12 +44,16 @@ describe('ProfileDetails', () => {
   });
 
   it('pre-fills the age field with fetched profile data', async () => {
-    mockedGet.mockResolvedValue({ data: { age: 25, gender: 'male', height_cm: 180 } });
+    mockedGet.mockResolvedValue({
+      data: { age: 25, gender: 'male', height_cm: 180 },
+    });
 
     renderProfileDetails();
 
     await waitFor(() => {
-      expect((screen.getByLabelText('Age:') as HTMLInputElement).value).toBe('25');
+      expect((screen.getByLabelText('Age:') as HTMLInputElement).value).toBe(
+        '25',
+      );
     });
   });
 

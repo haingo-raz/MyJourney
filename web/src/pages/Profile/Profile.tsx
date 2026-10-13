@@ -175,7 +175,9 @@ function Profile() {
           <div className="account-form">
             <h1 className="form-title">My profile</h1>
             <div className="form-section">
-              <label className="form-label">Email</label>
+              <label className="form-label" htmlFor="email">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -213,7 +215,9 @@ function Profile() {
                 <p>Update your email</p>
 
                 <div className="form-section">
-                  <label className="form-label">New Email*</label>
+                  <label className="form-label" htmlFor="newEmail">
+                    New Email*
+                  </label>
                   <input
                     type="email"
                     id="newEmail"
@@ -225,7 +229,7 @@ function Profile() {
                 </div>
 
                 <div className="form-section">
-                  <label className="form-label">
+                  <label className="form-label" htmlFor="password">
                     Password<span>*</span>
                   </label>
                   <input
@@ -252,7 +256,7 @@ function Profile() {
                 <p>Update your password</p>
 
                 <div className="form-section">
-                  <label className="form-label">
+                  <label className="form-label" htmlFor="newPassword">
                     New Password<span>*</span>
                   </label>
                   <input
@@ -266,7 +270,7 @@ function Profile() {
                 </div>
 
                 <div className="form-section">
-                  <label className="form-label">
+                  <label className="form-label" htmlFor="confirmPassword">
                     Confirm password<span>*</span>
                   </label>
                   <input
@@ -286,7 +290,7 @@ function Profile() {
                 </div>
 
                 <div className="form-section">
-                  <label className="form-label">
+                  <label className="form-label" htmlFor="currentPassword">
                     Password<span>*</span>
                   </label>
                   <input
@@ -317,7 +321,7 @@ function Profile() {
 
             <form action="" className="account-form" onSubmit={onDeleteAccount}>
               <h1 className="form-title">Danger zone</h1>
-              <label className="form-label">
+              <label className="form-label" htmlFor="password-delete">
                 Password<span>*</span>
               </label>
               <div className="form-section">

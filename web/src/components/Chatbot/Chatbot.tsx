@@ -16,7 +16,7 @@ function Chatbot() {
   const [isChattingWithAI, setIsChattingWithAI] = useState(false);
   const [error, setError] = useState('');
   const [cooldown, setCooldown] = useState(0);
-  const cooldownTimer = useRef<NodeJS.Timeout | null>(null);
+  const cooldownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -48,7 +48,11 @@ function Chatbot() {
       })
       .catch((err) => {
         if (err?.response?.status === 429) startCooldown();
-        else setError(err?.response?.data?.error || 'Something went wrong. Please try again.');
+        else
+          setError(
+            err?.response?.data?.error ||
+              'Something went wrong. Please try again.',
+          );
       });
     const userMessageInput = document.getElementById(
       'userMessage',
@@ -63,17 +67,6 @@ function Chatbot() {
     const newMessageHistory = [...messageHistory, userMessage];
     setMessageHistory(newMessageHistory);
     fetchResponse(newMessageHistory, userMessage);
-  };
-
-  const addQuestion = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const message = (e.target as HTMLDivElement).textContent;
-    if (message) {
-      setUserMessage(message);
-      const newMessageHistory = [...messageHistory, message];
-      setMessageHistory(newMessageHistory);
-      fetchResponse(newMessageHistory, message);
-    }
   };
 
   const updateChatStatus = () => {
@@ -111,7 +104,11 @@ function Chatbot() {
       }
     } catch (err: any) {
       if (err?.response?.status === 429) startCooldown();
-      else setError(err?.response?.data?.error || 'Something went wrong. Please try again.');
+      else
+        setError(
+          err?.response?.data?.error ||
+            'Something went wrong. Please try again.',
+        );
     }
   };
 
@@ -124,7 +121,15 @@ function Chatbot() {
             <h1>Ask questions about your workout journey</h1>
           </div>
           <div className="questions">
-            <div className="question ai" onClick={updateChatStatus}>
+            <div
+              role="button"
+              tabIndex={0}
+              className="question ai"
+              onClick={updateChatStatus}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') updateChatStatus();
+              }}
+            >
               <p>
                 {isChattingWithAI
                   ? 'You are chatting with an AI. Click here to go back to normal chat'
@@ -133,11 +138,23 @@ function Chatbot() {
             </div>
             {!isChattingWithAI &&
               chatbotQuestions.map((question, index) => {
+                function handleSelect() {
+                  if (isRateLimited) return;
+                  setUserMessage(question);
+                  const newMessageHistory = [...messageHistory, question];
+                  setMessageHistory(newMessageHistory);
+                  fetchResponse(newMessageHistory, question);
+                }
                 return (
                   <div
+                    role="button"
+                    tabIndex={isRateLimited ? -1 : 0}
                     className={`question${isRateLimited ? ' question--disabled' : ''}`}
                     key={index}
-                    onClick={isRateLimited ? undefined : addQuestion}
+                    onClick={handleSelect}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') handleSelect();
+                    }}
                   >
                     <p>{question}</p>
                   </div>
@@ -183,7 +200,11 @@ function Chatbot() {
                 disabled={isRateLimited}
                 required
               />
-              <button className="formButton" type="submit" disabled={isRateLimited}>
+              <button
+                className="formButton"
+                type="submit"
+                disabled={isRateLimited}
+              >
                 Send
               </button>
             </div>

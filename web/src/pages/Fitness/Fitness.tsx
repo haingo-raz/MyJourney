@@ -65,7 +65,11 @@ function Fitness() {
       .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
       .then(({ ok, data }) => {
         if (!ok) {
-          setFeedback(data?.error || data?.message || 'Failed to load workouts. Please try again.');
+          setFeedback(
+            data?.error ||
+              data?.message ||
+              'Failed to load workouts. Please try again.',
+          );
           return;
         }
         setWorkoutList(data.workouts);
@@ -95,7 +99,9 @@ function Fitness() {
           }));
           console.log(res);
         })
-        .catch(() => setFeedback('Failed to fetch video details. Please try again.'));
+        .catch(() =>
+          setFeedback('Failed to fetch video details. Please try again.'),
+        );
     }
   };
 
@@ -150,7 +156,13 @@ function Fitness() {
             );
             setEditId(null);
           })
-          .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to save workout. Please try again.'));
+          .catch((err) =>
+            setFeedback(
+              err?.response?.data?.error ||
+                err?.response?.data?.message ||
+                'Failed to save workout. Please try again.',
+            ),
+          );
       } else {
         const newWorkout = {
           workout_id: Date.now(), // Generate a unique ID for the new workout
@@ -169,7 +181,13 @@ function Fitness() {
               setFeedback('Workout added successfully.');
             }
           })
-          .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to add workout. Please try again.'));
+          .catch((err) =>
+            setFeedback(
+              err?.response?.data?.error ||
+                err?.response?.data?.message ||
+                'Failed to add workout. Please try again.',
+            ),
+          );
       }
       setFormInputData(emptyInput);
       setFeedback('');
@@ -189,7 +207,13 @@ function Fitness() {
               : [],
           );
         })
-        .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to delete workout. Please try again.'));
+        .catch((err) =>
+          setFeedback(
+            err?.response?.data?.error ||
+              err?.response?.data?.message ||
+              'Failed to delete workout. Please try again.',
+          ),
+        );
     }
   }
 
@@ -228,7 +252,13 @@ function Fitness() {
           ),
         );
       })
-      .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to update workout status. Please try again.'));
+      .catch((err) =>
+        setFeedback(
+          err?.response?.data?.error ||
+            err?.response?.data?.message ||
+            'Failed to update workout status. Please try again.',
+        ),
+      );
   }
 
   return (
@@ -317,7 +347,15 @@ function Fitness() {
                 required
               />
             </div>
-            <div className={feedback && feedback !== 'Workout added successfully.' ? 'feedback-error' : ''}>{feedback}</div>
+            <div
+              className={
+                feedback && feedback !== 'Workout added successfully.'
+                  ? 'feedback-error'
+                  : ''
+              }
+            >
+              {feedback}
+            </div>
 
             <button type="submit" className="form-button">
               {editId !== null ? 'Save' : 'Submit'}

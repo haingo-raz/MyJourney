@@ -18,7 +18,10 @@ describe('POST /login', () => {
             .post('/login')
             .send({ email: 'admin@mj.com', password: 'wrongpassword' })
         expect(res.status).to.equal(400)
-        expect(res.body).to.have.property('message', 'Invalid email or password')
+        expect(res.body).to.have.property(
+            'message',
+            'Invalid email or password'
+        )
     })
 
     it('returns 404 for unknown email', async () => {
@@ -54,14 +57,24 @@ describe('POST /signup', () => {
     })
 
     it('returns 400 when email is missing', async () => {
-        const res = await request(app).post('/signup').send({ password: 'somepassword' })
+        const res = await request(app)
+            .post('/signup')
+            .send({ password: 'somepassword' })
         expect(res.status).to.equal(400)
-        expect(res.body).to.have.property('error', 'Username and password are required')
+        expect(res.body).to.have.property(
+            'error',
+            'Username and password are required'
+        )
     })
 
     it('returns 400 when password is missing', async () => {
-        const res = await request(app).post('/signup').send({ email: 'new@example.com' })
+        const res = await request(app)
+            .post('/signup')
+            .send({ email: 'new@example.com' })
         expect(res.status).to.equal(400)
-        expect(res.body).to.have.property('error', 'Username and password are required')
+        expect(res.body).to.have.property(
+            'error',
+            'Username and password are required'
+        )
     })
 })

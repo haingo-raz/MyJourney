@@ -36,7 +36,7 @@ const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({
   return (
     <div className="workout-instance">
       <div className="img-container">
-        <img src={getWorkoutImageSrc(title)} alt="" />
+        <img src={getWorkoutImageSrc(title)} alt={title} />
       </div>
       <div className="workout-details">
         <h1 className="workout-title">{title}</h1>
@@ -52,8 +52,9 @@ const WorkoutInstance: React.FC<WorkoutInstanceProps> = ({
       </div>
       <div className="form-actions">
         <div>
-          <label> Done </label>
+          <label htmlFor={`done-${id}`}> Done </label>
           <input
+            id={`done-${id}`}
             type="checkbox"
             checked={isCompleted === 1}
             onChange={handleCheckboxChange}
