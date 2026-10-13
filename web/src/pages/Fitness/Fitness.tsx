@@ -65,21 +65,11 @@ function Fitness() {
       .then((res) => res.json())
       .then((res) => {
         setWorkoutList(res.workouts);
-      })
-      .catch((err) => console.log(err));
-  }, [formattedDate, loggedInUser]);
-
-  useEffect(() => {
-    fetch(
-      `${process.env.REACT_APP_API_URL}/workout/${loggedInUser}/${formattedDate}`,
-    )
-      .then((res) => res.json())
-      .then((res) => {
         setCount(res.count);
         setDuration(res.totalDuration);
       })
       .catch((err) => console.log(err));
-  }, [formattedDate, loggedInUser, workoutList]);
+  }, [formattedDate, loggedInUser]);
 
   const emptyInput = { titleInput: '', durationInput: 10, videoUrlInput: '' };
 
