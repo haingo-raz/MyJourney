@@ -131,13 +131,22 @@ function Fitness() {
             video_url: formInputData.videoUrlInput,
             duration_min: formInputData.durationInput,
           })
-          .then((res) => {
-            console.log(res);
-            setWorkoutList(res.data);
+          .then(() => {
+            setWorkoutList((prevWorkouts) =>
+              prevWorkouts.map((workout) =>
+                workout.workout_id === editId
+                  ? {
+                      ...workout,
+                      title: formInputData.titleInput,
+                      video_url: formInputData.videoUrlInput,
+                      duration_min: Number(formInputData.durationInput),
+                    }
+                  : workout,
+              ),
+            );
+            setEditId(null);
           })
           .catch((err) => console.log(err));
-        setEditId(null);
-        window.location.reload();
       } else {
         const newWorkout = {
           workout_id: Date.now(), // Generate a unique ID for the new workout
