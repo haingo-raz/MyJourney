@@ -19,7 +19,10 @@ router.post('/chat', async (req, res) => {
 
 router.post('/chat/ai', async (req, res) => {
     try {
-        const text = await chatService.handleAIChat(req.body.history, req.body.message)
+        const text = await chatService.handleAIChat(
+            req.body.history,
+            req.body.message
+        )
         res.send(text)
     } catch (err) {
         logger.error(`${req.method} ${req.originalUrl} failed:`, err)

@@ -9,10 +9,10 @@ const TEST_USER_ID = 1
 
 describe('POST /add', () => {
     after(async () => {
-        await pool.query('DELETE FROM workout WHERE title = ? AND user_id = ?', [
-            TEST_TITLE,
-            TEST_USER_ID,
-        ])
+        await pool.query(
+            'DELETE FROM workout WHERE title = ? AND user_id = ?',
+            [TEST_TITLE, TEST_USER_ID]
+        )
     })
 
     it('returns Success for a valid workout', async () => {
@@ -55,15 +55,21 @@ describe('POST /add', () => {
 
 describe('GET /workout/:userId/:date', () => {
     it('returns the correct shape for a valid user and date', async () => {
-        const res = await request(app).get(`/workout/${TEST_USER_ID}/2024-09-18`)
+        const res = await request(app).get(
+            `/workout/${TEST_USER_ID}/2024-09-18`
+        )
         expect(res.status).to.equal(200)
-        expect(res.body).to.be.an('object').with.all.keys('count', 'totalDuration', 'workouts')
+        expect(res.body)
+            .to.be.an('object')
+            .with.all.keys('count', 'totalDuration', 'workouts')
         expect(res.body.workouts).to.be.an('array')
         expect(res.body.count).to.be.at.least(1)
     })
 
     it('returns zero count for a date with no workouts', async () => {
-        const res = await request(app).get(`/workout/${TEST_USER_ID}/2000-01-01`)
+        const res = await request(app).get(
+            `/workout/${TEST_USER_ID}/2000-01-01`
+        )
         expect(res.status).to.equal(200)
         expect(res.body).to.have.property('count', 0)
         expect(res.body.workouts).to.be.an('array').with.lengthOf(0)
@@ -82,13 +88,20 @@ describe('PUT /workout/status/:id', () => {
     })
 
     after(async () => {
-        await pool.query('DELETE FROM workout WHERE workout_id = ?', [workoutId])
+        await pool.query('DELETE FROM workout WHERE workout_id = ?', [
+            workoutId,
+        ])
     })
 
     it('returns 400 when is_completed is missing', async () => {
-        const res = await request(app).put(`/workout/status/${workoutId}`).send({})
+        const res = await request(app)
+            .put(`/workout/status/${workoutId}`)
+            .send({})
         expect(res.status).to.equal(400)
-        expect(res.body).to.have.property('error', 'is_completed and id are required')
+        expect(res.body).to.have.property(
+            'error',
+            'is_completed and id are required'
+        )
     })
 
     it('updates workout status and returns Success', async () => {
@@ -112,7 +125,9 @@ describe('DELETE /delete/:id', () => {
     })
 
     after(async () => {
-        await pool.query('DELETE FROM workout WHERE workout_id = ?', [workoutId])
+        await pool.query('DELETE FROM workout WHERE workout_id = ?', [
+            workoutId,
+        ])
     })
 
     it('deletes a workout and returns Success', async () => {

@@ -62,24 +62,22 @@ function Fitness() {
     fetch(
       `${process.env.REACT_APP_API_URL}/workout/${loggedInUser}/${formattedDate}`,
     )
-      .then((res) => res.json())
-      .then((res) => {
-        setWorkoutList(res.workouts);
+      .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok) {
+          setFeedback(
+            data?.error ||
+              data?.message ||
+              'Failed to load workouts. Please try again.',
+          );
+          return;
+        }
+        setWorkoutList(data.workouts);
+        setCount(data.count);
+        setDuration(data.totalDuration);
       })
-      .catch((err) => console.log(err));
+      .catch(() => setFeedback('Failed to load workouts. Please try again.'));
   }, [formattedDate, loggedInUser]);
-
-  useEffect(() => {
-    fetch(
-      `${process.env.REACT_APP_API_URL}/workout/${loggedInUser}/${formattedDate}`,
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setCount(res.count);
-        setDuration(res.totalDuration);
-      })
-      .catch((err) => console.log(err));
-  }, [formattedDate, loggedInUser, workoutList]);
 
   const emptyInput = { titleInput: '', durationInput: 10, videoUrlInput: '' };
 
@@ -101,7 +99,9 @@ function Fitness() {
           }));
           console.log(res);
         })
-        .catch((err) => console.log(err));
+        .catch(() =>
+          setFeedback('Failed to fetch video details. Please try again.'),
+        );
     }
   };
 
@@ -141,13 +141,28 @@ function Fitness() {
             video_url: formInputData.videoUrlInput,
             duration_min: formInputData.durationInput,
           })
-          .then((res) => {
-            console.log(res);
-            setWorkoutList(res.data);
+          .then(() => {
+            setWorkoutList((prevWorkouts) =>
+              prevWorkouts.map((workout) =>
+                workout.workout_id === editId
+                  ? {
+                      ...workout,
+                      title: formInputData.titleInput,
+                      video_url: formInputData.videoUrlInput,
+                      duration_min: Number(formInputData.durationInput),
+                    }
+                  : workout,
+              ),
+            );
+            setEditId(null);
           })
-          .catch((err) => console.log(err));
-        setEditId(null);
-        window.location.reload();
+          .catch((err) =>
+            setFeedback(
+              err?.response?.data?.error ||
+                err?.response?.data?.message ||
+                'Failed to save workout. Please try again.',
+            ),
+          );
       } else {
         const newWorkout = {
           workout_id: Date.now(), // Generate a unique ID for the new workout
@@ -166,7 +181,13 @@ function Fitness() {
               setFeedback('Workout added successfully.');
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) =>
+            setFeedback(
+              err?.response?.data?.error ||
+                err?.response?.data?.message ||
+                'Failed to add workout. Please try again.',
+            ),
+          );
       }
       setFormInputData(emptyInput);
       setFeedback('');
@@ -186,7 +207,13 @@ function Fitness() {
               : [],
           );
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          setFeedback(
+            err?.response?.data?.error ||
+              err?.response?.data?.message ||
+              'Failed to delete workout. Please try again.',
+          ),
+        );
     }
   }
 
@@ -225,7 +252,13 @@ function Fitness() {
           ),
         );
       })
-      .catch((err) => console.error('Failed to update status:', err));
+      .catch((err) =>
+        setFeedback(
+          err?.response?.data?.error ||
+            err?.response?.data?.message ||
+            'Failed to update workout status. Please try again.',
+        ),
+      );
   }
 
   return (
@@ -314,7 +347,15 @@ function Fitness() {
                 required
               />
             </div>
-            <div>{feedback}</div>
+            <div
+              className={
+                feedback && feedback !== 'Workout added successfully.'
+                  ? 'feedback-error'
+                  : ''
+              }
+            >
+              {feedback}
+            </div>
 
             <button type="submit" className="form-button">
               {editId !== null ? 'Save' : 'Submit'}
