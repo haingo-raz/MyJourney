@@ -68,7 +68,7 @@ function Fitness() {
         setCount(res.count);
         setDuration(res.totalDuration);
       })
-      .catch((err) => console.log(err));
+      .catch(() => setFeedback('Failed to load workouts. Please try again.'));
   }, [formattedDate, loggedInUser]);
 
   const emptyInput = { titleInput: '', durationInput: 10, videoUrlInput: '' };
@@ -91,7 +91,7 @@ function Fitness() {
           }));
           console.log(res);
         })
-        .catch((err) => console.log(err));
+        .catch(() => setFeedback('Failed to fetch video details. Please try again.'));
     }
   };
 
@@ -146,7 +146,7 @@ function Fitness() {
             );
             setEditId(null);
           })
-          .catch((err) => console.log(err));
+          .catch(() => setFeedback('Failed to save workout. Please try again.'));
       } else {
         const newWorkout = {
           workout_id: Date.now(), // Generate a unique ID for the new workout
@@ -165,7 +165,7 @@ function Fitness() {
               setFeedback('Workout added successfully.');
             }
           })
-          .catch((err) => console.log(err));
+          .catch(() => setFeedback('Failed to add workout. Please try again.'));
       }
       setFormInputData(emptyInput);
       setFeedback('');
@@ -185,7 +185,7 @@ function Fitness() {
               : [],
           );
         })
-        .catch((err) => console.log(err));
+        .catch(() => setFeedback('Failed to delete workout. Please try again.'));
     }
   }
 
@@ -224,7 +224,7 @@ function Fitness() {
           ),
         );
       })
-      .catch((err) => console.error('Failed to update status:', err));
+      .catch(() => setFeedback('Failed to update workout status. Please try again.'));
   }
 
   return (
