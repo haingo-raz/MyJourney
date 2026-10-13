@@ -95,9 +95,13 @@
     }
 }
 
-.workout-form { 
+.workout-form {
     align-items: center;
     justify-content: center;
+}
+
+.feedback-error {
+    color: $red;
 }
 
 @media (max-width: 996px) {

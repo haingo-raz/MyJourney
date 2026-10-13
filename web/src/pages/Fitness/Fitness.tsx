@@ -62,11 +62,15 @@ function Fitness() {
     fetch(
       `${process.env.REACT_APP_API_URL}/workout/${loggedInUser}/${formattedDate}`,
     )
-      .then((res) => res.json())
-      .then((res) => {
-        setWorkoutList(res.workouts);
-        setCount(res.count);
-        setDuration(res.totalDuration);
+      .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok) {
+          setFeedback(data?.error || data?.message || 'Failed to load workouts. Please try again.');
+          return;
+        }
+        setWorkoutList(data.workouts);
+        setCount(data.count);
+        setDuration(data.totalDuration);
       })
       .catch(() => setFeedback('Failed to load workouts. Please try again.'));
   }, [formattedDate, loggedInUser]);
@@ -146,7 +150,7 @@ function Fitness() {
             );
             setEditId(null);
           })
-          .catch(() => setFeedback('Failed to save workout. Please try again.'));
+          .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to save workout. Please try again.'));
       } else {
         const newWorkout = {
           workout_id: Date.now(), // Generate a unique ID for the new workout
@@ -165,7 +169,7 @@ function Fitness() {
               setFeedback('Workout added successfully.');
             }
           })
-          .catch(() => setFeedback('Failed to add workout. Please try again.'));
+          .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to add workout. Please try again.'));
       }
       setFormInputData(emptyInput);
       setFeedback('');
@@ -185,7 +189,7 @@ function Fitness() {
               : [],
           );
         })
-        .catch(() => setFeedback('Failed to delete workout. Please try again.'));
+        .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to delete workout. Please try again.'));
     }
   }
 
@@ -224,7 +228,7 @@ function Fitness() {
           ),
         );
       })
-      .catch(() => setFeedback('Failed to update workout status. Please try again.'));
+      .catch((err) => setFeedback(err?.response?.data?.error || err?.response?.data?.message || 'Failed to update workout status. Please try again.'));
   }
 
   return (
@@ -313,7 +317,7 @@ function Fitness() {
                 required
               />
             </div>
-            <div>{feedback}</div>
+            <div className={feedback && feedback !== 'Workout added successfully.' ? 'feedback-error' : ''}>{feedback}</div>
 
             <button type="submit" className="form-button">
               {editId !== null ? 'Save' : 'Submit'}
