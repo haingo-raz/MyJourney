@@ -37,6 +37,11 @@
         color: $light-color;
         background: $dark-brown;
     }
+    .question--disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
 }
 
 
@@ -71,6 +76,10 @@
         max-width: 60%;
         height: auto;
         word-wrap: break-word;
+    }
+    .chatbot__error {
+        color: $red;
+        margin: 0;
     }
     .message_input {
         display: flex;

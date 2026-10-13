@@ -84,6 +84,8 @@ function ProfileDetails() {
             type="number"
             id="age"
             name="age"
+            min={16}
+            max={120}
             value={profileDataValue.age || ''}
             onChange={handleChange}
           />
@@ -110,6 +112,8 @@ function ProfileDetails() {
             type="number"
             id="height_cm"
             name="height_cm"
+            min={50}
+            max={250}
             value={profileDataValue.height_cm || ''}
             onChange={handleChange}
           />
@@ -120,6 +124,8 @@ function ProfileDetails() {
             type="number"
             id="weight_kg"
             name="weight_kg"
+            min={35}
+            max={300}
             value={profileDataValue.weight_kg || ''}
             onChange={handleChange}
           />
@@ -130,6 +136,8 @@ function ProfileDetails() {
             type="number"
             id="daily_calorie_target"
             name="daily_calorie_target"
+            min={500}
+            max={4000}
             value={profileDataValue.daily_calorie_target || ''}
             onChange={handleChange}
           />
@@ -139,6 +147,7 @@ function ProfileDetails() {
           <textarea
             id="fitness_goals"
             name="fitness_goals"
+            maxLength={500}
             value={profileDataValue.fitness_goals || ''}
             onChange={handleChange}
           ></textarea>
@@ -149,6 +158,8 @@ function ProfileDetails() {
             type="number"
             id="weight_goal_kg"
             name="weight_goal_kg"
+            min={35}
+            max={300}
             value={profileDataValue.weight_goal_kg || ''}
             onChange={handleChange}
           />

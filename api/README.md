@@ -7,23 +7,23 @@ MyJourney is a web application where users can create, save, and edit their work
 
 # Functionalities
 
-- Sign up a user
-- Log in a user
-- Delete an account
-- Update a user's email
-- Update a user's password
-- Create a workout instance
-- Get a list of workouts by user email and date
-- Edit a workout instance by ID
-- Delete a workout instance by ID
-- Respond to predefined questions
-- Chat with an AI
+-   Sign up a user
+-   Log in a user
+-   Delete an account
+-   Update a user's email
+-   Update a user's password
+-   Create a workout instance
+-   Get a list of workouts by user email and date
+-   Edit a workout instance by ID
+-   Delete a workout instance by ID
+-   Respond to predefined questions
+-   Chat with an AI
 
 # Technology
 
-- Node.js / Express
-- MySQL (local)
-- Gemini API (Get your own API key [here](https://ai.google.dev/gemini-api/docs/api-key), then add it to your `.env` file.)
+-   Node.js / Express
+-   MySQL (local)
+-   Gemini API (Get your own API key [here](https://ai.google.dev/gemini-api/docs/api-key), then add it to your `.env` file.)
 
 # Database
 
@@ -33,32 +33,32 @@ data in [db/seed.sql](../db/seed.sql). Users are identified by a surrogate
 
 #### `user`
 
-- `user_id`: int, PRIMARY KEY, AUTO_INCREMENT
-- `email`: varchar(255), NOT NULL, UNIQUE
-- `password_hash`: varchar(255), NOT NULL (bcrypt hash)
-- `created_at`: timestamp, default CURRENT_TIMESTAMP
+-   `user_id`: int, PRIMARY KEY, AUTO_INCREMENT
+-   `email`: varchar(255), NOT NULL, UNIQUE
+-   `password_hash`: varchar(255), NOT NULL (bcrypt hash)
+-   `created_at`: timestamp, default CURRENT_TIMESTAMP
 
 #### `profile` (1:1 with `user`)
 
-- `profile_id`: int, PRIMARY KEY, AUTO_INCREMENT
-- `user_id`: int, NOT NULL, UNIQUE, FOREIGN KEY → `user.user_id` ON DELETE CASCADE
-- `age`: int, CHECK 13–120
-- `gender`: enum('male','female','other','undisclosed')
-- `height_cm`: int
-- `weight_kg`: decimal(5,2)
-- `daily_calorie_target`: int
-- `fitness_goals`: text
-- `weight_goal_kg`: decimal(5,2)
+-   `profile_id`: int, PRIMARY KEY, AUTO_INCREMENT
+-   `user_id`: int, NOT NULL, UNIQUE, FOREIGN KEY → `user.user_id` ON DELETE CASCADE
+-   `age`: int, CHECK 13–120
+-   `gender`: enum('male','female','other','undisclosed')
+-   `height_cm`: int
+-   `weight_kg`: decimal(5,2)
+-   `daily_calorie_target`: int
+-   `fitness_goals`: text
+-   `weight_goal_kg`: decimal(5,2)
 
 #### `workout`
 
-- `workout_id`: int, PRIMARY KEY, AUTO_INCREMENT
-- `user_id`: int, NOT NULL, FOREIGN KEY → `user.user_id` ON DELETE CASCADE
-- `title`: varchar(200), NOT NULL
-- `video_url`: varchar(500)
-- `duration_min`: int
-- `is_completed`: boolean, NOT NULL, default false
-- `created_at`: timestamp, default CURRENT_TIMESTAMP
+-   `workout_id`: int, PRIMARY KEY, AUTO_INCREMENT
+-   `user_id`: int, NOT NULL, FOREIGN KEY → `user.user_id` ON DELETE CASCADE
+-   `title`: varchar(200), NOT NULL
+-   `video_url`: varchar(500)
+-   `duration_min`: int
+-   `is_completed`: boolean, NOT NULL, default false
+-   `created_at`: timestamp, default CURRENT_TIMESTAMP
 
 # How to run the API on its own
 
@@ -70,15 +70,15 @@ The API connects to a local MySQL instance.
 
 1. Install MySQL and ensure it is running locally.
 2. Copy `.env.example` to `.env` and fill in your connection details:
-   - `DB_HOST`: typically `localhost`.
-   - `DB_PORT`: typically `3306`.
-   - `DB_USER` and `DB_PASSWORD`: your local MySQL credentials.
-   - `DB_NAME`: the name of the database to use (e.g. `myjourney`).
-   - `GEMINI_API_KEY`: your Google Gemini API key.
+    - `DB_HOST`: typically `localhost`.
+    - `DB_PORT`: typically `3306`.
+    - `DB_USER` and `DB_PASSWORD`: your local MySQL credentials.
+    - `DB_NAME`: the name of the database to use (e.g. `myjourney`).
+    - `GEMINI_API_KEY`: your Google Gemini API key.
 3. Create the database if it does not exist yet:
-   ```sql
-   CREATE DATABASE myjourney;
-   ```
+    ```sql
+    CREATE DATABASE myjourney;
+    ```
 4. Create the tables by running [db/schema.sql](../db/schema.sql) against your database (and optionally [db/seed.sql](../db/seed.sql) for sample data). See the [root README](../README.md#applying-the-schema) for the exact `mysql` command.
 5. Run `npm start` to execute the script `nodemon server.js`.
 6. Access `localhost:8080` in your browser.
@@ -97,8 +97,8 @@ After ensuring that all dependencies are installed, run `npm run test` in the te
 
 To keep the code format neat, make use of Prettier. The following npm scripts are available:
 
-- `format:check`: Checks the code format using Prettier.
-- `format:write`: Formats the code using Prettier.
+-   `format:check`: Checks the code format using Prettier.
+-   `format:write`: Formats the code using Prettier.
 
 To check the code format, run:
 

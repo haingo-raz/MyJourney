@@ -42,11 +42,16 @@ router.put('/edit/:id', async (req, res) => {
 
 router.put('/workout/status/:id', async (req, res) => {
     try {
-        await workoutsService.updateWorkoutStatus(req.params.id, req.body.is_completed)
+        await workoutsService.updateWorkoutStatus(
+            req.params.id,
+            req.body.is_completed
+        )
         res.json('Success')
     } catch (err) {
         if (err.message === 'MISSING_FIELDS') {
-            return res.status(400).json({ error: 'is_completed and id are required' })
+            return res
+                .status(400)
+                .json({ error: 'is_completed and id are required' })
         }
         logger.error(`${req.method} ${req.originalUrl} failed:`, err)
         res.status(500).json({ error: 'Internal server error' })

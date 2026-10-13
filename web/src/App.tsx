@@ -2,12 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes/routes';
+import { RootState } from './redux/store';
 import './App.scss';
 
 function App() {
-  const isLoggedIn = useSelector(
-    (state: { user: { isLoggedIn: boolean } }) => state.user.isLoggedIn,
-  );
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const routing = useRoutes(routes(isLoggedIn));
 
   return <div className="App">{routing}</div>;

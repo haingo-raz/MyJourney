@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../Navbar/Navbar';
 import './Chatbot.scss';
 import '../Forms/Form.scss';
@@ -14,6 +14,24 @@ function Chatbot() {
     { role: string; parts: { text: string }[] }[]
   >([]);
   const [isChattingWithAI, setIsChattingWithAI] = useState(false);
+  const [error, setError] = useState('');
+  const [cooldown, setCooldown] = useState(0);
+  const cooldownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    cooldownTimer.current = setTimeout(() => setCooldown((s) => s - 1), 1000);
+    return () => {
+      if (cooldownTimer.current) clearTimeout(cooldownTimer.current);
+    };
+  }, [cooldown]);
+
+  function startCooldown() {
+    setError('Too many requests, please slow down.');
+    setCooldown(60);
+  }
+
+  const isRateLimited = cooldown > 0;
 
   const userId = useSelector(
     (state: { user: { userId: number } }) => state.user.userId,
@@ -28,8 +46,13 @@ function Chatbot() {
       .then((res) => {
         setMessageHistory([...newMessageHistory, res.data]);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        if (err?.response?.status === 429) startCooldown();
+        else
+          setError(
+            err?.response?.data?.error ||
+              'Something went wrong. Please try again.',
+          );
       });
     const userMessageInput = document.getElementById(
       'userMessage',
@@ -44,17 +67,6 @@ function Chatbot() {
     const newMessageHistory = [...messageHistory, userMessage];
     setMessageHistory(newMessageHistory);
     fetchResponse(newMessageHistory, userMessage);
-  };
-
-  const addQuestion = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const message = (e.target as HTMLDivElement).textContent;
-    if (message) {
-      setUserMessage(message);
-      const newMessageHistory = [...messageHistory, message];
-      setMessageHistory(newMessageHistory);
-      fetchResponse(newMessageHistory, message);
-    }
   };
 
   const updateChatStatus = () => {
@@ -90,8 +102,13 @@ function Chatbot() {
       if (userMessageInput) {
         userMessageInput.value = '';
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err: any) {
+      if (err?.response?.status === 429) startCooldown();
+      else
+        setError(
+          err?.response?.data?.error ||
+            'Something went wrong. Please try again.',
+        );
     }
   };
 
@@ -104,7 +121,15 @@ function Chatbot() {
             <h1>Ask questions about your workout journey</h1>
           </div>
           <div className="questions">
-            <div className="question ai" onClick={updateChatStatus}>
+            <div
+              role="button"
+              tabIndex={0}
+              className="question ai"
+              onClick={updateChatStatus}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') updateChatStatus();
+              }}
+            >
               <p>
                 {isChattingWithAI
                   ? 'You are chatting with an AI. Click here to go back to normal chat'
@@ -113,8 +138,24 @@ function Chatbot() {
             </div>
             {!isChattingWithAI &&
               chatbotQuestions.map((question, index) => {
+                function handleSelect() {
+                  if (isRateLimited) return;
+                  setUserMessage(question);
+                  const newMessageHistory = [...messageHistory, question];
+                  setMessageHistory(newMessageHistory);
+                  fetchResponse(newMessageHistory, question);
+                }
                 return (
-                  <div className="question" key={index} onClick={addQuestion}>
+                  <div
+                    role="button"
+                    tabIndex={isRateLimited ? -1 : 0}
+                    className={`question${isRateLimited ? ' question--disabled' : ''}`}
+                    key={index}
+                    onClick={handleSelect}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') handleSelect();
+                    }}
+                  >
                     <p>{question}</p>
                   </div>
                 );
@@ -143,15 +184,27 @@ function Chatbot() {
                     );
                   })}
             </div>
+            {(error || isRateLimited) && (
+              <p className="chatbot__error">
+                {isRateLimited
+                  ? `Too many requests, please slow down. Try again in ${cooldown}s.`
+                  : error}
+              </p>
+            )}
             <div className="message_input">
               <input
                 type="text"
                 id="userMessage"
                 name="userMessage"
                 onChange={(e) => setUserMessage(e.target.value)}
+                disabled={isRateLimited}
                 required
               />
-              <button className="formButton" type="submit">
+              <button
+                className="formButton"
+                type="submit"
+                disabled={isRateLimited}
+              >
                 Send
               </button>
             </div>

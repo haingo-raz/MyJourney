@@ -20,12 +20,19 @@ export async function handleKeywordChat(userId, message) {
         return 'Hello! Let me know how I can help you today.'
     }
 
-    if (msg === 'ok' || msg === 'okay' || msg === 'thanks' || msg === 'thank you') {
+    if (
+        msg === 'ok' ||
+        msg === 'okay' ||
+        msg === 'thanks' ||
+        msg === 'thank you'
+    ) {
         return 'Great! Let me know if you have any other questions.'
     }
 
     if (
-        msg.includes('how many minutes have i spent working out since i started my journey?')
+        msg.includes(
+            'how many minutes have i spent working out since i started my journey?'
+        )
     ) {
         const total = await workoutsService.getMinutesTotal(userId)
         return `You have trained for a total of ${total} minutes.`
@@ -37,7 +44,9 @@ export async function handleKeywordChat(userId, message) {
     }
 
     if (
-        msg.includes('how many days have i worked out since i started my journey?')
+        msg.includes(
+            'how many days have i worked out since i started my journey?'
+        )
     ) {
         const total = await workoutsService.getDaysTotal(userId)
         return `You have trained for a total of ${total} days.`
