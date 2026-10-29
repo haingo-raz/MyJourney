@@ -115,6 +115,7 @@ The API connects to a local MySQL instance. Copy `api/.env.example` to `api/.env
 | `DB_NAME`         | Database name, e.g. `myjourney`                                    |
 | `GEMINI_API_KEY`  | Google Gemini API key ([get one here](https://ai.google.dev/gemini-api/docs/api-key)) |
 | `GEMINI_MODEL`    | Gemini model name, e.g. `gemini-1.5-flash` (optional)             |
+| `YOUTUBE_API_KEY` | YouTube Data API key ([how to get one](https://developers.google.com/youtube/v3/getting-started)); used server-side to auto-fill video title and duration |
 
 Make sure MySQL is installed and running locally before starting the API. Create the database if it does not exist yet:
 
@@ -131,7 +132,6 @@ Copy `web/.env.example` to `web/.env`:
 | Variable                    | Description                                                                 |
 | --------------------------- | --------------------------------------------------------------------------- |
 | `REACT_APP_API_URL`         | Base URL of the API. Defaults to `http://localhost:8080` for local dev.     |
-| `REACT_APP_YOUTUBE_API_KEY` | YouTube Data API key ([how to get one](https://developers.google.com/youtube/v3/getting-started)) |
 
 ## 4. Run everything
 
@@ -156,6 +156,38 @@ Open `http://localhost:3000` in your browser.
 | `npm run build`     | Build the production frontend                     |
 | `npm test`          | Run the API test suite                            |
 | `npm run format`    | Format both the API and frontend with Prettier    |
+
+# Deployment
+
+The app deploys as a **single service**: the React frontend is built and bundled
+into the API image, and Express serves both the static build and the API from
+one origin. Hosting is configured for [Render](https://render.com) via a
+committed blueprint ([render.yaml](render.yaml)) and a multi-stage
+[Dockerfile](Dockerfile).
+
+## How it fits together
+
+- **Build** ([Dockerfile](Dockerfile)): stage 1 builds `web/` with Create React
+  App; stage 2 installs the API's production dependencies and copies the build
+  into `api/public`.
+- **Serve** ([api/app.js](api/app.js)): Express serves `api/public` and falls
+  back to `index.html` for client-side routes. API routes are unchanged.
+- **Same-origin frontend**: the production build sets `REACT_APP_API_URL` to an
+  empty string, so the frontend calls the API with relative paths.
+
+## Continuous deployment
+
+Render **auto-deploys on every push to `master`** (the `branch`
+in [render.yaml](render.yaml)). 
+
+## Build the image locally (optional)
+
+```bash
+docker build -t myjourney .
+docker run --rm -p 8080:8080 --env-file api/.env myjourney
+```
+
+Then open `http://localhost:8080`.
 
 # Testing
 
