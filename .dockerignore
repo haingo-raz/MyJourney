@@ -1,0 +1,23 @@
+# Dependencies reinstalled inside the image
+node_modules
+api/node_modules
+web/node_modules
+
+# Build output produced inside the image
+web/build
+api/public
+
+# Env & secrets provided by the platform at runtime
+.env
+**/.env
+**/.env.local
+*.pem
+
+# VCS / tooling / local noise
+.git
+.github
+coverage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
