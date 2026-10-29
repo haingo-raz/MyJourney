@@ -10,18 +10,13 @@ const urlPattern = new RegExp(
 );
 
 const getVideoYoutubeDetails = async (url: string) => {
-  const videoId = url.split('v=')[1];
-  const getTitle = await axios.get(
-    `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+  const response = await axios.get(
+    `${process.env.REACT_APP_API_URL}/youtube/metadata`,
+    { params: { url } },
   );
-  const getDuration = await axios.get(
-    `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
-  );
-  const videoTitle = getTitle.data.items[0];
-  const videoDuration = getDuration.data.items[0];
   return {
-    title: videoTitle.snippet.title,
-    duration: videoDuration.contentDetails.duration,
+    title: response.data.title,
+    duration: response.data.duration,
   };
 };
 
