@@ -14,5 +14,6 @@ export const config = {
     DB_NAME: process.env.DB_NAME,
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
     GEMINI_MODEL: process.env.GEMINI_MODEL,
+    YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
     PORT: Number(process.env.PORT) || 8080,
 }

@@ -5,7 +5,7 @@
   "description": "MyJourney monorepo: React frontend (web) and Node.js/Express API (api).",
   "scripts": {
     "setup": "npm install && npm --prefix api install && npm --prefix web install",
-    "dev": "concurrently -k -n api,web -c blue,green \"npm --prefix api run start\" \"npm --prefix web run start\"",
+    "dev": "concurrently -k -n api,web -c blue,green \"npm --prefix api run start:dev\" \"npm --prefix web run start\"",
     "start": "npm run dev",
     "start:api": "npm --prefix api run start",
     "start:web": "npm --prefix web run start",
